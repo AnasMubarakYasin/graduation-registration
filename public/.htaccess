@@ -5,6 +5,10 @@
 
     RewriteEngine On
 
+    RewriteCond %{HTTP:Upgrade} websocket [NC]
+    RewriteCond %{QUERY_STRING} transport=websocket [NC]
+    RewriteRule ^(.*) ws://localhost:6001/$1 [P]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
