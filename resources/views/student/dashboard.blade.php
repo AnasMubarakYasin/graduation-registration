@@ -146,7 +146,13 @@
                 class="p-4 text-black dark:text-gray-50 bg-white dark:bg-gray-800 rounded-lg border shadow dark:shadow-none dark:border-gray-700 transition-colors">
                 <div>
                     <div>Kelengkapan Biodata</div>
-                    <div>{{ (int) $registrar['biodata'] }}</div>
+                    <div>
+                        @isset($registrar['biodata'])
+                            {{ (int) $registrar['biodata'] }}
+                        @else
+                            {{ 0 }}
+                        @endisset
+                    </div>
                 </div>
                 <div></div>
             </div>
@@ -154,7 +160,13 @@
                 class="p-4 text-black dark:text-gray-50 bg-white dark:bg-gray-800 rounded-lg border shadow dark:shadow-none dark:border-gray-700 transition-colors">
                 <div>
                     <div>Kelengkapan Berkas</div>
-                    <div>{{ (int) $registrar['file'] }}</div>
+                    <div>
+                        @isset($registrar['file'])
+                            {{ (int) $registrar['file'] }}
+                        @else
+                            {{ 0 }}
+                        @endisset
+                    </div>
                 </div>
                 <div></div>
             </div>
