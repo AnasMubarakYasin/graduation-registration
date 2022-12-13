@@ -1,7 +1,7 @@
 let input_img_preview_file = "";
 export function input_img_preview(
     input_id: string,
-    img_id: string | ((url: string, file: File) => void)
+    img_id: string | ((url: string, file: File) => void),
 ) {
     const input = document.getElementById(input_id) as HTMLInputElement;
     if (!input) return;

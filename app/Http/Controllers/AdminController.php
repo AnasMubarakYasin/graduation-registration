@@ -36,8 +36,8 @@ class AdminController extends Controller
 
     public function dashboard_show()
     {
-        $quota = Main::single()->get_open_quota();
-        $registrar = Main::single()->stats_registrar($quota);
+        $quota = Quota::stats();
+        $registrar = Registrar::stats_status();
         return view('admin.dashboard', ['user' => $this->get_user(), 'quota' => $quota, 'registrar' => $registrar]);
     }
     public function profile_show()

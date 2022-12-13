@@ -8,11 +8,6 @@ use App\Models\Quota;
 
 class QuotaController extends Controller
 {
-    protected function get_user()
-    {
-        return auth('admin')->user();
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +15,8 @@ class QuotaController extends Controller
      */
     public function index()
     {
-        return view('admin.quota.index', ['user' => $this->get_user(), 'data' => Quota::all()]);
+        $this->authorize('viewAny', Quota::class);
+        return view('admin.quota.index', ['data' => Quota::all()]);
     }
 
     /**
@@ -41,10 +37,10 @@ class QuotaController extends Controller
      */
     public function store(StoreQuotaRequest $request)
     {
+        $this->authorize('create', Quota::class);
         $data = $request->validated();
-        /** @var Quota */
         $quota = Quota::create($data);
-        return redirect()->intended(route('admin.quota.index'));
+        return to_route('admin.quota.index');
     }
 
     /**
@@ -66,7 +62,7 @@ class QuotaController extends Controller
      */
     public function edit(Quota $quota)
     {
-        return view('admin.quota.edit', ['user' => $this->get_user(), 'data' => $quota]);
+        return view('admin.quota.edit', ['data' => $quota]);
     }
 
     /**
@@ -78,9 +74,10 @@ class QuotaController extends Controller
      */
     public function update(UpdateQuotaRequest $request, Quota $quota)
     {
+        $this->authorize('update', $quota);
         $data = $request->validated();
         $quota->update($data);
-        return redirect()->intended(route('admin.quota.index'));
+        return to_route('admin.quota.index');
     }
 
     /**
@@ -91,7 +88,8 @@ class QuotaController extends Controller
      */
     public function destroy(Quota $quota)
     {
+        $this->authorize('delete', $quota);
         $quota->delete();
-        return redirect()->intended(route('admin.quota.index'));
+        return to_route('admin.quota.index');
     }
 }

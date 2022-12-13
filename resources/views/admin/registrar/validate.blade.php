@@ -1,298 +1,250 @@
 @extends('layouts.admin.panel', ['content_card' => false])
 
 @section('title', __('validate'))
+@section('head')
+    @vite('resources/js/admin/registrar/validate.js')
+@endsection
 
 @section('content')
-    <div class="pb-4">
-        <div class="flex gap-2 items-center">
-            <a href="{{ route('admin.quota.create') }}"
-                class="text-sm p-1.5 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-800 dark:border-gray-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6">
-                    </path>
-                </svg>
-            </a>
-            <button id="fillter_btn" data-modal-toggle="edit_modal"
-                class="text-sm p-1.5 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-800 dark:border-gray-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z">
-                    </path>
-                </svg>
-            </button>
-        </div>
-    </div>
-    <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                    <th scope="col" class="p-4">
-                        <div class="flex items-center">
-                            <input id="checkbox-all" type="checkbox"
-                                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-600 dark:border-gray-600">
-                            <label for="checkbox-all" class="sr-only">checkbox</label>
-                        </div>
-                    </th>
-                    <th scope="col" class="text-base py-3 px-6 capitalize">
-                        <div class="flex items-center">
-                            {{ __('name') }}
-                            <a href="">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3" aria-hidden="true"
-                                    fill="currentColor" viewBox="0 0 320 512">
-                                    <path
-                                        d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
-                                </svg>
-                            </a>
-                        </div>
-                    </th>
-                    <th scope="col" class="text-base py-3 px-6 capitalize">
-                        <div class="flex items-center">
-                            {{ __('NIM') }}
-                            <a href="">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3" aria-hidden="true"
-                                    fill="currentColor" viewBox="0 0 320 512">
-                                    <path
-                                        d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
-                                </svg>
-                            </a>
-                        </div>
-                    </th>
-                    <th scope="col" class="flex justify-center text-base text-center py-3 px-6 capitalize">
-                        <div class="flex items-center">
-                            {{ __('study program') }}
-                            <a href="">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3" aria-hidden="true"
-                                    fill="currentColor" viewBox="0 0 320 512">
-                                    <path
-                                        d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
-                                </svg>
-                            </a>
-                        </div>
-                    </th>
-                    <th scope="col" class="text-base py-3 px-6 capitalize">
-                        <div class="flex items-center">
-                            {{ __('status') }}
-                            <a href="">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3" aria-hidden="true"
-                                    fill="currentColor" viewBox="0 0 320 512">
-                                    <path
-                                        d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
-                                </svg>
-                            </a>
-                        </div>
-                    </th>
-                    <th scope="col" class="text-base text-center py-3 px-6 capitalize">
-                        {{ __('action') }}
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($data as $item)
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="p-4 w-4">
-                            <div class="flex items-center">
-                                <input id="checkbox-table-1" type="checkbox"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="checkbox-table-1" class="sr-only">checkbox</label>
-                            </div>
-                        </td>
-                        <td class="py-4 px-6 text-gray-900 dark:text-white whitespace-nowrap">
-                            {{ $item['name'] }}
-                        </td>
-                        <td class="py-4 px-6 text-gray-900 dark:text-white whitespace-nowrap">
-                            {{ $item['nim'] }}
-                        </td>
-                        <td class="py-4 px-6 text-center text-gray-900 dark:text-white whitespace-nowrap">
-                            {{ $item['study_program'] }}
-                        </td>
-                        <td class="py-4 px-6 text-gray-900 dark:text-white whitespace-nowrap">
-                            @if ($item['status'] == 'open')
-                                <span
-                                    class="px-2.5 py-1.5 bg-blue-100 text-blue-800 text-sm font-medium mr-2 rounded dark:bg-blue-200 dark:text-blue-800">
-                                    {{ __($item['status']) }}
-                                </span>
-                            @else
-                                <span
-                                    class="px-2.5 py-1.5 bg-red-100 text-red-800 text-sm font-medium mr-2 rounded dark:bg-red-200 dark:text-red-800">
-                                    {{ __($item['status']) }}
-                                </span>
-                            @endif
-                        </td>
-                        <td class="flex justify-center gap-2 py-4 px-6 capitalize">
-                            <a href="{{ route('admin.quota.edit', ['quota' => $item]) }}"
-                                class="py-2 px-3 text-xs font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                validate
-                            </a>
-                            <a href="{{ route('admin.quota.edit', ['quota' => $item]) }}"
-                                class="py-2 px-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                Edit
-                            </a>
-                            <form class="contents" action="{{ route('admin.quota.destroy', ['quota' => $item]) }}"
-                                method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button
-                                    class="py-2 px-3 text-xs font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td class="p-4 text-center text-lg text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 capitalize"
-                            colspan="6">
-                            {{ __('empty') }}
-                        </td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
-    <div class="pt-4">
-        <nav class="flex justify-between items-center" aria-label="Table navigation">
-            <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span
-                    class="font-semibold text-gray-900 dark:text-white">1-10</span> of <span
-                    class="font-semibold text-gray-900 dark:text-white">1000</span></span>
-            <ul class="inline-flex items-center -space-x-px">
-                <li>
-                    <a href="#"
-                        class="block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        <span class="sr-only">Previous</span>
-                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
+    <div class="grid gap-4">
+
+        <nav class="flex px-5 py-3 text-gray-700 border border-gray-200 rounded-lg bg-white dark:bg-gray-800 dark:border-gray-700"
+            aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{{ route('admin.show') }}"
+                        class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
+                            </path>
                         </svg>
+                        Admin
                     </a>
                 </li>
                 <li>
-                    <a href="#"
-                        class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                </li>
-                <li>
-                    <a href="#" aria-current="page"
-                        class="z-10 py-2 px-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">100</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="block py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        <span class="sr-only">Next</span>
-                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
                                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                    </a>
+                        <a href="{{ route('admin.registrar.index') }}"
+                            class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">
+                            Registrar
+                        </a>
+                    </div>
                 </li>
-            </ul>
-        </nav>
-    </div>
-    <div id="edit_modal" tabindex="-1" aria-hidden="true"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center p-4 w-full md:inset-0 h-modal md:h-full">
-        <div class="relative w-full max-w-2xl h-full md:h-auto">
-            <!-- Modal content -->
-            <form action="#" class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <!-- Modal header -->
-                <div class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                        Edit user
-                    </h3>
-                    <button type="button"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        data-modal-toggle="edit_modal">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
-                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <div class="p-6 space-y-6">
-                    <div class="grid grid-cols-6 gap-6">
-                        <div class="col-span-6 sm:col-span-3">
-                            <label for="first-name"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
-                            <input type="text" name="first-name" id="first-name"
-                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Bonnie" required="">
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                            <label for="last-name"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
-                            <input type="text" name="last-name" id="last-name"
-                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Green" required="">
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                            <label for="email"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                            <input type="email" name="email" id="email"
-                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="example@company.com" required="">
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                            <label for="phone-number"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
-                            <input type="number" name="phone-number" id="phone-number"
-                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="e.g. +(12)3456 789" required="">
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                            <label for="department"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department</label>
-                            <input type="text" name="department" id="department"
-                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Development" required="">
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                            <label for="company"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company</label>
-                            <input type="number" name="company" id="company"
-                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="123456" required="">
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                            <label for="current-password"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current
-                                Password</label>
-                            <input type="password" name="current-password" id="current-password"
-                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="••••••••" required="">
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                            <label for="new-password"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New Password</label>
-                            <input type="password" name="new-password" id="new-password"
-                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="••••••••" required="">
-                        </div>
+                        <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">
+                            Validate
+                        </span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <form
+            class="grid gap-4 px-5 py-3 text-gray-700 border border-gray-200 rounded-lg bg-white dark:bg-gray-800 dark:border-gray-700"
+            action="{{ route('admin.registrar.perform_validate', ['registrar' => $data]) }}" method="post"
+            enctype="multipart/form-data">
+            @csrf
+            <div class="grid grid-cols-2 gap-4">
+                <div class="grid gap-4">
+                    <div class="flex flex-col gap-2">
+                        <label for="name"
+                            class="text-sm font-medium text-gray-900 dark:text-white capitalize">{{ __('name') }}</label>
+                        <output id="name" name="name"
+                            class="text-base text-gray-700 dark:text-gray-100">{{ $data->name }}</output>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label for="nim" class="text-sm font-medium text-gray-900 dark:text-white">NIM</label>
+                        <output id="nim" name="nim"
+                            class="text-base text-gray-700 dark:text-gray-100">{{ $data->nim }}</output>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label for="nik" class="text-sm font-medium text-gray-900 dark:text-white">NIK</label>
+                        <output id="nik" name="nik"
+                            class="text-base text-gray-700 dark:text-gray-100">{{ $data->nik }}</output>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label for="pob" class="text-sm font-medium text-gray-900 dark:text-white capitalize">
+                            {{ __('place of birth') }}
+                        </label>
+                        <output id="pob" name="pob"
+                            class="text-base text-gray-700 dark:text-gray-100">{{ $data->pob }}</output>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label for="dob" class="text-sm font-medium text-gray-900 dark:text-white capitalize">
+                            {{ __('date of birth') }}
+                        </label>
+                        <output id="dob" name="dob"
+                            class="text-base text-gray-700 dark:text-gray-100">{{ $data->dob }}</output>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label for="faculty"
+                            class="text-sm font-medium text-gray-900 dark:text-white capitalize">{{ __('faculty') }}</label>
+                        <output id="faculty" name="faculty"
+                            class="text-base text-gray-700 dark:text-gray-100">{{ $data->faculty }}</output>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label for="study_program" class="text-sm font-medium text-gray-900 dark:text-white capitalize">
+                            {{ __('study program') }}
+                        </label>
+                        <output id="study_program" name="study_program"
+                            class="text-base text-gray-700 dark:text-gray-100">{{ $data->study_program }}</output>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label for="ipk" class="text-sm font-medium text-gray-900 dark:text-white">IPK</label>
+                        <output id="ipk" name="ipk"
+                            class="text-base text-gray-700 dark:text-gray-100">{{ $data->ipk }}</output>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white capitalize" for="photo">
+                            {{ __('photo') }}
+                        </label>
+                        <output id="photo_url" name="photo_url"
+                            class="w-20 h-20 text-base text-gray-700 dark:text-gray-100">
+                            <button type="button" id="photo_btn"
+                                class="text-sm p-1 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 dark:hover:bg-gray-600 hover:text-white focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-blue-500 dark:border-gray-600">
+                                <img id="photo_img" class="w-[9rem] aspect-square object-cover object-center"
+                                    src="{{ $data->photo_url }}" alt="">
+                            </button>
+                        </output>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white" for="munaqasyah">
+                            SK Munaqasyah
+                        </label>
+                        <output id="munaqasyah_url" name="munaqasyah_url"
+                            class="w-20 h-20 text-base text-gray-700 dark:text-gray-100">
+                            <button type="button" id="munaqasyah_btn"
+                                class="text-sm p-1 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 dark:hover:bg-gray-600 hover:text-white focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-blue-500 dark:border-gray-600">
+                                <img id="munaqasyah_img" class="w-[9rem] aspect-square object-cover object-center"
+                                    src="{{ $data->munaqasyah_url }}" alt="">
+                            </button>
+                        </output>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white" for="school_certificate">
+                            Ijazah SMA/SMK/MA
+                        </label>
+                        <output id="school_certificate_url" name="school_certificate_url"
+                            class="w-20 h-20 text-base text-gray-700 dark:text-gray-100">
+                            <button type="button" id="school_certificate_btn"
+                                class="text-sm p-1 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 dark:hover:bg-gray-600 hover:text-white focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-blue-500 dark:border-gray-600">
+                                <img id="school_certificate_img" class="w-[9rem] aspect-square object-cover object-center"
+                                    src="{{ $data->school_certificate_url }}" alt="">
+                            </button>
+                        </output>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white" for="kk">
+                            Kartu Tanda Pengenal (KTP)
+                        </label>
+                        <output id="kk_url" name="kk_url"
+                            class="w-20 h-20 text-base text-gray-700 dark:text-gray-100">
+                            <button type="button" id="kk_btn"
+                                class="text-sm p-1 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 dark:hover:bg-gray-600 hover:text-white focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-blue-500 dark:border-gray-600">
+                                <img id="kk_img" class="w-[9rem] aspect-square object-cover object-center"
+                                    src="{{ $data->kk_url }}" alt="">
+                            </button>
+                        </output>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white" for="ktp">
+                            Kartu Keluarga (KK)
+                        </label>
+                        <output id="ktp_url" name="ktp_url"
+                            class="w-20 h-20 text-base text-gray-700 dark:text-gray-100">
+                            <button type="button" id="ktp_btn"
+                                class="text-sm p-1 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 dark:hover:bg-gray-600 hover:text-white focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-blue-500 dark:border-gray-600">
+                                <img id="ktp_img" class="w-[9rem] aspect-square object-cover object-center"
+                                    src="{{ $data->ktp_url }}" alt="">
+                            </button>
+                        </output>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white" for="spukt">
+                            Slip Pembayaran Uang Kuliah Tunggal
+                        </label>
+                        <output id="spukt_url" name="spukt_url"
+                            class="w-20 h-20 text-base text-gray-700 dark:text-gray-100">
+                            <button type="button" id="spukt_btn"
+                                class="text-sm p-1 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 dark:hover:bg-gray-600 hover:text-white focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-blue-500 dark:border-gray-600">
+                                <img id="spukt_img" class="w-[9rem] aspect-square object-cover object-center"
+                                    src="{{ $data->spukt_url }}" alt="">
+                            </button>
+                        </output>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label for="status" class="text-sm font-medium text-gray-900 dark:text-white">
+                            Status
+                        </label>
+                        <select id="status" name="status"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            @foreach ($data::list_status() as $key => $value)
+                                <option value="{{ $key }}" @selected($key == $data->status) class="capitalize">
+                                    {{ $value }}</option>
+                            @endforeach
+                        </select>
+                        @error('status')
+                            <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="comment"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white capitalize">
+                            {{ __('message') }}
+                        </label>
+                        <textarea id="comment" rows="4" name="comment"
+                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Write your message...">{{ $data->comment }}</textarea>
+                        @error('comment')
+                            <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
-                <!-- Modal footer -->
-                <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-                    <button type="submit"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save
-                        all</button>
+                <div class="w-full">
+                    <div id="viewer" class="hidden sticky top-0 w-full p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                        <button type="button" id="view_close"
+                            class="absolute top-2 right-2 p-1 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm text-center inline-flex items-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                            <span class="sr-only">Icon description</span>
+                        </button>
+                        <img id="view_img" class="m-auto" src="{{ $data->photo_url }}" alt="">
+                    </div>
                 </div>
-            </form>
-        </div>
+            </div>
+            <div class="flex gap-2 place-content-center">
+                <button
+                    class="w-full sm:w-1/2 lg:w-1/4 capitalize text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                    {{ __('update') }}
+                </button>
+            </div>
+            @env('local')
+            @empty($errors->all())
+            @else
+                <div>
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endempty
+            @endenv
+        </form>
+
     </div>
 @endsection

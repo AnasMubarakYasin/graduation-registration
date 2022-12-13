@@ -1,11 +1,11 @@
 @extends('layouts.admin.panel', ['content_card' => false])
 
-@section('title', 'List Registrar')
+@section('title', __('list of registrar'))
 
 @section('content')
     <div class="pb-4">
         <div class="flex gap-2 items-center">
-            <a href="{{ route('admin.quota.create') }}"
+            <a href="{{ route('admin.registrar.create') }}"
                 class="text-sm p-1.5 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-800 dark:border-gray-600">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6">
@@ -71,7 +71,7 @@
                         </div>
                     </th>
                     <th scope="col" class="text-base py-3 px-6 capitalize">
-                        <div class="flex items-center">
+                        <div class="flex items-center justify-center">
                             {{ __('status') }}
                             <a href="">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3" aria-hidden="true"
@@ -108,23 +108,24 @@
                             {{ $item['study_program'] }}
                         </td>
                         <td class="py-4 px-6 text-gray-900 dark:text-white whitespace-nowrap">
-                            @if ($item['status'] == 'open')
-                                <span
-                                    class="px-2.5 py-1.5 bg-blue-100 text-blue-800 text-sm font-medium mr-2 rounded dark:bg-blue-200 dark:text-blue-800">
+                            <div class="flex justify-center w-full">
+                                <div
+                                    class="px-2.5 py-1.5 bg-gray-200 text-gray-900 text-sm font-medium mr-2 rounded dark:bg-gray-700 dark:text-gray-50">
                                     {{ __($item['status']) }}
-                                </span>
-                            @else
-                                <span
-                                    class="px-2.5 py-1.5 bg-red-100 text-red-800 text-sm font-medium mr-2 rounded dark:bg-red-200 dark:text-red-800">
-                                    {{ __($item['status']) }}
-                                </span>
-                            @endif
+                                </div>
+                            </div>
                         </td>
                         <td class="flex justify-center gap-2 py-4 px-6 capitalize">
-                            {{-- <a href="{{ route('admin.quota.edit', ['quota' => $item]) }}"
-                                class="py-2 px-3 text-xs font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                validate
-                            </a> --}}
+                            <a id="edt_btn" href="{{ route('admin.registrar.show_validate', ['registrar' => $item]) }}"
+                                class="p-2 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z">
+                                    </path>
+                                </svg>
+                                <span class="sr-only">Edit Item</span>
+                            </a>
                             <a id="edt_btn" href="{{ route('admin.registrar.edit', ['registrar' => $item]) }}"
                                 class="p-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -133,10 +134,10 @@
                                         d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
                                     </path>
                                 </svg>
-                                <span class="sr-only">Edit Item</span>
+                                <span class="sr-only">Validate Item</span>
                             </a>
-                            <form class="contents" action="{{ route('admin.registrar.destroy', ['registrar' => $item]) }}"
-                                method="post">
+                            <form class="contents"
+                                action="{{ route('admin.registrar.destroy', ['registrar' => $item]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button id="del_btn"

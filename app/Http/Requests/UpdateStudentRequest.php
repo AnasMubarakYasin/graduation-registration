@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateQuotaRequest extends FormRequest
+class UpdateStudentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,12 @@ class UpdateQuotaRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'quota' => 'required|integer',
-            'status' => 'required|in:open,close',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|gte:start_date'
+            '_id' => 'required|integer|bail',
+            'photo' => "sometimes|required|image|max:2048",
+            'name' => "required|string",
+            'nim' => 'required|size:11|unique:students,nim,'.$this->input('_id'),
+            'email' => 'required|email|unique:students,email,'.$this->input('_id'),
+            'password' => 'exclude_if:password,null|required|string|confirmed',
         ];
     }
 }

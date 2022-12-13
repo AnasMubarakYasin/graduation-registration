@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Registrar;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRegistrarRequest extends FormRequest
@@ -13,7 +14,7 @@ class UpdateRegistrarRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth('student')->hasUser();
+        return true;
     }
 
     /**
@@ -24,6 +25,9 @@ class UpdateRegistrarRequest extends FormRequest
     public function rules()
     {
         return [
+            'status' => 'nullable|string|in:' . implode(',', array_keys(Registrar::list_status())),
+            'comment' => 'nullable|string',
+
             'photo' => 'nullable|image|max:2048',
             'name' => 'nullable|string',
             'nim' => 'nullable|string|size:11',
@@ -35,7 +39,7 @@ class UpdateRegistrarRequest extends FormRequest
             'ipk' => 'nullable|integer',
 
             'munaqasyah' => 'nullable|image|max:2048',
-            'certificate' => 'nullable|image|max:2048',
+            'school_certificate' => 'nullable|image|max:2048',
             'ktp' => 'nullable|image|max:2048',
             'kk' => 'nullable|image|max:2048',
             'spukt' => 'nullable|image|max:2048',

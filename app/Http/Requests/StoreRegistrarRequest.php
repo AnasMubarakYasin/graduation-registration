@@ -13,7 +13,7 @@ class StoreRegistrarRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth('student')->hasUser();
+        return true;
     }
 
     /**
@@ -24,6 +24,8 @@ class StoreRegistrarRequest extends FormRequest
     public function rules()
     {
         return [
+            'quota_id' => 'required|integer',
+            'student_id' => 'required|integer',
             'photo' => 'required|image|max:2048',
             'name' => 'required|string',
             'nim' => 'required|string|size:11',
@@ -35,7 +37,7 @@ class StoreRegistrarRequest extends FormRequest
             'ipk' => 'required|integer',
 
             'munaqasyah' => 'required|image|max:2048',
-            'certificate' => 'required|image|max:2048',
+            'school_certificate' => 'required|image|max:2048',
             'ktp' => 'required|image|max:2048',
             'kk' => 'required|image|max:2048',
             'spukt' => 'required|image|max:2048',

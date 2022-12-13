@@ -11,9 +11,7 @@
                     <div class="grid gap-2 text-gray-900">
                         <div class="text-2xl font-semibold">Verifikasi Berkas</div>
                         <p class="text-base font-normal">Mohon bersabar, data anda akan di perikasa oleh panitia pendaftaran
-                            wisuda
-                            UIN
-                            Alauddi Makassar.</p>
+                            wisuda UIN Alauddin Makassar.</p>
                     </div>
                 </div>
             @elseif ($user->registrar->is_revision)
@@ -24,19 +22,27 @@
                         <p class="text-base font-normal">Data anda tidak dapat diproses, silahkan perbaiki data dan berkas
                             anda.
                         </p>
+                        <p class="text-base font-semibold">{{ $registrar['data']['comment'] }}</p>
                     </div>
                     <button
                         class="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">Kirim</button>
                 </div>
             @elseif ($user->registrar->is_revalidate)
+                <div class="grid gap-4 grid-cols-[10fr,2fr] shadow dark:shadow-none transition-colors items-center p-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg dark:bg-yellow-200 dark:text-yellow-800"
+                    role="alert">
+                    <div class="grid gap-2 text-gray-900">
+                        <div class="text-2xl font-semibold">Verifikasi Berkas</div>
+                        <p class="text-base font-normal">Mohon bersabar, data anda akan di perikasa oleh panitia pendaftaran
+                            wisuda UIN Alauddi Makassar.</p>
+                    </div>
+                </div>
+            @elseif ($user->registrar->is_validated)
                 <div class="grid gap-4 grid-cols-[10fr,2fr] shadow dark:shadow-none transition-colors items-center p-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
                     role="alert">
                     <div class="grid gap-2 text-gray-900">
                         <div class="text-2xl font-semibold">Berkas Valid</div>
                         <p class="text-base font-normal">Selamat berkas anda dinyatakan valid, anda terdaftar sebagai
-                            Wisudawan
-                            UIN
-                            Alauddin Makassar. Silahakn cetak bukti registrasi anda.</p>
+                            Wisudawan UIN Alauddin Makassar. Silahakn cetak bukti registrasi anda.</p>
                     </div>
                     <button
                         class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
@@ -67,17 +73,20 @@
                 </div>
             @endif
         @else
-            <div class="grid gap-4 grid-cols-[10fr,2fr] shadow dark:shadow-none transition-colors items-center p-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800"
-                role="alert">
-                <div class="grid gap-2 text-gray-900">
-                    <div class="text-2xl font-semibold">Kirim Berkas</div>
-                    <p class="text-base font-normal">Silahkan mengirimkan berkas anda untuk di validasi oleh panitia
-                        pendaftaran
-                        wisuda UIN Alauddin Makassar.</p>
+            @if ($has_quota)
+                <div class="grid gap-4 grid-cols-[10fr,2fr] shadow dark:shadow-none transition-colors items-center p-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800"
+                    role="alert">
+                    <div class="grid gap-2 text-gray-900">
+                        <div class="text-2xl font-semibold">Kirim Berkas</div>
+                        <p class="text-base font-normal">Silahkan mengirimkan berkas anda untuk di validasi oleh panitia
+                            pendaftaran
+                            wisuda UIN Alauddin Makassar.</p>
+                    </div>
+                    <button
+                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Kirim</button>
                 </div>
-                <button
-                    class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Kirim</button>
-            </div>
+            @else
+            @endif
         @endif
         {{-- <div class="grid gap-4 grid-cols-[1fr,1fr,1fr,1fr]">
         <div class="grid">
@@ -108,21 +117,24 @@
     </div> --}}
         <div class="grid grid-cols-3 gap-4">
             @if ($quota)
-                <div class="p-4 text-black dark:text-gray-50 bg-white dark:bg-gray-800 rounded-lg border shadow dark:shadow-none dark:border-gray-700 transition-colors">
+                <div
+                    class="p-4 text-black dark:text-gray-50 bg-white dark:bg-gray-800 rounded-lg border shadow dark:shadow-none dark:border-gray-700 transition-colors">
                     <div>
                         <div>Kuota Wisuda</div>
                         <div>{{ $quota['total'] }}</div>
                     </div>
                     <div></div>
                 </div>
-                <div class="p-4 text-black dark:text-gray-50 bg-white dark:bg-gray-800 rounded-lg border shadow dark:shadow-none dark:border-gray-700 transition-colors">
+                <div
+                    class="p-4 text-black dark:text-gray-50 bg-white dark:bg-gray-800 rounded-lg border shadow dark:shadow-none dark:border-gray-700 transition-colors">
                     <div>
                         <div>Sisa Kuota Wisuda</div>
                         <div>{{ $quota['remaining'] }}</div>
                     </div>
                     <div></div>
                 </div>
-                <div class="p-4 text-black dark:text-gray-50 bg-white dark:bg-gray-800 rounded-lg border shadow dark:shadow-none dark:border-gray-700 transition-colors">
+                <div
+                    class="p-4 text-black dark:text-gray-50 bg-white dark:bg-gray-800 rounded-lg border shadow dark:shadow-none dark:border-gray-700 transition-colors">
                     <div>
                         <div>Total Wisudawan</div>
                         <div>{{ $quota['filled'] }}</div>
@@ -130,14 +142,16 @@
                     <div></div>
                 </div>
             @endif
-            <div class="p-4 text-black dark:text-gray-50 bg-white dark:bg-gray-800 rounded-lg border shadow dark:shadow-none dark:border-gray-700 transition-colors">
+            <div
+                class="p-4 text-black dark:text-gray-50 bg-white dark:bg-gray-800 rounded-lg border shadow dark:shadow-none dark:border-gray-700 transition-colors">
                 <div>
                     <div>Kelengkapan Biodata</div>
                     <div>{{ (int) $registrar['biodata'] }}</div>
                 </div>
                 <div></div>
             </div>
-            <div class="p-4 text-black dark:text-gray-50 bg-white dark:bg-gray-800 rounded-lg border shadow dark:shadow-none dark:border-gray-700 transition-colors">
+            <div
+                class="p-4 text-black dark:text-gray-50 bg-white dark:bg-gray-800 rounded-lg border shadow dark:shadow-none dark:border-gray-700 transition-colors">
                 <div>
                     <div>Kelengkapan Berkas</div>
                     <div>{{ (int) $registrar['file'] }}</div>

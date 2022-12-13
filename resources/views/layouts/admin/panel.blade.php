@@ -219,18 +219,21 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.student.show') }}" @class([
+                        <a href="{{ route('admin.student.index') }}" @class([
                             'flex items-center p-2 text-base font-normal rounded-lg',
-                            'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
-                                request()->url() != route('admin.student.show'),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
-                                request()->url() == route('admin.student.show'),
+                            'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' => !str(
+                                request()->url()
+                            )->startsWith(route('admin.student.index')),
+                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
+                                request()->url()
+                            )->startsWith(route('admin.student.index')),
                         ])>
                             <svg @class([
                                 'w-6 h-6 transition',
-                                'text-gray-700 dark:text-white' =>
-                                    request()->url() != route('admin.student.show'),
-                                '' => request()->url() == route('admin.student.show'),
+                                'text-gray-700 dark:text-white' => !str(request()->url())->startsWith(
+                                    route('admin.student.index')
+                                ),
+                                '' => str(request()->url())->startsWith(route('admin.student.index')),
                             ]) fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -263,7 +266,7 @@
                             <span class="ml-3">{{ __('archive') }}</span>
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('admin.student.show') }}" @class([
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
@@ -283,7 +286,7 @@
                             </svg>
                             <span class="ml-3">{{ __('administrator') }}</span>
                         </a>
-                    </li>
+                    </li> --}}
                     {{-- <li>
                         <a href="{{ route('admin.logout.perform') }}" @class([
                             'flex items-center p-2 text-base font-normal rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700',

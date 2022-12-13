@@ -1,11 +1,11 @@
 @extends('layouts.admin.panel', ['content_card' => false])
 
-@section('title', __('quota'))
+@section('title', __('list of student'))
 
 @section('content')
     <div class="pb-4">
         <div class="flex gap-2 items-center">
-            <a href="{{ route('admin.quota.create') }}"
+            <a href="{{ route('admin.student.create') }}"
                 class="text-sm p-1.5 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-800 dark:border-gray-600">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6">
@@ -48,7 +48,7 @@
                     </th>
                     <th scope="col" class="text-base py-3 px-6 capitalize">
                         <div class="flex items-center">
-                            {{ __('quota') }}
+                            {{ __('NIM') }}
                             <a href="">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3" aria-hidden="true"
                                     fill="currentColor" viewBox="0 0 320 512">
@@ -58,9 +58,9 @@
                             </a>
                         </div>
                     </th>
-                    <th scope="col" class="flex justify-center text-base text-center py-3 px-6 capitalize">
+                    {{-- <th scope="col" class="flex justify-center text-base text-center py-3 px-6 capitalize">
                         <div class="flex items-center">
-                            {{ __('date') }}
+                            {{ __('study program') }}
                             <a href="">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3" aria-hidden="true"
                                     fill="currentColor" viewBox="0 0 320 512">
@@ -69,8 +69,8 @@
                                 </svg>
                             </a>
                         </div>
-                    </th>
-                    <th scope="col" class="text-base py-3 px-6 capitalize">
+                    </th> --}}
+                    {{-- <th scope="col" class="text-base py-3 px-6 capitalize">
                         <div class="flex items-center">
                             {{ __('status') }}
                             <a href="">
@@ -81,7 +81,7 @@
                                 </svg>
                             </a>
                         </div>
-                    </th>
+                    </th> --}}
                     <th scope="col" class="text-base text-center py-3 px-6 capitalize">
                         {{ __('action') }}
                     </th>
@@ -102,12 +102,12 @@
                             {{ $item['name'] }}
                         </td>
                         <td class="py-4 px-6 text-gray-900 dark:text-white whitespace-nowrap">
-                            {{ $item['quota'] }}
+                            {{ $item['nim'] }}
                         </td>
-                        <td class="py-4 px-6 text-center text-gray-900 dark:text-white whitespace-nowrap">
-                            {{ $item['start_date'] }} - {{ $item['end_date'] }}
-                        </td>
-                        <td class="py-4 px-6 text-gray-900 dark:text-white whitespace-nowrap">
+                        {{-- <td class="py-4 px-6 text-center text-gray-900 dark:text-white whitespace-nowrap">
+                            {{ $item['study_program'] }}
+                        </td> --}}
+                        {{-- <td class="py-4 px-6 text-gray-900 dark:text-white whitespace-nowrap">
                             @if ($item['status'] == 'open')
                                 <span
                                     class="px-2.5 py-1.5 bg-blue-100 text-blue-800 text-sm font-medium mr-2 rounded dark:bg-blue-200 dark:text-blue-800">
@@ -119,19 +119,34 @@
                                     {{ __($item['status']) }}
                                 </span>
                             @endif
-                        </td>
+                        </td> --}}
                         <td class="flex justify-center gap-2 py-4 px-6 capitalize">
-                            <a href="{{ route('admin.quota.edit', ['quota' => $item]) }}"
-                                class="capitalize py-2 px-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                {{ __('edit') }}
+                            {{-- <a href="{{ route('admin.quota.edit', ['quota' => $item]) }}"
+                                class="py-2 px-3 text-xs font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                validate
+                            </a> --}}
+                            <a id="edt_btn" href="{{ route('admin.student.edit', ['student' => $item]) }}"
+                                class="p-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                    </path>
+                                </svg>
+                                <span class="sr-only">Edit Item</span>
                             </a>
-                            <form class="contents" action="{{ route('admin.quota.destroy', ['quota' => $item]) }}"
+                            <form class="contents" action="{{ route('admin.student.destroy', ['student' => $item]) }}"
                                 method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button
-                                    class="capitalize py-2 px-3 text-xs font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                                    {{ __('delete') }}
+                                <button id="del_btn"
+                                    class="p-2 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm text-center inline-flex items-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M20 12H4"></path>
+                                    </svg>
+                                    <span class="sr-only">Delete Item</span>
                                 </button>
                             </form>
                         </td>

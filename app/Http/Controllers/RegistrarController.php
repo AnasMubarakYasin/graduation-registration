@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\CreateRegistrarException;
 use App\Http\Requests\StoreRegistrarRequest;
 use App\Http\Requests\UpdateRegistrarRequest;
+use App\Models\Quota;
 use App\Models\Registrar;
+use App\Models\Student;
+use Illuminate\Support\Facades\Request;
 
 class RegistrarController extends Controller
 {
@@ -15,7 +19,7 @@ class RegistrarController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', ['App\\Models\Registrar']);
+        $this->authorize('viewAny', Registrar::class);
         return view('admin.registrar.index', ['data' => Registrar::all()]);
     }
 
@@ -26,7 +30,7 @@ class RegistrarController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.registrar.create', ['quota' => Quota::get_all_open(), 'student' => Student::all_without_registrar()]);
     }
 
     /**
@@ -37,7 +41,11 @@ class RegistrarController extends Controller
      */
     public function store(StoreRegistrarRequest $request)
     {
-        //
+        $quota = Quota::get_first_open();
+        if (!$quota) throw new CreateRegistrarException("saving registrar in not any quota open", 400);
+        $data = $request->validated();
+        $registrar = Registrar::create($data);
+        return to_route('admin.registrar.index');
     }
 
     /**
@@ -59,7 +67,7 @@ class RegistrarController extends Controller
      */
     public function edit(Registrar $registrar)
     {
-        return view('admin.registrar.edit', ['data' => $registrar]);
+        return view('admin.registrar.edit', ['data' => $registrar, 'quota' => Quota::get_all_open(), 'student' => Student::all_without_registrar()]);
     }
 
     /**
@@ -71,7 +79,22 @@ class RegistrarController extends Controller
      */
     public function update(UpdateRegistrarRequest $request, Registrar $registrar)
     {
-        //
+        $this->authorize('update', $registrar);
+        $data = $request->validated();
+        $registrar->update($data);
+        return to_route('admin.registrar.index');
+    }
+
+    public function show_validate(Registrar $registrar)
+    {
+        return view('admin.registrar.validate', ['data' => $registrar]);
+    }
+    public function perform_validate(UpdateRegistrarRequest $request, Registrar $registrar)
+    {
+        $this->authorize('validate', $registrar);
+        $data = $request->validated();
+        $registrar->update($data);
+        return to_route('admin.registrar.index');
     }
 
     /**
@@ -82,6 +105,7 @@ class RegistrarController extends Controller
      */
     public function destroy(Registrar $registrar)
     {
+        $this->authorize('delete', $registrar);
         $registrar->delete();
         return to_route('admin.registrar.index');
     }

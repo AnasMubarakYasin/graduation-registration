@@ -2,151 +2,94 @@
 
 namespace App\Http\Controllers;
 
-use App\Feature\Main;
-use App\Http\Requests\StoreRegistrarRequest;
-use App\Http\Requests\StudentLoginRequest;
-use App\Http\Requests\UpdateRegistrarRequest;
-use App\Models\Quota;
-use App\Models\Registrar;
-use App\Notifications\BiodataStore;
-use App\Notifications\CreatedOrUpdatedRegistrar;
-use App\Notifications\FileStore;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\UpdateStudentRequest;
+use App\Models\Student;
 
 class StudentController extends Controller
 {
-    public function login_show()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        return view('student.login');
+        $this->authorize('viewAny', Student::class);
+        return view('admin.student.index', ['data' => Student::all()]);
     }
-    public function login_perfom(StudentLoginRequest $request)
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
+        return view('admin.student.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreStudentRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StoreStudentRequest $request)
+    {
+        $this->authorize('create', Student::class);
         $data = $request->validated();
-        if (auth('student')->attempt(Arr::only($data, ['nim', 'password']), isset($data['remember']))) {
-            session()->regenerate();
-            return to_route('student.dashboard.show');
-        } else {
-            return back()->withErrors(['nim' => ['nim mismatch'], 'password' => ['password mismatch']]);
-        }
-    }
-    public function logout_perfom()
-    {
-        auth('student')->logout();
-        session()->invalidate();
-        session()->regenerateToken();
-        return to_route('student.login.show');
+        Student::create($data);
+        return to_route('admin.student.index');
     }
 
-    public function dashboard_show()
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Student  $student
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Student $student)
     {
-        $main = Main::single();
-        return view('student.dashboard', [
-            'user' => $this->get_user(),
-            'quota' => $main->stats_quota($main->get_open_quota()),
-            'registrar' => $main->stats_registrar_student($this->get_registrar()),
-        ]);
-    }
-    public function biodata_show(Request $request)
-    {
-        $data = $this->get_registrar() ?? new Registrar();
-        return view('student.biodata', ['user' => $this->get_user(), 'data' => $data]);
-    }
-    public function file_show(Request $request)
-    {
-        $data = $this->get_registrar() ?? new Registrar();
-        return view('student.file', ['user' => $this->get_user(), 'data' => $data]);
-    }
-    public function profile_show()
-    {
-        return view('student.profile', ['user' => $this->get_user()]);
-    }
-    public function notification_show()
-    {
-        return view('student.notification', ['user' => $this->get_user()]);
-    }
-    public function about_show()
-    {
-        return view('student.about', ['user' => $this->get_user()]);
+        //
     }
 
-    public function biodata_store(UpdateRegistrarRequest $request)
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Student  $student
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Student $student)
     {
+        return view('admin.student.edit', ['data' => $student]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\UpdateStudentRequest  $request
+     * @param  \App\Models\Student  $student
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateStudentRequest $request, Student $student)
+    {
+        $this->authorize('update', $student);
         $data = $request->validated();
-        $user = $this->get_user();
-        $biodata = $this->get_or_create_registrar();
-        $biodata->fill($data);
-        if ($request->file('photo')) {
-            if ($biodata->photo) {
-                Storage::delete($biodata->photo);
-            }
-            $biodata->photo = Storage::put("public/student/$user->id", $request->file('photo'), 'public');
-        }
-        $biodata->save();
-        Notification::sendNow($user, new CreatedOrUpdatedRegistrar(asset('logo.svg'), 'Biodata Updated', 'student.data.show', $biodata));
-        return to_route('student.data.show');
-    }
-    public function file_store(UpdateRegistrarRequest $request)
-    {
-        $request->validated();
-        $user = $this->get_user();
-        $biodata = $this->get_or_create_registrar();
-        if ($request->file('munaqasyah')) {
-            if ($biodata->munaqasyah) {
-                Storage::delete($biodata->munaqasyah);
-            }
-            $biodata->munaqasyah = Storage::put("public/student/$user->id", $request->file('munaqasyah'), 'public');
-        }
-        if ($request->file('certificate')) {
-            if ($biodata->school_certificate) {
-                Storage::delete($biodata->school_certificate);
-            }
-            $biodata->school_certificate = Storage::put("public/student/$user->id", $request->file('certificate'), 'public');
-        }
-        if ($request->file('ktp')) {
-            if ($biodata->ktp) {
-                Storage::delete($biodata->ktp);
-            }
-            $biodata->ktp = Storage::put("public/student/$user->id", $request->file('ktp'), 'public');
-        }
-        if ($request->file('kk')) {
-            if ($biodata->kk) {
-                Storage::delete($biodata->kk);
-            }
-            $biodata->kk = Storage::put("public/student/$user->id", $request->file('kk'), 'public');
-        }
-        if ($request->file('spukt')) {
-            if ($biodata->spukt) {
-                Storage::delete($biodata->spukt);
-            }
-            $biodata->spukt = Storage::put("public/student/$user->id", $request->file('spukt'), 'public');
-        }
-        $biodata->save();
-        Notification::sendNow($user, new CreatedOrUpdatedRegistrar(asset('logo.svg'), 'File Updated', 'student.file.show', $biodata));
-        return to_route('student.file.show');
+        $student->update($data);
+        return to_route('admin.student.index');
     }
 
-    protected function get_user()
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Student  $student
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Student $student)
     {
-        return auth('student')->user();
-    }
-    protected function get_registrar()
-    {
-        return Registrar::where('student_id', auth('student')->user()->id)->first();
-    }
-    protected function get_or_create_registrar()
-    {
-        $user = $this->get_user();
-        $quota = Main::single()->get_open_quota();
-        $registrar = $this->get_registrar();
-        if (!$registrar) {
-            /** @var Registrar */
-            $registrar = new Registrar();
-            $registrar->quota_id = $quota->id;
-            $registrar->student_id = $user->id;
-        }
-        return $registrar;
+        $this->authorize('delete', $student);
+        $student->delete();
+        return to_route('admin.student.index');
     }
 }
