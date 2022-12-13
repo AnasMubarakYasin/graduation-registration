@@ -41,6 +41,11 @@ class Registrar extends Model
         $result['validated'] = $quota->registrars()->get()->where('status', RegistrarStatus::Validated->value)->count();
         return $result;
     }
+    /** @return Registrar|null */
+    public static function get_by_user(Student $user)
+    {
+        return Registrar::where('student_id', $user)->first();
+    }
 
     protected $fillable = [
         'status',
@@ -216,7 +221,7 @@ class Registrar extends Model
         return $this->belongsTo(Student::class, 'student_id');
     }
 
-    public function stats()
+    public function stats_filled()
     {
         $result = ['biodata' => 0, 'file' => 0, 'data' => $this->toArray()];
         $result['biodata'] = $this->check_biodata();

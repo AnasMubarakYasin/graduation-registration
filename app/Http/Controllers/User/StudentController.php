@@ -16,12 +16,11 @@ class StudentController extends Controller
 {
     public function dashboard_show()
     {
-        $main = Main::single();
         return view('student.dashboard', [
             'user' => $this->get_user(),
             'has_quota' => Quota::get_first_open(),
             'quota' => Quota::stats(),
-            'registrar' => $this->get_registrar()->stats(),
+            'registrar' => $this->get_registrar()?->stats_filled(),
         ]);
     }
     public function biodata_show(Request $request)
@@ -74,7 +73,7 @@ class StudentController extends Controller
     }
     protected function get_registrar()
     {
-        return Registrar::where('student_id', auth('student')->user()->id)->first();
+        return Registrar::get_by_user(auth('student')->user()->id);
     }
     protected function get_or_create_registrar()
     {
