@@ -26,7 +26,7 @@ class QuotaController extends Controller
      */
     public function create()
     {
-        return view('admin.quota.create', ['user' => $this->get_user()]);
+        return view('admin.quota.create');
     }
 
     /**
