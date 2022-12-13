@@ -73,7 +73,7 @@ class StudentController extends Controller
     }
     protected function get_registrar()
     {
-        return Registrar::get_by_user(auth('student')->user()->id);
+        return Registrar::get_by_user(auth('student')->user());
     }
     protected function get_or_create_registrar()
     {

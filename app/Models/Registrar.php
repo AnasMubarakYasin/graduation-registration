@@ -44,7 +44,7 @@ class Registrar extends Model
     /** @return Registrar|null */
     public static function get_by_user(Student $user)
     {
-        return Registrar::where('student_id', $user)->first();
+        return Registrar::where('student_id', $user->id)->first();
     }
 
     protected $fillable = [
