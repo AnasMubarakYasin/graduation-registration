@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
-use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
@@ -15,23 +14,30 @@ class NotificationController extends Controller
         if (isset($notification->data['route'])) {
             return to_route($notification->data['route']);
         }
+
         return back();
     }
+
     public function delete(string $guard, string $id)
     {
         $user = $this->get_user($guard);
         $notification = $user->notifications->sole('id', '==', $id);
         $notification->delete();
+
         return back();
     }
+
     public function mark_all(string $guard)
     {
         $this->get_user($guard)->notifications->markAsRead();
+
         return back();
     }
+
     public function delete_all(string $guard)
     {
         $this->get_user($guard)->notifications()->delete();
+
         return back();
     }
 

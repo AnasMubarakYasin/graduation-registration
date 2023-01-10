@@ -20,6 +20,7 @@ class AuthcGuest
         if (Auth::check()) {
             return to_route($redirect);
         }
+
         return $next($request);
     }
 }

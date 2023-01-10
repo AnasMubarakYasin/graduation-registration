@@ -3,9 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Registrar;
-use App\Models\Student;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -14,8 +12,11 @@ class CreatedOrUpdatedRegistrar extends Notification
     use Queueable;
 
     protected string $badge;
+
     protected string $message;
+
     protected string $route;
+
     protected Registrar $registrar;
 
     /**

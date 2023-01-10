@@ -28,7 +28,7 @@ class UpdateQuotaRequest extends FormRequest
             'quota' => 'required|integer',
             'status' => 'required|in:open,close',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|gte:start_date'
+            'end_date' => 'required|date|gte:start_date',
         ];
     }
 }

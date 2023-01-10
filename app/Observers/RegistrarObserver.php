@@ -2,8 +2,6 @@
 
 namespace App\Observers;
 
-use App\Exceptions\CreateRegistrarException;
-use App\Models\Quota;
 use App\Models\Registrar;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,7 +20,8 @@ class RegistrarObserver
      */
     public function created(Registrar $registrar)
     {
-        //
+        $registrar->saveQuietly();
+        $this->move_file($registrar);
     }
 
     /**
@@ -33,7 +32,6 @@ class RegistrarObserver
      */
     public function updated(Registrar $registrar)
     {
-        // dd($registrar);
         $registrar->check();
     }
 
@@ -70,27 +68,28 @@ class RegistrarObserver
         $this->delete_file($registrar);
     }
 
-    public function realloc_file(Registrar $registrar)
+    public function move_file(Registrar $registrar)
     {
-        if ($registrar->photo) {
-            $registrar->photo = Storage::get($registrar->photo);
+        if ($registrar->photo && Storage::exists($registrar->photo)) {
+            Storage::move($registrar->photo, "registrar/$registrar->id");
         }
-        if ($registrar->munaqasyah) {
-            $registrar->munaqasyah = Storage::get($registrar->munaqasyah);
+        if ($registrar->munaqasyah && Storage::exists($registrar->munaqasyah)) {
+            Storage::move($registrar->munaqasyah, "registrar/$registrar->id");
         }
-        if ($registrar->school_certificate) {
-            $registrar->school_certificate = Storage::get($registrar->school_certificate);
+        if ($registrar->school_certificate && Storage::exists($registrar->school_certificate)) {
+            Storage::move($registrar->school_certificate, "registrar/$registrar->id");
         }
-        if ($registrar->ktp) {
-            $registrar->ktp = Storage::get($registrar->ktp);
+        if ($registrar->ktp && Storage::exists($registrar->ktp)) {
+            Storage::move($registrar->ktp, "registrar/$registrar->id");
         }
-        if ($registrar->kk) {
-            $registrar->kk = Storage::get($registrar->kk);
+        if ($registrar->kk && Storage::exists($registrar->kk)) {
+            Storage::move($registrar->kk, "registrar/$registrar->id");
         }
-        if ($registrar->spukt) {
-            $registrar->spukt = Storage::get($registrar->spukt);
+        if ($registrar->spukt && Storage::exists($registrar->spukt)) {
+            Storage::move($registrar->spukt, "registrar/$registrar->id");
         }
     }
+
     public function delete_file(Registrar $registrar)
     {
         if ($registrar->photo) {
@@ -111,6 +110,6 @@ class RegistrarObserver
         if ($registrar->spukt) {
             Storage::delete($registrar->spukt);
         }
-        Storage::deleteDirectory("public/registrar/$registrar->id");
+        Storage::deleteDirectory("registrar/$registrar->id");
     }
 }

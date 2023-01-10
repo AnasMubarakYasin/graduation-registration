@@ -34,7 +34,9 @@ class Quota extends Model
     public static function stats()
     {
         $quota = self::get_first_open();
-        if (!$quota) return null;
+        if (! $quota) {
+            return null;
+        }
         $result = ['total' => 0, 'remaining' => 0, 'filled' => 0];
         $result['name'] = $quota->name;
         $result['total'] = $quota->quota;
@@ -42,12 +44,14 @@ class Quota extends Model
         $result['remaining'] = $result['total'] - $result['filled'];
         $result['percent'] = $result['filled'] / $result['total'] * 100;
         $result['remaining_days'] = $quota->remaining_days;
+
         return $result;
     }
 
     public function getRemainingDaysAttribute()
     {
         $remaining_days = Carbon::now()->diffInDays(Carbon::parse($this->end_date));
+
         return $remaining_days;
     }
 

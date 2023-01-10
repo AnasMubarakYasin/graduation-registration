@@ -16,6 +16,7 @@ class StudentController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Student::class);
+
         return view('admin.student.index', ['data' => Student::all()]);
     }
 
@@ -40,6 +41,7 @@ class StudentController extends Controller
         $this->authorize('create', Student::class);
         $data = $request->validated();
         Student::create($data);
+
         return to_route('admin.student.index');
     }
 
@@ -77,6 +79,7 @@ class StudentController extends Controller
         $this->authorize('update', $student);
         $data = $request->validated();
         $student->update($data);
+
         return to_route('admin.student.index');
     }
 
@@ -90,6 +93,7 @@ class StudentController extends Controller
     {
         $this->authorize('delete', $student);
         $student->delete();
+
         return to_route('admin.student.index');
     }
 }

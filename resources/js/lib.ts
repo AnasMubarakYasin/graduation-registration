@@ -23,3 +23,8 @@ export function input_img_preview(
         input.removeEventListener("change", handler);
     };
 }
+const dom_parser = new DOMParser()
+export function create_element(element:string): HTMLElement {
+    const doc = dom_parser.parseFromString(element, "text/html")
+    return doc.body.firstChild as HTMLElement
+}

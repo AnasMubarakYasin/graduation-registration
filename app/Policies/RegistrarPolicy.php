@@ -2,7 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\Admin;
+use App\Models\Administrator;
+use App\Models\Operator;
 use App\Models\Registrar;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -13,22 +14,22 @@ class RegistrarPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\Admin  $user
+     * @param  \App\Models\Administrator|Operator  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(Admin $user)
+    public function viewAny(Administrator|Operator $user)
     {
-        return $user->is_administrator;
+        return $user->is_administrator || $user->is_academic || $user->is_faculty;
     }
 
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\Admin  $user
+     * @param  \App\Models\Administrator|Operator  $user
      * @param  \App\Models\Registrar  $registrar
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(Admin $user, Registrar $registrar)
+    public function view(Administrator|Operator $user, Registrar $registrar)
     {
         return $user->is_administrator;
     }
@@ -36,10 +37,10 @@ class RegistrarPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\Admin  $user
+     * @param  \App\Models\Administrator|Operator  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(Admin $user)
+    public function create(Administrator|Operator $user)
     {
         return $user->is_administrator;
     }
@@ -47,11 +48,11 @@ class RegistrarPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\Admin  $user
+     * @param  \App\Models\Administrator|Operator  $user
      * @param  \App\Models\Registrar  $registrar
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(Admin $user, Registrar $registrar)
+    public function update(Administrator|Operator $user, Registrar $registrar)
     {
         return $user->is_administrator;
     }
@@ -59,11 +60,11 @@ class RegistrarPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\Admin  $user
+     * @param  \App\Models\Administrator|Operator  $user
      * @param  \App\Models\Registrar  $registrar
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(Admin $user, Registrar $registrar)
+    public function delete(Administrator|Operator $user, Registrar $registrar)
     {
         return $user->is_administrator;
     }
@@ -71,11 +72,11 @@ class RegistrarPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \App\Models\Admin  $user
+     * @param  \App\Models\Administrator|Operator  $user
      * @param  \App\Models\Registrar  $registrar
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(Admin $user, Registrar $registrar)
+    public function restore(Administrator|Operator $user, Registrar $registrar)
     {
         return $user->is_administrator;
     }
@@ -83,17 +84,17 @@ class RegistrarPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \App\Models\Admin  $user
+     * @param  \App\Models\Administrator|Operator  $user
      * @param  \App\Models\Registrar  $registrar
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(Admin $user, Registrar $registrar)
+    public function forceDelete(Administrator|Operator $user, Registrar $registrar)
     {
         return $user->is_administrator;
     }
 
-    public function validate(Admin $user, Registrar $registrar)
+    public function validate(Administrator|Operator $user, Registrar $registrar)
     {
-        return $user->is_administrator | $user->is_academic_operator | $user->is_faculty_operator;
+        return $user->is_administrator || $user->is_academic || $user->is_faculty;
     }
 }

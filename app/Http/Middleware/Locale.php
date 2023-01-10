@@ -14,9 +14,10 @@ class Locale
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, string $locale = null)
     {
-        app()->setLocale(session()->get('lang.locale', app()->getLocale()));
+        app()->setLocale($locale ?? session()->get('lang.locale', app()->getLocale()));
+
         return $next($request);
     }
 }

@@ -172,21 +172,21 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.registrar.index') }}" @class([
+                        <a href="{{ route('resources.registrar.index') }}" @class([
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' => !str(
                                 request()->url()
-                            )->startsWith(route('admin.registrar.index')),
+                            )->startsWith(route('resources.registrar.index')),
                             'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
                                 request()->url()
-                            )->startsWith(route('admin.registrar.index')),
+                            )->startsWith(route('resources.registrar.index')),
                         ])>
                             <svg @class([
                                 'w-6 h-6 transition',
                                 'text-gray-700 dark:text-white' => !str(request()->url())->startsWith(
-                                    route('admin.registrar.index')
+                                    route('resources.registrar.index')
                                 ),
-                                '' => str(request()->url())->startsWith(route('admin.registrar.index')),
+                                '' => str(request()->url())->startsWith(route('resources.registrar.index')),
                             ]) fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -197,18 +197,18 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.faculty.show') }}" @class([
+                        <a href="{{ route('admin.faculty.index') }}" @class([
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
-                                request()->url() != route('admin.faculty.show'),
+                                request()->url() != route('admin.faculty.index'),
                             'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
-                                request()->url() == route('admin.faculty.show'),
+                                request()->url() == route('admin.faculty.index'),
                         ])>
                             <svg @class([
                                 'w-6 h-6 transition',
                                 'text-gray-700 dark:text-white' =>
-                                    request()->url() != route('admin.faculty.show'),
-                                '' => request()->url() == route('admin.faculty.show'),
+                                    request()->url() != route('admin.faculty.index'),
+                                '' => request()->url() == route('admin.faculty.index'),
                             ]) fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -245,18 +245,18 @@
                 </ul>
                 <ul class="pt-4 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700 capitalize">
                     <li>
-                        <a href="{{ route('admin.archive.show') }}" @class([
+                        <a href="{{ route('admin.empty.show') }}" @class([
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
-                                request()->url() != route('admin.archive.show'),
+                                request()->url() != route('admin.empty.show'),
                             'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
-                                request()->url() == route('admin.archive.show'),
+                                request()->url() == route('admin.empty.show'),
                         ])>
                             <svg @class([
                                 'w-6 h-6 transition',
                                 'text-gray-700 dark:text-white' =>
-                                    request()->url() != route('admin.archive.show'),
-                                '' => request()->url() == route('admin.archive.show'),
+                                    request()->url() != route('admin.empty.show'),
+                                '' => request()->url() == route('admin.empty.show'),
                             ]) fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -266,28 +266,7 @@
                             <span class="ml-3">{{ __('archive') }}</span>
                         </a>
                     </li>
-                    {{-- <li>
-                        <a href="{{ route('admin.student.show') }}" @class([
-                            'flex items-center p-2 text-base font-normal rounded-lg',
-                            'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
-                                request()->url() != route('admin.student.show'),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
-                                request()->url() == route('admin.student.show'),
-                        ])>
-                            <svg @class([
-                                'w-6 h-6 transition',
-                                'text-gray-700 dark:text-white' =>
-                                    request()->url() != route('admin.student.show'),
-                                '' => request()->url() == route('admin.student.show'),
-                            ]) fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                            </svg>
-                            <span class="ml-3">{{ __('administrator') }}</span>
-                        </a>
-                    </li> --}}
-                    {{-- <li>
+                    <li>
                         <a href="{{ route('admin.logout.perform') }}" @class([
                             'flex items-center p-2 text-base font-normal rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700',
                         ])>
@@ -299,7 +278,7 @@
                             </svg>
                             <span class="ml-3">Logout</span>
                         </a>
-                    </li> --}}
+                    </li>
                 </ul>
                 <div id="dropdown-cta" class="p-4 mt-4 bg-blue-50 rounded-lg dark:bg-blue-900" role="alert">
                     <div class="flex items-center mb-3">
@@ -326,18 +305,18 @@
                 <div class="flex-grow"></div>
                 <ul class="pt-4 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
                     <li>
-                        <a href="{{ route('admin.about.show') }}" @class([
+                        <a href="{{ route('admin.empty.show') }}" @class([
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
-                                request()->url() != route('admin.about.show'),
+                                request()->url() != route('admin.empty.show'),
                             'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
-                                request()->url() == route('admin.about.show'),
+                                request()->url() == route('admin.empty.show'),
                         ])>
                             <svg @class([
                                 'w-6 h-6 transition',
                                 'text-gray-700 dark:text-white' =>
-                                    request()->url() != route('admin.about.show'),
-                                '' => request()->url() == route('admin.about.show'),
+                                    request()->url() != route('admin.empty.show'),
+                                '' => request()->url() == route('admin.empty.show'),
                             ]) fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -434,7 +413,7 @@
                 </button>
 
                 <button id="LangButton" data-dropdown-toggle="Lang"
-                    class="grid place-content-center gap-2 h-full aspect-square text-sm text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-600 hover:text-blue-600 dark:hover:text-blue-500 rounded-lg">
+                    class="grid place-content-center gap-2 h-10 aspect-square text-sm text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-600 hover:text-blue-600 dark:hover:text-blue-500 rounded-lg">
                     <span class="sr-only">Open language menu</span>
                     <div class="p-2.5">
                         <div class="font-medium uppercase">{{ App::getLocale() }}</div>
@@ -492,11 +471,11 @@
                                 class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.dashboard.show') }}"
+                            <a href="{{ route('admin.notification.show') }}"
                                 class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Notifications</a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.dashboard.show') }}"
+                            <a href="{{ route('admin.empty.show') }}"
                                 class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
                         </li>
                     </ul>

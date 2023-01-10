@@ -25,8 +25,8 @@ class UpdateStudentRequest extends FormRequest
     {
         return [
             '_id' => 'required|integer|bail',
-            'photo' => "sometimes|required|image|max:2048",
-            'name' => "required|string",
+            'photo' => 'sometimes|required|image|max:2048',
+            'name' => 'required|string',
             'nim' => 'required|size:11|unique:students,nim,'.$this->input('_id'),
             'email' => 'required|email|unique:students,email,'.$this->input('_id'),
             'password' => 'exclude_if:password,null|required|string|confirmed',

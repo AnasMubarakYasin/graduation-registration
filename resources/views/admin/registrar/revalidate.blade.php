@@ -1,7 +1,0 @@
-@extends('layouts.admin.panel', ['content_card' => true])
-
-@section('title', __('validate'))
-
-@section('content')
-   
-@endsection

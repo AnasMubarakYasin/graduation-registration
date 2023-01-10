@@ -24,8 +24,8 @@ class StoreStudentRequest extends FormRequest
     public function rules()
     {
         return [
-            'photo' => "required|image|max:2048",
-            'name' => "required|string",
+            'photo' => 'required|image|max:2048',
+            'name' => 'required|string',
             'nim' => 'required|size:11|unique:students,nim',
             'email' => 'required|email|unique:students,email',
             'password' => 'required|string|confirmed',

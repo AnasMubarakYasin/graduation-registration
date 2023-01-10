@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Exceptions\RegistrarStatusException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 enum RegistrarStatus: string
@@ -30,17 +31,22 @@ class Registrar extends Model
             'validated' => __('validated'),
         ];
     }
+
     public static function stats_status()
     {
         $quota = Quota::get_first_open();
-        if (!$quota) return null;
+        if (!$quota) {
+            return null;
+        }
         $result = ['validate' => 0, 'revision' => 0, 'revalidate' => 0, 'validated' => 0];
         $result['validate'] = $quota->registrars()->get()->where('status', RegistrarStatus::Validate->value)->count();
         $result['revision'] = $quota->registrars()->get()->where('status', RegistrarStatus::Revision->value)->count();
         $result['revalidate'] = $quota->registrars()->get()->where('status', RegistrarStatus::Revalidate->value)->count();
         $result['validated'] = $quota->registrars()->get()->where('status', RegistrarStatus::Validated->value)->count();
+
         return $result;
     }
+
     /** @return Registrar|null */
     public static function get_by_user(Student $user)
     {
@@ -81,6 +87,7 @@ class Registrar extends Model
         'study_program',
         'ipk',
     ];
+
     public $file_field = [
         'munaqasyah',
         'school_certificate',
@@ -93,18 +100,22 @@ class Registrar extends Model
     {
         return $this->status == RegistrarStatus::Create->value;
     }
+
     public function getIsValidateAttribute()
     {
         return $this->status == RegistrarStatus::Validate->value;
     }
+
     public function getIsRevisionAttribute()
     {
         return $this->status == RegistrarStatus::Revision->value;
     }
+
     public function getIsRevalidateAttribute()
     {
         return $this->status == RegistrarStatus::Revalidate->value;
     }
+
     public function getIsValidatedAttribute()
     {
         return $this->status == RegistrarStatus::Validated->value;
@@ -119,12 +130,17 @@ class Registrar extends Model
                 Storage::delete($this->attributes['photo']);
             }
             $path = $this->id ? "$this->id" : 'temp';
-            $this->attributes['photo'] = Storage::put("public/registrar/$path", $value, 'public');
+            $this->attributes['photo'] = Storage::put("registrar/$path", $value);
         }
     }
+
     public function getPhotoUrlAttribute()
     {
-        return Storage::url($this->photo);
+        if (Str::of($this->photo)->startsWith('http')) {
+            return $this->photo;
+        } else {
+            return Storage::url($this->photo);
+        }
     }
 
     public function setMunaqasyahAttribute($value)
@@ -136,12 +152,17 @@ class Registrar extends Model
                 Storage::delete($this->attributes['munaqasyah']);
             }
             $path = $this->id ? "$this->id" : 'temp';
-            $this->attributes['munaqasyah'] = Storage::put("public/registrar/$path", $value, 'public');
+            $this->attributes['munaqasyah'] = Storage::put("registrar/$path", $value);
         }
     }
+
     public function getMunaqasyahUrlAttribute()
     {
-        return Storage::url($this->munaqasyah);
+        if (Str::of($this->munaqasyah)->startsWith('http')) {
+            return $this->munaqasyah;
+        } else {
+            return Storage::url($this->munaqasyah);
+        }
     }
 
     public function setSchoolCertificateAttribute($value)
@@ -153,12 +174,17 @@ class Registrar extends Model
                 Storage::delete($this->attributes['school_certificate']);
             }
             $path = $this->id ? "$this->id" : 'temp';
-            $this->attributes['school_certificate'] = Storage::put("public/registrar/$path", $value, 'public');
+            $this->attributes['school_certificate'] = Storage::put("registrar/$path", $value);
         }
     }
+
     public function getSchoolCertificateUrlAttribute()
     {
-        return Storage::url($this->school_certificate);
+        if (Str::of($this->school_certificate)->startsWith('http')) {
+            return $this->school_certificate;
+        } else {
+            return Storage::url($this->school_certificate);
+        }
     }
 
     public function setKkAttribute($value)
@@ -170,12 +196,17 @@ class Registrar extends Model
                 Storage::delete($this->attributes['kk']);
             }
             $path = $this->id ? "$this->id" : 'temp';
-            $this->attributes['kk'] = Storage::put("public/registrar/$path", $value, 'public');
+            $this->attributes['kk'] = Storage::put("registrar/$path", $value);
         }
     }
+
     public function getKkUrlAttribute()
     {
-        return Storage::url($this->kk);
+        if (Str::of($this->kk)->startsWith('http')) {
+            return $this->kk;
+        } else {
+            return Storage::url($this->kk);
+        }
     }
 
     public function setKtpAttribute($value)
@@ -187,12 +218,17 @@ class Registrar extends Model
                 Storage::delete($this->attributes['ktp']);
             }
             $path = $this->id ? "$this->id" : 'temp';
-            $this->attributes['ktp'] = Storage::put("public/registrar/$path", $value, 'public');
+            $this->attributes['ktp'] = Storage::put("registrar/$path", $value);
         }
     }
+
     public function getKtpUrlAttribute()
     {
-        return Storage::url($this->ktp);
+        if (Str::of($this->ktp)->startsWith('http')) {
+            return $this->ktp;
+        } else {
+            return Storage::url($this->ktp);
+        }
     }
 
     public function setSpuktAttribute($value)
@@ -204,18 +240,24 @@ class Registrar extends Model
                 Storage::delete($this->attributes['spukt']);
             }
             $path = $this->id ? "$this->id" : 'temp';
-            $this->attributes['spukt'] = Storage::put("public/registrar/$path", $value, 'public');
+            $this->attributes['spukt'] = Storage::put("registrar/$path", $value);
         }
     }
+
     public function getSpuktUrlAttribute()
     {
-        return Storage::url($this->spukt);
+        if (Str::of($this->spukt)->startsWith('http')) {
+            return $this->spukt;
+        } else {
+            return Storage::url($this->spukt);
+        }
     }
 
     public function quota()
     {
         return $this->belongsTo(Quota::class, 'quota_id');
     }
+
     public function student()
     {
         return $this->belongsTo(Student::class, 'student_id');
@@ -226,8 +268,10 @@ class Registrar extends Model
         $result = ['biodata' => 0, 'file' => 0, 'data' => $this->toArray()];
         $result['biodata'] = $this->check_biodata();
         $result['file'] = $this->check_file();
+
         return $result;
     }
+
     public function check()
     {
         $result = ['biodata' => 0, 'file' => 0];
@@ -237,7 +281,7 @@ class Registrar extends Model
             if ($this->is_revision) {
                 $this->status = RegistrarStatus::Revalidate->value;
                 $this->saveQuietly();
-            } else if ($this->is_create) {
+            } elseif ($this->is_create) {
                 $this->status = RegistrarStatus::Validate->value;
                 $this->saveQuietly();
             }
@@ -249,26 +293,35 @@ class Registrar extends Model
         } else {
             throw new RegistrarStatusException("invalid status: {$this->status}", 400);
         }
+
         return $result;
     }
+
     public function check_biodata()
     {
         $count = 0;
         $length = count($this->biodata_field);
         foreach ($this->biodata_field as $field) {
-            if (!$this->getAttribute($field)) continue;
+            if (!$this->getAttribute($field)) {
+                continue;
+            }
             $count++;
         }
+
         return $count / $length * 100;
     }
+
     public function check_file()
     {
         $count = 0;
         $length = count($this->file_field);
         foreach ($this->file_field as $field) {
-            if (!$this->getAttribute($field)) continue;
+            if (!$this->getAttribute($field)) {
+                continue;
+            }
             $count++;
         }
+
         return $count / $length * 100;
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Admin;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreQuotaRequest extends FormRequest
@@ -14,9 +13,7 @@ class StoreQuotaRequest extends FormRequest
      */
     public function authorize()
     {
-        /** @var Admin */
-        $user = auth('admin')->user();
-        return $user->is_administrator;
+        return true;
     }
 
     /**
@@ -31,7 +28,7 @@ class StoreQuotaRequest extends FormRequest
             'quota' => 'required|integer',
             'status' => 'required|in:open,close',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|gte:start_date'
+            'end_date' => 'required|date|gte:start_date',
         ];
     }
 }

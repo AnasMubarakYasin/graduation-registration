@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Administrator;
+use App\Models\Operator;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +20,28 @@ class ViewShare
      */
     public function handle(Request $request, Closure $next)
     {
-        View::share('user', Auth::user());
+        $user = Auth::user();
+        View::share('user', $user);
+
+        $layout = "layouts.empty";
+
+        switch ($user::class) {
+            case Administrator::class:
+                $layout = 'layouts.admin.panel';
+                break;
+            case Operator::class:
+                if ($user->is_academic) {
+                    $layout = 'layouts.operator.academic.panel';
+                } else {
+                    $layout = 'layouts.operator.faculty.panel';
+                }
+                break;
+            default:
+                break;
+        }
+
+        View::share('layout', $layout);
+
         return $next($request);
     }
 }

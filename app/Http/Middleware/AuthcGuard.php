@@ -18,6 +18,7 @@ class AuthcGuard
     public function handle(Request $request, Closure $next, string $guard)
     {
         Auth::shouldUse($guard);
+
         return $next($request);
     }
 }

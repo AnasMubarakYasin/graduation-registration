@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
+use App\Models\Administrator;
 use App\Models\Student;
-use App\Models\Admin;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class StudentPolicy
@@ -13,10 +13,10 @@ class StudentPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\Admin  $user
+     * @param  \App\Models\Administrator  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(Admin $user)
+    public function viewAny(Administrator $user)
     {
         return $user->is_administrator;
     }
@@ -24,11 +24,11 @@ class StudentPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\Admin  $user
+     * @param  \App\Models\Administrator  $user
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(Admin $user, Student $student)
+    public function view(Administrator $user, Student $student)
     {
         return $user->is_administrator;
     }
@@ -36,10 +36,10 @@ class StudentPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\Admin  $user
+     * @param  \App\Models\Administrator  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(Admin $user)
+    public function create(Administrator $user)
     {
         return $user->is_administrator;
     }
@@ -47,11 +47,11 @@ class StudentPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\Admin  $user
+     * @param  \App\Models\Administrator  $user
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(Admin $user, Student $student)
+    public function update(Administrator $user, Student $student)
     {
         return $user->is_administrator;
     }
@@ -59,11 +59,11 @@ class StudentPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\Admin  $user
+     * @param  \App\Models\Administrator  $user
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(Admin $user, Student $student)
+    public function delete(Administrator $user, Student $student)
     {
         return $user->is_administrator;
     }
@@ -71,11 +71,11 @@ class StudentPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \App\Models\Admin  $user
+     * @param  \App\Models\Administrator  $user
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(Admin $user, Student $student)
+    public function restore(Administrator $user, Student $student)
     {
         return $user->is_administrator;
     }
@@ -83,11 +83,11 @@ class StudentPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \App\Models\Admin  $user
+     * @param  \App\Models\Administrator  $user
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(Admin $user, Student $student)
+    public function forceDelete(Administrator $user, Student $student)
     {
         return $user->is_administrator;
     }

@@ -25,7 +25,7 @@ class UpdateRegistrarRequest extends FormRequest
     public function rules()
     {
         return [
-            'status' => 'nullable|string|in:' . implode(',', array_keys(Registrar::list_status())),
+            'status' => 'nullable|string|in:'.implode(',', array_keys(Registrar::list_status())),
             'comment' => 'nullable|string',
 
             'photo' => 'nullable|image|max:2048',

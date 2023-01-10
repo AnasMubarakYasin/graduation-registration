@@ -27,12 +27,16 @@
                 <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
             @else
                 <a href="{{ route('student.login.show') }}"
-                    class="mx-2 text-sm text-gray-700 dark:text-gray-500 underline">Log
-                    in Student</a>
+                    class="mx-2 text-sm text-gray-700 dark:text-gray-500 underline">Student</a>
+                |
+                <a href="{{ route('operator.login.show') }}"
+                    class="mx-2 text-sm text-gray-700 dark:text-gray-500 underline">Operator Faculty</a>
+                |
+                <a href="{{ route('operator.login.show') }}"
+                    class="mx-2 text-sm text-gray-700 dark:text-gray-500 underline">Operator Academic</a>
                 |
                 <a href="{{ route('admin.login.show') }}"
-                    class="mx-2 text-sm text-gray-700 dark:text-gray-500 underline">Log in
-                    Administrator</a>
+                    class="mx-2 text-sm text-gray-700 dark:text-gray-500 underline">Administrator</a>
             @endauth
         </div>
 

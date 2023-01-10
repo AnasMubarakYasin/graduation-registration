@@ -76,7 +76,7 @@
                             <span class="ml-3">Biodata</span>
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('student.data.show') }}" @class([
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
@@ -97,7 +97,7 @@
                             </svg>
                             <span class="ml-3">Academic</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a href="{{ route('student.file.show') }}" @class([
                             'flex items-center p-2 text-base font-normal rounded-lg',

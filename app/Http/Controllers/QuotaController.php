@@ -16,6 +16,7 @@ class QuotaController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Quota::class);
+
         return view('admin.quota.index', ['data' => Quota::all()]);
     }
 
@@ -40,6 +41,7 @@ class QuotaController extends Controller
         $this->authorize('create', Quota::class);
         $data = $request->validated();
         $quota = Quota::create($data);
+
         return to_route('admin.quota.index');
     }
 
@@ -77,6 +79,7 @@ class QuotaController extends Controller
         $this->authorize('update', $quota);
         $data = $request->validated();
         $quota->update($data);
+
         return to_route('admin.quota.index');
     }
 
@@ -90,6 +93,7 @@ class QuotaController extends Controller
     {
         $this->authorize('delete', $quota);
         $quota->delete();
+
         return to_route('admin.quota.index');
     }
 }
