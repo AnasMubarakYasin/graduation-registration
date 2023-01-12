@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Models\Administrator;
-use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AdministratorPolicy
@@ -13,22 +12,22 @@ class AdministratorPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Administrator  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(Administrator $user)
     {
-        //
+        return $user->is_super_administrator || $user->is_administrator;
     }
 
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Administrator  $user
      * @param  \App\Models\Administrator  $administrator
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Administrator $administrator)
+    public function view(Administrator $user, Administrator $administrator)
     {
         //
     }
@@ -36,46 +35,46 @@ class AdministratorPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Administrator  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(Administrator $user)
     {
-        //
+        return $user->is_super_administrator || $user->is_administrator;
     }
 
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Administrator  $user
      * @param  \App\Models\Administrator  $administrator
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Administrator $administrator)
+    public function update(Administrator $user, Administrator $administrator)
     {
-        //
+        return $user->is_super_administrator || $user->is_administrator;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Administrator  $user
      * @param  \App\Models\Administrator  $administrator
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Administrator $administrator)
+    public function delete(Administrator $user, Administrator $administrator)
     {
-        //
+        return $user->is_super_administrator || $user->is_administrator;
     }
 
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Administrator  $user
      * @param  \App\Models\Administrator  $administrator
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Administrator $administrator)
+    public function restore(Administrator $user, Administrator $administrator)
     {
         //
     }
@@ -83,11 +82,11 @@ class AdministratorPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Administrator  $user
      * @param  \App\Models\Administrator  $administrator
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Administrator $administrator)
+    public function forceDelete(Administrator $user, Administrator $administrator)
     {
         //
     }

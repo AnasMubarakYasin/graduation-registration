@@ -60,9 +60,11 @@ class DatabaseSeeder extends Seeder
             'password' => 'student',
         ]);
 
-        $quota = Quota::factory();
+        $quota = Quota::factory()->create();
         foreach (range(1, 30) as $_) {
-            Registrar::factory()->for($quota)->for(Student::factory())->create();
+            Registrar::factory()->for(Student::factory())->create([
+                'quota_id' => $quota->id,
+            ]);
         }
 
         Faculty::factory()->create([

@@ -1,11 +1,16 @@
-@extends($layout, ['content_card' => false])
+@extends('layouts.admin.panel', ['content_card' => false])
 
-@section('title', __('list of registrar'))
+@section('title', __('list of administrator'))
+@section('head')
+    @vite('resources/js/admin/user/administrator/index.js')
+@endsection
+@section('body')
+@endsection
 
 @section('content')
     <div class="pb-4">
         <div class="flex gap-2 items-center">
-            <a href="{{ route('resources.registrar.create') }}"
+            <a href="{{ route('admin.user.administrator.create') }}"
                 class="text-sm p-1.5 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-800 dark:border-gray-600">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6">
@@ -21,8 +26,8 @@
                     </path>
                 </svg>
             </button>
-            @if (request()->query('filter'))
-                <a href="{{ route('resources.registrar.index') }}"
+            @if (request()->query('sort') || request()->query('filter'))
+                <a href="{{ route('admin.user.administrator.index') }}"
                     class="text-sm p-1.5 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-800 dark:border-gray-600">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">
@@ -31,75 +36,96 @@
                     </svg>
                 </a>
             @endif
-            <button id="column_btn"
+            <button id="columns_btn" data-dropdown-toggle="columns"
                 class="text-sm p-1.5 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-800 dark:border-gray-600">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-6 h-6">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125z" />
+                        d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
                 </svg>
             </button>
+            <form id="columns" action="{{ route('admin.user.administrator.index') }}"
+                class="z-10 w-40 hidden bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600">
+                <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="columns_btn">
+                    <li>
+                        <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <label class="relative inline-flex items-center w-full cursor-pointer">
+                                <input type="checkbox" name="columns[]" value="name" @checked(in_array('name', $columns))
+                                    class="sr-only peer">
+                                <div
+                                    class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-blue-600">
+                                </div>
+                                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 capitalize">
+                                    {{ __('name') }}
+                                </span>
+                            </label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <label class="relative inline-flex items-center w-full cursor-pointer">
+                                <input type="checkbox" name="columns[]" value="role" @checked(in_array('role', $columns))
+                                    class="sr-only peer">
+                                <div
+                                    class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-blue-600">
+                                </div>
+                                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 capitalize">
+                                    {{ __('role') }}
+                                </span>
+                            </label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <label class="relative inline-flex items-center w-full cursor-pointer">
+                                <input type="checkbox" name="columns[]" value="email" @checked(in_array('email', $columns))
+                                    class="sr-only peer">
+                                <div
+                                    class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-blue-600">
+                                </div>
+                                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 capitalize">
+                                    {{ __('email') }}
+                                </span>
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+                <div class="grid px-4 py-2 w-full">
+                    <button
+                        class="px-4 py-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 capitalize">
+                        {{ __('apply') }}
+                    </button>
+                </div>
+            </form>
+
         </div>
     </div>
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <table id="table" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="p-4">
                         <div class="flex items-center">
-                            <input id="checkbox-all" type="checkbox"
+                            <input id="checkbox_all" type="checkbox"
                                 class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-600 dark:border-gray-600">
-                            <label for="checkbox-all" class="sr-only">checkbox</label>
+                            <label for="checkbox_all" class="sr-only">checkbox</label>
                         </div>
                     </th>
-                    <th scope="col" class="text-base py-3 px-6 capitalize">
-                        <div class="flex items-center">
-                            {{ __('name') }}
-                            <a href="">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3" aria-hidden="true"
-                                    fill="currentColor" viewBox="0 0 320 512">
-                                    <path
-                                        d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
-                                </svg>
-                            </a>
-                        </div>
-                    </th>
-                    <th scope="col" class="text-base py-3 px-6 capitalize">
-                        <div class="flex items-center">
-                            {{ __('NIM') }}
-                            <a href="">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3" aria-hidden="true"
-                                    fill="currentColor" viewBox="0 0 320 512">
-                                    <path
-                                        d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
-                                </svg>
-                            </a>
-                        </div>
-                    </th>
-                    <th scope="col" class="flex justify-center text-base text-center py-3 px-6 capitalize">
-                        <div class="flex items-center">
-                            {{ __('study program') }}
-                            <a href="">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3" aria-hidden="true"
-                                    fill="currentColor" viewBox="0 0 320 512">
-                                    <path
-                                        d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
-                                </svg>
-                            </a>
-                        </div>
-                    </th>
-                    <th scope="col" class="text-base py-3 px-6 capitalize">
-                        <div class="flex items-center justify-center">
-                            {{ __('status') }}
-                            <a href="">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3" aria-hidden="true"
-                                    fill="currentColor" viewBox="0 0 320 512">
-                                    <path
-                                        d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
-                                </svg>
-                            </a>
-                        </div>
-                    </th>
+                    @foreach ($columns as $column)
+                        <th scope="col" class="text-base py-3 px-6 capitalize">
+                            <div class="flex items-center">
+                                {{ __($column) }}
+                                <a
+                                    href="{{ request()->fullUrlWithQuery(['sort' => 'on', 's_' . $column => request()->query('s_' . $column, 'desc') == 'desc' ? 'asc' : 'desc']) }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3" aria-hidden="true"
+                                        fill="currentColor" viewBox="0 0 320 512">
+                                        <path
+                                            d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </th>
+                    @endforeach
                     <th scope="col" class="text-base text-center py-3 px-6 capitalize">
                         {{ __('action') }}
                     </th>
@@ -111,41 +137,18 @@
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <td class="p-4 w-4">
                             <div class="flex items-center">
-                                <input id="checkbox-table-1" type="checkbox"
+                                <input id="checkbox_{{ $loop->index }}" type="checkbox"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="checkbox-table-1" class="sr-only">checkbox</label>
+                                <label for="checkbox_{{ $loop->index }}" class="sr-only">checkbox</label>
                             </div>
                         </td>
-                        <td class="py-4 px-6 text-gray-900 dark:text-white whitespace-nowrap">
-                            {{ $item['name'] }}
-                        </td>
-                        <td class="py-4 px-6 text-gray-900 dark:text-white whitespace-nowrap">
-                            {{ $item['nim'] }}
-                        </td>
-                        <td class="py-4 px-6 text-center text-gray-900 dark:text-white whitespace-nowrap">
-                            {{ $item['study_program'] }}
-                        </td>
-                        <td class="py-4 px-6 text-gray-900 dark:text-white whitespace-nowrap">
-                            <div class="flex justify-center w-full">
-                                <div
-                                    class="px-2.5 py-1.5 bg-gray-200 text-gray-900 text-sm font-medium mr-2 rounded dark:bg-gray-700 dark:text-gray-50">
-                                    {{ __($item['status']) }}
-                                </div>
-                            </div>
-                        </td>
+                        @foreach ($columns as $column)
+                            <td class="py-4 px-6 text-gray-900 dark:text-white whitespace-nowrap">
+                                {{ $item[$column] }}
+                            </td>
+                        @endforeach
                         <td class="flex justify-center gap-2 py-4 px-6 capitalize">
-                            <a id="edt_btn"
-                                href="{{ route('resources.registrar.show_validate', ['registrar' => $item]) }}"
-                                class="p-2 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z">
-                                    </path>
-                                </svg>
-                                <span class="sr-only">Edit Item</span>
-                            </a>
-                            <a id="edt_btn" href="{{ route('resources.registrar.edit', ['registrar' => $item]) }}"
+                            <a id="edit_btn" href="{{ route('admin.user.administrator.edit', ['administrator' => $item]) }}"
                                 class="p-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -244,7 +247,6 @@
                         </button>
                     @endif
                 </li>
-                {{-- @dump((int) floor($data->total() / $data->perPage())) --}}
                 @if ($count = (int) floor($data->total() / $data->perPage()))
                     @foreach (range(1, $count) as $item)
                         <li>
@@ -292,7 +294,7 @@
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center p-4 w-full md:inset-0 h-modal md:h-full">
         <div class="relative w-full max-w-2xl h-full md:h-auto">
             <!-- Modal content -->
-            <form action="{{ route('resources.registrar.index') }}"
+            <form action="{{ route('admin.user.administrator.index') }}"
                 class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                 <!-- Modal header -->
                 <div class="flex justify-between items-center px-6 py-3 rounded-t border-b dark:border-gray-600">
@@ -323,71 +325,31 @@
                         @enderror
                     </div>
                     <div class="flex flex-col gap-2">
-                        <label for="f_nim" class="text-sm font-medium text-gray-900 dark:text-white capitalize">
-                            {{ __('NIM') }}
-                        </label>
-                        <input type="text" id="f_nim" name="f_nim" value="{{ request()->query('f_nim') }}"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Your NIM">
-                        @error('f_nim')
-                            <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="flex flex-col gap-2">
-                        <label for="f_faculty" class="text-sm font-medium text-gray-900 dark:text-white capitalize">
-                            {{ __('faculty') }}
-                        </label>
-                        <select id="f_faculty" name="f_faculty"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            @if (!request()->query('f_faculty'))
-                                <option selected>Choose a Faculty</option>
-                            @endif
-                            @foreach (App\Models\Faculty::all() as $faculty)
-                                <option @selected(request()->query('f_faculty') == $faculty->name) value="{{ $faculty->name }}">
-                                    {{ $faculty->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('f_faculty')
-                            <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="flex flex-col gap-2">
-                        <label for="f_study_program" class="text-sm font-medium text-gray-900 dark:text-white capitalize">
-                            {{ __('study program') }}
-                        </label>
-                        <select id="f_study_program" name="f_study_program"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            @if (!request()->query('f_study_program'))
-                                <option selected>Choose a Study Program</option>
-                            @endif
-                            @foreach (App\Models\Faculty::all() as $faculty)
-                                @foreach ($faculty->departments as $department)
-                                    <option @selected(request()->query('f_study_program') == $department) value="{{ $department }}">
-                                        {{ $department }}
-                                    </option>
-                                @endforeach
-                            @endforeach
-                        </select>
-                        @error('f_study_program')
-                            <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="flex flex-col gap-2">
-                        <label for="f_status" class="text-sm font-medium text-gray-900 dark:text-white">
+                        <label for="f_role" class="text-sm font-medium text-gray-900 dark:text-white">
                             Status
                         </label>
-                        <select id="f_status" name="f_status"
+                        <select id="f_role" name="f_role"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            @if (!request()->query('f_status'))
-                                <option selected value="">Choose a Status</option>
+                            @if (!request()->query('f_role'))
+                                <option selected value="">Choose a Role</option>
                             @endif
-                            @foreach (App\Models\Registrar::list_status() as $key => $value)
-                                <option @selected($key == request()->query('f_status')) value="{{ $key }}" class="capitalize">
+                            @foreach (App\Models\AdministratorRole::to_array() as $key => $value)
+                                <option @selected($key == request()->query('f_role')) value="{{ $key }}" class="capitalize">
                                     {{ $value }}</option>
                             @endforeach
                         </select>
-                        @error('f_status')
+                        @error('f_role')
+                            <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label for="f_email" class="text-sm font-medium text-gray-900 dark:text-white capitalize">
+                            {{ __('email') }}
+                        </label>
+                        <input type="text" id="f_email" name="f_email" value="{{ request()->query('f_email') }}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Your Email">
+                        @error('f_email')
                             <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                         @enderror
                     </div>

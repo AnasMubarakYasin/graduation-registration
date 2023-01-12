@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAdministratorRequest;
 use App\Http\Requests\UpdateAdministratorRequest;
 use App\Models\Administrator;
+use Illuminate\Http\Request;
 
 class AdministratorController extends Controller
 {
@@ -13,9 +14,30 @@ class AdministratorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $this->authorize('viewAny', Administrator::class);
+        $columns = $request->query('columns', ['name', 'role', 'email']);
+        $perpage = $request->query('perpage', 5);
+        $query = Administrator::query();
+        if ($request->query('sort')) {
+            foreach ($columns as $column) {
+                if ($request->query('s_' . $column)) {
+                    $query->orderBy($column, $request->query('s_' . $column));
+                }
+            }
+        }
+        if ($request->query('filter')) {
+            $query->whereFullText('name', $request->query('f_name'))
+                ->orWhere('role', $request->query('f_role'))
+                ->orWhereFullText('email', $request->query('f_email'));
+        }
+        $paginator = $query->paginate($perpage);
+        return view('admin.administrator.index', [
+            'data' => $paginator,
+            'columns' => $columns,
+            // 'query' => $request->query ?? '',
+        ]);
     }
 
     /**
@@ -25,7 +47,7 @@ class AdministratorController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.administrator.create');
     }
 
     /**
@@ -36,7 +58,11 @@ class AdministratorController extends Controller
      */
     public function store(StoreAdministratorRequest $request)
     {
-        //
+        $this->authorize('create', Administrator::class);
+        $data = $request->validated();
+        $administrator = Administrator::create($data);
+
+        return to_route('admin.user.administrator.index');
     }
 
     /**
@@ -58,7 +84,7 @@ class AdministratorController extends Controller
      */
     public function edit(Administrator $administrator)
     {
-        //
+        return view('admin.administrator.edit', ['data' => $administrator]);
     }
 
     /**
@@ -70,7 +96,11 @@ class AdministratorController extends Controller
      */
     public function update(UpdateAdministratorRequest $request, Administrator $administrator)
     {
-        //
+        $this->authorize('update', $administrator);
+        $data = $request->validated();
+        $administrator->update($data);
+
+        return to_route('admin.user.administrator.index');
     }
 
     /**

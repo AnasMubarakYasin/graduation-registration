@@ -91,6 +91,10 @@ Route::middleware(['authc.basic:welcome,administrator'])->group(function () {
         Route::get('admin/faculty', 'FacultyController@index')->name('admin.faculty.index');
         Route::get('admin/faculty/create', 'FacultyController@create')->name('admin.faculty.create');
         Route::get('admin/faculty/{faculty}/edit', 'FacultyController@edit')->name('admin.faculty.edit');
+
+        Route::get('admin/user/administrator', 'AdministratorController@index')->name('admin.user.administrator.index');
+        Route::get('admin/user/administrator/create', 'AdministratorController@create')->name('admin.user.administrator.create');
+        Route::get('admin/user/administrator/{administrator}/edit', 'AdministratorController@edit')->name('admin.user.administrator.edit');
     });
     Route::post('admin/quota', 'QuotaController@store')->name('admin.quota.store');
     Route::patch('admin/quota/{quota}', 'QuotaController@update')->name('admin.quota.update');
@@ -103,10 +107,13 @@ Route::middleware(['authc.basic:welcome,administrator'])->group(function () {
     Route::post('admin/faculty', 'FacultyController@store')->name('admin.faculty.store');
     Route::patch('admin/faculty/{faculty}', 'FacultyController@update')->name('admin.faculty.update');
     Route::delete('admin/faculty/{faculty}', 'FacultyController@destroy')->name('admin.faculty.destroy');
+
+    Route::post('admin/user/administrator', 'AdministratorController@store')->name('admin.user.administrator.store');
+    Route::patch('admin/user/administrator/{administrator}', 'AdministratorController@update')->name('admin.user.administrator.update');
 });
 
 Route::middleware(['authc.basic:welcome,administrator,operator'])->group(function () {
-    Route::middleware('view.share')->group(function () {
+    Route::middleware(['use.locale', 'view.share'])->group(function () {
         Route::get('resources/registrar', 'RegistrarController@index')->name('resources.registrar.index');
         Route::get('resources/registrar/create', 'RegistrarController@create')->name('resources.registrar.create');
         Route::get('resources/registrar/{registrar}/edit', 'RegistrarController@edit')->name('resources.registrar.edit');

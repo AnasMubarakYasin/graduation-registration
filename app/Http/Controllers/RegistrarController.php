@@ -10,6 +10,7 @@ use App\Models\Quota;
 use App\Models\Registrar;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RegistrarController extends Controller
 {
@@ -20,11 +21,25 @@ class RegistrarController extends Controller
      */
     public function index(Request $request)
     {
-        $perpage = $request->query('perpage', 5);
-        // $paginator = Registrar::paginate($perpage);
-        // dd($paginator->links());
         $this->authorize('viewAny', Registrar::class);
-        return view('resources.registrar.index', ['data' => Registrar::paginate($perpage)]);
+        $column = $request->query('column');
+        $perpage = $request->query('perpage', 5);
+        if ($request->query('filter')) {
+            $paginator = Registrar::whereFullText('name', $request->query('f_name'))
+                ->orWhere('nim', $request->query('f_nim'))
+                ->orWhere('status', $request->query('f_status'))
+                ->orWhere('faculty', $request->query('f_faculty'))
+                ->orWhere('study_program', $request->query('f_study_program'))
+                ->paginate($perpage);
+            // $paginator = Registrar::where('nim', $request->query('f_nim'))
+            //     ->paginate($perpage);
+        } else {
+            $paginator = Registrar::paginate($perpage);
+        }
+        // DB::table('')->whereFullText()->orWhere()
+        // $paginator = Registrar::paginate($perpage);
+        // dd($paginator);
+        return view('resources.registrar.index', ['data' => $paginator]);
     }
 
     /**
@@ -49,6 +64,7 @@ class RegistrarController extends Controller
      */
     public function store(StoreRegistrarRequest $request)
     {
+        $this->authorize('create', Registrar::class);
         $quota = Quota::get_first_open();
         if (!$quota) {
             throw new CreateRegistrarException('create registrar where not any quota open', 400);

@@ -21,17 +21,17 @@ class AdministratorController extends Controller
 
     public function profile_show()
     {
-        return view('admin.profile', []);
+        return view('admin.profile');
     }
 
     public function notification_show()
     {
-        return view('admin.notification', []);
+        return view('admin.notification');
     }
 
     public function empty_show()
     {
-        return view('admin.empty', []);
+        return view('admin.empty');
     }
 
     public function registrar_validate_show()
@@ -41,26 +41,26 @@ class AdministratorController extends Controller
 
     public function quota_list_show()
     {
-        return view('admin.quota.list', []);
+        return view('admin.quota.list');
     }
 
     public function quota_create_show()
     {
-        return view('admin.quota.create', []);
+        return view('admin.quota.create');
     }
 
     public function quota_edit_show()
     {
-        return view('admin.quota.edit', []);
+        return view('admin.quota.edit');
     }
 
     public function faculty_show()
     {
-        return view('admin.faculty', []);
+        return view('admin.faculty');
     }
 
     public function student_show()
     {
-        return view('admin.student', []);
+        return view('admin.student');
     }
 }

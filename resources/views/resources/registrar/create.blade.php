@@ -33,7 +33,7 @@
                                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                        <a href="{{ route('admin.registrar.index') }}"
+                        <a href="{{ route('resources.registrar.index') }}"
                             class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">
                             Registrar
                         </a>
@@ -57,7 +57,7 @@
 
         <form
             class="grid gap-4 px-5 py-3 text-gray-700 border border-gray-200 rounded-lg bg-white dark:bg-gray-800 dark:border-gray-700"
-            action="{{ route('admin.registrar.store') }}" method="post" enctype="multipart/form-data">
+            action="{{ route('resources.registrar.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="grid sm:grid-cols-2 gap-4">
                 <div class="flex flex-col gap-2">
