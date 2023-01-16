@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateAdministratorRequest;
 use App\Models\Administrator;
 use App\Models\Quota;
 use App\Models\Registrar;
+use App\Models\Student;
 
 class AdministratorController extends Controller
 {
@@ -34,24 +35,34 @@ class AdministratorController extends Controller
         return view('admin.empty');
     }
 
-    public function registrar_validate_show()
+    public function quota_index()
     {
-        return view('admin.registrar.validate', ['data' => Registrar::all()]);
+        return view('admin.quota.index');
     }
-
-    public function quota_list_show()
-    {
-        return view('admin.quota.list');
-    }
-
-    public function quota_create_show()
+    public function quota_create()
     {
         return view('admin.quota.create');
     }
-
-    public function quota_edit_show()
+    public function quota_edit(Quota $quota)
     {
-        return view('admin.quota.edit');
+        return view('admin.quota.edit', ['quota' => $quota]);
+    }
+
+    public function registrar_index()
+    {
+        return view('admin.registrar.index');
+    }
+    public function registrar_create()
+    {
+        return view('admin.registrar.create');
+    }
+    public function registrar_edit(Registrar $registrar)
+    {
+        return view('admin.registrar.edit', ['registrar' => $registrar]);
+    }
+    public function registrar_validate(Registrar $registrar)
+    {
+        return view('admin.registrar.validate', ['registrar' => $registrar]);
     }
 
     public function faculty_show()
@@ -59,8 +70,16 @@ class AdministratorController extends Controller
         return view('admin.faculty');
     }
 
-    public function student_show()
+    public function student_index()
     {
-        return view('admin.student');
+        return view('admin.student.index');
+    }
+    public function student_create()
+    {
+        return view('admin.student.create');
+    }
+    public function student_edit(Student $student)
+    {
+        return view('admin.student.edit', ['student' => $student]);
     }
 }

@@ -68,6 +68,11 @@ class QuotaPolicy
         return $user->is_administrator;
     }
 
+    public function deleteAny(Administrator $user)
+    {
+        return $user->is_administrator;
+    }
+
     /**
      * Determine whether the user can restore the model.
      *

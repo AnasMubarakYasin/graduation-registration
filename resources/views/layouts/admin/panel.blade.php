@@ -52,27 +52,23 @@
                             <span class="ml-3">Dashboard</span>
                         </a>
                     </li>
+                    {{-- //TODO -  --}}
                     {{-- <li>
                         <button
                             data-dropdown-show="{{ str(request()->url())->startsWith(route('admin.registrar.index')) }}"
                             type="button" @class([
                                 'flex items-center w-full p-2 text-base font-normal rounded-lg',
                                 'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' => !str(
-                                    request()->url()
-                                )->startsWith(route('admin.registrar.index')),
+                                    request()->url())->startsWith(route('admin.registrar.index')),
                                 'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
-                                    request()->url()
-                                )->startsWith(route('admin.registrar.index')),
+                                    request()->url())->startsWith(route('admin.registrar.index')),
                             ]) aria-controls="menu_registrar"
                             data-collapse-toggle="menu_registrar">
                             <svg @class([
                                 'w-6 h-6 transition',
                                 'text-gray-700 dark:text-white' => !str(request()->url())->startsWith(
-                                    route('admin.registrar.index')
-                                ),
-                                '' => str(request()->url())->startsWith(
-                                    route('admin.registrar.index')
-                                ),
+                                    route('admin.registrar.index')),
+                                '' => str(request()->url())->startsWith(route('admin.registrar.index')),
                             ]) fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -150,17 +146,14 @@
                         <a href="{{ route('admin.quota.index') }}" @class([
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' => !str(
-                                request()->url()
-                            )->startsWith(route('admin.quota.index')),
+                                request()->url())->startsWith(route('admin.quota.index')),
                             'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
-                                request()->url()
-                            )->startsWith(route('admin.quota.index')),
+                                request()->url())->startsWith(route('admin.quota.index')),
                         ])>
                             <svg @class([
                                 'w-6 h-6 transition',
                                 'text-gray-700 dark:text-white' => !str(request()->url())->startsWith(
-                                    route('admin.quota.index')
-                                ),
+                                    route('admin.quota.index')),
                                 '' => str(request()->url())->startsWith(route('admin.quota.index')),
                             ]) fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -172,21 +165,18 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('resources.registrar.index') }}" @class([
+                        <a href="{{ route('admin.registrar.index') }}" @class([
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' => !str(
-                                request()->url()
-                            )->startsWith(route('resources.registrar.index')),
+                                request()->url())->startsWith(route('admin.registrar.index')),
                             'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
-                                request()->url()
-                            )->startsWith(route('resources.registrar.index')),
+                                request()->url())->startsWith(route('admin.registrar.index')),
                         ])>
                             <svg @class([
                                 'w-6 h-6 transition',
                                 'text-gray-700 dark:text-white' => !str(request()->url())->startsWith(
-                                    route('resources.registrar.index')
-                                ),
-                                '' => str(request()->url())->startsWith(route('resources.registrar.index')),
+                                    route('admin.registrar.index')),
+                                '' => str(request()->url())->startsWith(route('admin.registrar.index')),
                             ]) fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -222,17 +212,14 @@
                         <a href="{{ route('admin.student.index') }}" @class([
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' => !str(
-                                request()->url()
-                            )->startsWith(route('admin.student.index')),
+                                request()->url())->startsWith(route('admin.student.index')),
                             'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
-                                request()->url()
-                            )->startsWith(route('admin.student.index')),
+                                request()->url())->startsWith(route('admin.student.index')),
                         ])>
                             <svg @class([
                                 'w-6 h-6 transition',
                                 'text-gray-700 dark:text-white' => !str(request()->url())->startsWith(
-                                    route('admin.student.index')
-                                ),
+                                    route('admin.student.index')),
                                 '' => str(request()->url())->startsWith(route('admin.student.index')),
                             ]) fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -244,28 +231,23 @@
                     </li>
                 </ul>
                 <ul class="pt-4 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700 capitalize">
-                    {{-- <li>
-                        <a href="{{ route('admin.student.index') }}" @class([
-                            'flex items-center p-2 text-base font-normal rounded-lg',
-                            'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' => !str(
-                                request()->url()
-                            )->startsWith(route('admin.student.index')),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
-                                request()->url()
-                            )->startsWith(route('admin.student.index')),
-                        ])>
-                        </a>
-                    </li> --}}
                     <li>
+                        {{-- //TODO -  --}}
                         <button type="button"
-                            class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                            aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+                            data-dropdown-show="{{ str(request()->url())->startsWith(route('admin.user.index')) }}"
+                            @class([
+                                'flex items-center w-full p-2 text-base font-normal rounded-lg',
+                                'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' => !str(
+                                    request()->url())->startsWith(route('admin.user.index')),
+                                'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
+                                    request()->url())->startsWith(route('admin.user.index')),
+                            ]) aria-controls="menu_user" data-collapse-toggle="menu_user">
                             <svg xmlns="http://www.w3.org/2000/svg" @class([
                                 'w-6 h-6 transition',
                                 'text-gray-700 dark:text-white' => !str(request()->url())->startsWith(
-                                    route('admin.student.index')
-                                ),
-                                '' => str(request()->url())->startsWith(route('admin.student.index')),
+                                    route('admin.user.index')),
+                                '' => str(request()->url())->startsWith(
+                                    route('admin.user.index')),
                             ]) fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -279,12 +261,17 @@
                                     clip-rule="evenodd"></path>
                             </svg>
                         </button>
-                        <ul id="dropdown-example" class="hidden py-2 space-y-2">
-                            @foreach (App\Models\UserType::cases() as $item)
+                        <ul id="menu_user" class="hidden py-2 space-y-2">
+                            @foreach (App\Models\UserType::to_array() as $key => $value)
                                 <li>
-                                    <a href="{{ route('admin.user.administrator.index') }}"
-                                        class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                                        {{ $item->to_string() }}
+                                    <a href="{{ route('admin.user.' . $key . '.index') }}" @class([
+                                        'flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition group',
+                                        'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
+                                            request()->url() != route('admin.user.' . $key . '.index'),
+                                        'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                                            request()->url() == route('admin.user.' . $key . '.index'),
+                                    ])>
+                                        {{ $value }}
                                     </a>
                                 </li>
                             @endforeach

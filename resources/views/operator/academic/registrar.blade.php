@@ -3,8 +3,7 @@
 @section('title', 'Registrar')
 
 @section('content')
-    <x-registrar.table :data="$data" :validate="function ($v) {
-        return route('operator.academic.registrar.validate', ['registrar' => $v->id]);
-    }">
-    </x-registrar.table>
+    <x-registrar.table :validate="function ($item) {
+        return route('operator.academic.registrar.validate', ['registrar' => $item]);
+    }"></x-registrar.table>
 @endsection

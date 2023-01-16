@@ -36,7 +36,6 @@ class AdministratorController extends Controller
         return view('admin.administrator.index', [
             'data' => $paginator,
             'columns' => $columns,
-            // 'query' => $request->query ?? '',
         ]);
     }
 
@@ -111,6 +110,9 @@ class AdministratorController extends Controller
      */
     public function destroy(Administrator $administrator)
     {
-        //
+        $this->authorize('delete', $administrator);
+        $administrator->delete();
+
+        return to_route('admin.user.administrator.index');
     }
 }

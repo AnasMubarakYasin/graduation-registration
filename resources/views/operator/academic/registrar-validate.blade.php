@@ -3,5 +3,5 @@
 @section('title', 'Validate Registrar')
 
 @section('content')
-    <x-registrar.form-validate :data="$data"></x-registrar.form-validate>
+    <x-registrar.form-validate :registrar="$registrar" :index="route('operator.academic.registrar.index')"></x-registrar.form-validate>
 @endsection

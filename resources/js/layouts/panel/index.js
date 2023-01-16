@@ -17,7 +17,7 @@ const drawerOpt = {
     },
     onShow: () => {
         drawerBtn.innerHTML = `<svg class="w-6 h-6" focusable="false" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M3 18h13v-2H3v2zm0-5h10v-2H3v2zm0-7v2h13V6H3zm18 9.59L17.42 12 21 8.41 19.59 7l-5 5 5 5L21 15.59z"></path></svg>`;
-        drawerEl.style.flexBasis = "300px";
+        drawerEl.style.flex = "300px 0 0";
         drawerEl.style.position = "static";
     },
 };

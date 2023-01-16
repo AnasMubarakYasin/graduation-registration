@@ -32,7 +32,7 @@ class Registrar extends Model
         ];
     }
 
-    public static function stats_status()
+    public static function stats_status(string $faculty = null)
     {
         $quota = Quota::get_first_open();
         if (!$quota) {
@@ -43,6 +43,9 @@ class Registrar extends Model
         $result['revision'] = $quota->registrars()->get()->where('status', RegistrarStatus::Revision->value)->count();
         $result['revalidate'] = $quota->registrars()->get()->where('status', RegistrarStatus::Revalidate->value)->count();
         $result['validated'] = $quota->registrars()->get()->where('status', RegistrarStatus::Validated->value)->count();
+        if ($faculty) {
+            $result['study_programs'] = $quota->registrars()->get()->where('status', RegistrarStatus::Validated->value)->where('faculty', $faculty)->groupBy('study_program');
+        }
 
         return $result;
     }

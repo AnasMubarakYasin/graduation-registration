@@ -1,5 +1,9 @@
 import { create_element } from "../../lib"
 import Datepicker from "flowbite-datepicker/Datepicker";
+import {
+  input_img_preview
+} from "../../lib";
+
 const datePickerEl = document.getElementById("dob");
 new Datepicker(datePickerEl, { format: 'yyyy-mm-dd' });
 
@@ -14,3 +18,12 @@ faculty.addEventListener('change', (event) => {
   }
   study_program.replaceChildren(...options)
 })
+
+for (const name of ['photo', 'munaqasyah', 'school_certificate', 'ktp', 'kk', 'spukt']) {
+  input_img_preview(name, (url) => {
+    const img = document.getElementById(`${name}_preview`);
+    img.src = url;
+    img.classList.remove('hidden')
+    document.getElementById(`${name}_placeholder`).classList.add('hidden');
+  });
+}

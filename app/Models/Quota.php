@@ -11,6 +11,14 @@ class Quota extends Model
 {
     use HasFactory;
 
+    public static function list_status()
+    {
+        return [
+            'open' => __('open'),
+            'close' => __('close'),
+        ];
+    }
+
     protected $fillable = [
         'name',
         'quota',

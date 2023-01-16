@@ -14,11 +14,11 @@ enum UserType
       UserType::Administrator => 'Administrator',
     };
   }
-  // public static function from(UserType $case): string
-  // {
-  //   return match ($case) {
-  //     UserType::Operator => 'Operator',
-  //     UserType::Administrator => 'Administrator',
-  //   };
-  // }
+  public static function to_array(): array
+  {
+    return [
+      'administrator' => UserType::Administrator->to_string(),
+      'operator' => UserType::Operator->to_string(),
+    ];
+  }
 }

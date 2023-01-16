@@ -34,17 +34,26 @@ export function table_checkbox(table_id: string, change?: (elm: HTMLInputElement
         checkboxs.forEach((elm) => {
             elm.checked = checkbox.checked
         })
+        change?.call(null, checkbox);
     })
     checkboxs.forEach((elm) => {
         elm.addEventListener('change', (event) => {
-            let last_checked = checkbox.checked ? false : true;
-            const everied = checkboxs.every((elm) => last_checked == elm.checked);
-            if (everied) {
-                checkbox.checked = last_checked;
-                checkbox.indeterminate = false
-            } else {
-                checkbox.indeterminate = true
+            let last_check = false
+            for (const item of checkboxs) {
+                if (last_check) {
+                    if (item.checked == last_check) {
+                        continue;
+                    } else {
+                        checkbox.indeterminate = true
+                        change?.call(null, checkbox);
+                        return
+                    }
+                } else {
+                    last_check = item.checked
+                }
             }
+            checkbox.checked = last_check
+            checkbox.indeterminate = false
             change?.call(null, checkbox);
         })
     })

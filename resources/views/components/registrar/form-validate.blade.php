@@ -3,58 +3,59 @@
 @endsection
 <form
     class="grid gap-4 px-5 py-3 text-gray-700 border border-gray-200 rounded-lg bg-white dark:bg-gray-800 dark:border-gray-700"
-    action="{{ route('resources.registrar.perform_validate', ['registrar' => $data]) }}" method="post"
+    action="{{ route('resources.registrar.perform_validate', ['registrar' => $registrar]) }}" method="post"
     enctype="multipart/form-data">
     @csrf
+    <input type="hidden" name="index" value="{{ $index }}">
     <div class="grid grid-cols-2 gap-4">
         <div class="grid gap-4">
             <div class="flex flex-col gap-2">
                 <label for="name"
                     class="text-sm font-medium text-gray-900 dark:text-white capitalize">{{ __('name') }}</label>
                 <output id="name" name="name"
-                    class="text-base text-gray-700 dark:text-gray-100">{{ $data->name }}</output>
+                    class="text-base text-gray-700 dark:text-gray-100">{{ $registrar->name }}</output>
             </div>
             <div class="flex flex-col gap-2">
                 <label for="nim" class="text-sm font-medium text-gray-900 dark:text-white">NIM</label>
                 <output id="nim" name="nim"
-                    class="text-base text-gray-700 dark:text-gray-100">{{ $data->nim }}</output>
+                    class="text-base text-gray-700 dark:text-gray-100">{{ $registrar->nim }}</output>
             </div>
             <div class="flex flex-col gap-2">
                 <label for="nik" class="text-sm font-medium text-gray-900 dark:text-white">NIK</label>
                 <output id="nik" name="nik"
-                    class="text-base text-gray-700 dark:text-gray-100">{{ $data->nik }}</output>
+                    class="text-base text-gray-700 dark:text-gray-100">{{ $registrar->nik }}</output>
             </div>
             <div class="flex flex-col gap-2">
                 <label for="pob" class="text-sm font-medium text-gray-900 dark:text-white capitalize">
                     {{ __('place of birth') }}
                 </label>
                 <output id="pob" name="pob"
-                    class="text-base text-gray-700 dark:text-gray-100">{{ $data->pob }}</output>
+                    class="text-base text-gray-700 dark:text-gray-100">{{ $registrar->pob }}</output>
             </div>
             <div class="flex flex-col gap-2">
                 <label for="dob" class="text-sm font-medium text-gray-900 dark:text-white capitalize">
                     {{ __('date of birth') }}
                 </label>
                 <output id="dob" name="dob"
-                    class="text-base text-gray-700 dark:text-gray-100">{{ $data->dob }}</output>
+                    class="text-base text-gray-700 dark:text-gray-100">{{ $registrar->dob }}</output>
             </div>
             <div class="flex flex-col gap-2">
                 <label for="faculty"
                     class="text-sm font-medium text-gray-900 dark:text-white capitalize">{{ __('faculty') }}</label>
                 <output id="faculty" name="faculty"
-                    class="text-base text-gray-700 dark:text-gray-100">{{ $data->faculty }}</output>
+                    class="text-base text-gray-700 dark:text-gray-100">{{ $registrar->faculty }}</output>
             </div>
             <div class="flex flex-col gap-2">
                 <label for="study_program" class="text-sm font-medium text-gray-900 dark:text-white capitalize">
                     {{ __('study program') }}
                 </label>
                 <output id="study_program" name="study_program"
-                    class="text-base text-gray-700 dark:text-gray-100">{{ $data->study_program }}</output>
+                    class="text-base text-gray-700 dark:text-gray-100">{{ $registrar->study_program }}</output>
             </div>
             <div class="flex flex-col gap-2">
                 <label for="ipk" class="text-sm font-medium text-gray-900 dark:text-white">IPK</label>
                 <output id="ipk" name="ipk"
-                    class="text-base text-gray-700 dark:text-gray-100">{{ $data->ipk }}</output>
+                    class="text-base text-gray-700 dark:text-gray-100">{{ $registrar->ipk }}</output>
             </div>
             <div class="flex flex-col gap-2">
                 <label class="block text-sm font-medium text-gray-900 dark:text-white capitalize" for="photo">
@@ -64,7 +65,7 @@
                     <button type="button" id="photo_btn"
                         class="text-sm p-1 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 dark:hover:bg-gray-600 hover:text-white focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-blue-500 dark:border-gray-600">
                         <img id="photo_img" class="w-[9rem] aspect-square object-cover object-center"
-                            src="{{ $data->photo_url }}" alt="">
+                            src="{{ $registrar->photo_url }}" alt="">
                     </button>
                 </output>
             </div>
@@ -76,10 +77,8 @@
                     class="w-20 h-20 text-base text-gray-700 dark:text-gray-100">
                     <button type="button" id="munaqasyah_btn"
                         class="text-sm p-1 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 dark:hover:bg-gray-600 hover:text-white focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-blue-500 dark:border-gray-600">
-                        @if ($data->munaqasyah_url)
-                            <img id="munaqasyah_img" class="w-[9rem] aspect-square object-cover object-center"
-                                src="{{ $data->munaqasyah_url }}" alt="{{ __('munaqasyah') }}">
-                        @endif
+                        <img id="munaqasyah_img" class="w-[9rem] aspect-square object-cover object-center"
+                            src="{{ $registrar->munaqasyah_url }}" alt="">
                     </button>
                 </output>
             </div>
@@ -92,7 +91,7 @@
                     <button type="button" id="school_certificate_btn"
                         class="text-sm p-1 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 dark:hover:bg-gray-600 hover:text-white focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-blue-500 dark:border-gray-600">
                         <img id="school_certificate_img" class="w-[9rem] aspect-square object-cover object-center"
-                            src="{{ $data->school_certificate_url }}" alt="">
+                            src="{{ $registrar->school_certificate_url }}" alt="">
                     </button>
                 </output>
             </div>
@@ -104,7 +103,7 @@
                     <button type="button" id="kk_btn"
                         class="text-sm p-1 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 dark:hover:bg-gray-600 hover:text-white focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-blue-500 dark:border-gray-600">
                         <img id="kk_img" class="w-[9rem] aspect-square object-cover object-center"
-                            src="{{ $data->kk_url }}" alt="">
+                            src="{{ $registrar->kk_url }}" alt="">
                     </button>
                 </output>
             </div>
@@ -116,7 +115,7 @@
                     <button type="button" id="ktp_btn"
                         class="text-sm p-1 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 dark:hover:bg-gray-600 hover:text-white focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-blue-500 dark:border-gray-600">
                         <img id="ktp_img" class="w-[9rem] aspect-square object-cover object-center"
-                            src="{{ $data->ktp_url }}" alt="">
+                            src="{{ $registrar->ktp_url }}" alt="">
                     </button>
                 </output>
             </div>
@@ -128,7 +127,7 @@
                     <button type="button" id="spukt_btn"
                         class="text-sm p-1 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 dark:hover:bg-gray-600 hover:text-white focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-blue-500 dark:border-gray-600">
                         <img id="spukt_img" class="w-[9rem] aspect-square object-cover object-center"
-                            src="{{ $data->spukt_url }}" alt="">
+                            src="{{ $registrar->spukt_url }}" alt="">
                     </button>
                 </output>
             </div>
@@ -138,19 +137,10 @@
                 </label>
                 <select id="status" name="status"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    @can('create', App\Models\Registrar::class)
-                        @foreach ($data::list_status() as $key => $value)
-                            <option value="{{ $key }}" @selected($key == $data->status) class="capitalize">
-                                {{ $value }}
-                            </option>
-                        @endforeach
-                    @else
-                        @foreach (Arr::except($data::list_status(), 'create') as $key => $value)
-                            <option value="{{ $key }}" @selected($key == $data->status) class="capitalize">
-                                {{ $value }}
-                            </option>
-                        @endforeach
-                    @endcan
+                    @foreach ($registrar::list_status() as $key => $value)
+                        <option value="{{ $key }}" @selected($key == $registrar->status) class="capitalize">
+                            {{ $value }}</option>
+                    @endforeach
                 </select>
                 @error('status')
                     <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
@@ -162,7 +152,7 @@
                 </label>
                 <textarea id="comment" rows="4" name="comment"
                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Write your message...">{{ $data->comment }}</textarea>
+                    placeholder="Write your message...">{{ $registrar->comment }}</textarea>
                 @error('comment')
                     <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror
@@ -179,7 +169,7 @@
                     </svg>
                     <span class="sr-only">Icon description</span>
                 </button>
-                <img id="view_img" class="m-auto" src="{{ $data->photo_url }}" alt="">
+                <img id="view_img" class="m-auto" src="{{ $registrar->photo_url }}" alt="">
             </div>
         </div>
     </div>

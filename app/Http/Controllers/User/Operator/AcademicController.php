@@ -24,7 +24,7 @@ class AcademicController extends Controller
     }
     public function registrar_validate(Registrar $registrar)
     {
-        return view('operator.academic.registrar-validate', ['data' => $registrar]);
+        return view('operator.academic.registrar-validate', ['registrar' => $registrar]);
     }
     public function empty()
     {

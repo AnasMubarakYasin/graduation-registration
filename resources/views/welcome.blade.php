@@ -30,10 +30,7 @@
                     class="mx-2 text-sm text-gray-700 dark:text-gray-500 underline">Student</a>
                 |
                 <a href="{{ route('operator.login.show') }}"
-                    class="mx-2 text-sm text-gray-700 dark:text-gray-500 underline">Operator Faculty</a>
-                |
-                <a href="{{ route('operator.login.show') }}"
-                    class="mx-2 text-sm text-gray-700 dark:text-gray-500 underline">Operator Academic</a>
+                    class="mx-2 text-sm text-gray-700 dark:text-gray-500 underline">Operator</a>
                 |
                 <a href="{{ route('admin.login.show') }}"
                     class="mx-2 text-sm text-gray-700 dark:text-gray-500 underline">Administrator</a>

@@ -57,6 +57,12 @@ Route::middleware(['authc.basic:welcome,operator'])->group(function () {
 
         Route::get('operator/academic/registrar', 'User\Operator\AcademicController@registrar')->name('operator.academic.registrar.index');
         Route::get('operator/academic/registrar/{registrar}/validate', 'User\Operator\AcademicController@registrar_validate')->name('operator.academic.registrar.validate');
+
+        Route::get('operator/faculty/dashboard', 'User\Operator\FacultyController@dashboard')->name('operator.faculty.dashboard');
+        Route::get('operator/faculty/empty', 'User\Operator\FacultyController@empty')->name('operator.faculty.empty');
+        
+        Route::get('operator/faculty/registrar', 'User\Operator\FacultyController@registrar')->name('operator.faculty.registrar.index');
+        Route::get('operator/faculty/registrar/{registrar}/validate', 'User\Operator\FacultyController@registrar_validate')->name('operator.faculty.registrar.validate');
     });
 });
 
@@ -75,34 +81,33 @@ Route::middleware(['authc.basic:welcome,administrator'])->group(function () {
         Route::get('admin/archive', 'User\AdministratorController@dashboard_show')->name('admin.archive.show');
         Route::get('admin/about', 'User\AdministratorController@dashboard_show')->name('admin.about.show');
 
-        // Route::get('admin/registrar/validate', 'User\AdministratorController@registrar_validate_show')->name('admin.registrar.validate.show');
-        // Route::get('admin/registrar/revision', 'User\AdministratorController@revision')->name('admin.registrar.revision.show');
-        // Route::get('admin/registrar/revalidate', 'User\AdministratorController@revision')->name('admin.registrar.revalidate.show');
-        // Route::get('admin/registrar/validated', 'User\AdministratorController@revision')->name('admin.registrar.validated.show');
+        Route::get('admin/quota', 'User\AdministratorController@quota_index')->name('admin.quota.index');
+        Route::get('admin/quota/create', 'User\AdministratorController@quota_create')->name('admin.quota.create');
+        Route::get('admin/quota/{quota}/edit', 'User\AdministratorController@quota_edit')->name('admin.quota.edit');
 
-        Route::get('admin/quota', 'QuotaController@index')->name('admin.quota.index');
-        Route::get('admin/quota/create', 'QuotaController@create')->name('admin.quota.create');
-        Route::get('admin/quota/{quota}/edit', 'QuotaController@edit')->name('admin.quota.edit');
+        Route::get('admin/registrar', 'User\AdministratorController@registrar_index')->name('admin.registrar.index');
+        Route::get('admin/registrar/create', 'User\AdministratorController@registrar_create')->name('admin.registrar.create');
+        Route::get('admin/registrar/{registrar}/edit', 'User\AdministratorController@registrar_edit')->name('admin.registrar.edit');
+        Route::get('admin/registrar/{registrar}/validate', 'User\AdministratorController@registrar_validate')->name('admin.registrar.validate');
 
-        Route::get('admin/student', 'StudentController@index')->name('admin.student.index');
-        Route::get('admin/student/create', 'StudentController@create')->name('admin.student.create');
-        Route::get('admin/student/{student}/edit', 'StudentController@edit')->name('admin.student.edit');
+        Route::get('admin/student', 'User\AdministratorController@student_index')->name('admin.student.index');
+        Route::get('admin/student/create', 'User\AdministratorController@student_create')->name('admin.student.create');
+        Route::get('admin/student/{student}/edit', 'User\AdministratorController@student_edit')->name('admin.student.edit');
 
         Route::get('admin/faculty', 'FacultyController@index')->name('admin.faculty.index');
         Route::get('admin/faculty/create', 'FacultyController@create')->name('admin.faculty.create');
         Route::get('admin/faculty/{faculty}/edit', 'FacultyController@edit')->name('admin.faculty.edit');
 
+        Route::get('admin/user', 'AdministratorController@index')->name('admin.user.index');
+
         Route::get('admin/user/administrator', 'AdministratorController@index')->name('admin.user.administrator.index');
         Route::get('admin/user/administrator/create', 'AdministratorController@create')->name('admin.user.administrator.create');
         Route::get('admin/user/administrator/{administrator}/edit', 'AdministratorController@edit')->name('admin.user.administrator.edit');
-    });
-    Route::post('admin/quota', 'QuotaController@store')->name('admin.quota.store');
-    Route::patch('admin/quota/{quota}', 'QuotaController@update')->name('admin.quota.update');
-    Route::delete('admin/quota/{quota}', 'QuotaController@destroy')->name('admin.quota.destroy');
 
-    Route::post('admin/student', 'StudentController@store')->name('admin.student.store');
-    Route::patch('admin/student/{student}', 'StudentController@update')->name('admin.student.update');
-    Route::delete('admin/student/{student}', 'StudentController@destroy')->name('admin.student.destroy');
+        Route::get('admin/user/operator', 'OperatorController@index')->name('admin.user.operator.index');
+        Route::get('admin/user/operator/create', 'OperatorController@create')->name('admin.user.operator.create');
+        Route::get('admin/user/operator/{operator}/edit', 'OperatorController@edit')->name('admin.user.operator.edit');
+    });
 
     Route::post('admin/faculty', 'FacultyController@store')->name('admin.faculty.store');
     Route::patch('admin/faculty/{faculty}', 'FacultyController@update')->name('admin.faculty.update');
@@ -110,17 +115,42 @@ Route::middleware(['authc.basic:welcome,administrator'])->group(function () {
 
     Route::post('admin/user/administrator', 'AdministratorController@store')->name('admin.user.administrator.store');
     Route::patch('admin/user/administrator/{administrator}', 'AdministratorController@update')->name('admin.user.administrator.update');
+    Route::delete('admin/user/administrator/{administrator}', 'AdministratorController@destroy')->name('admin.user.administrator.destroy');
+
+    Route::post('admin/user/operator', 'OperatorController@store')->name('admin.user.operator.store');
+    Route::patch('admin/user/operator/{operator}', 'OperatorController@update')->name('admin.user.operator.update');
+    Route::delete('admin/user/operator/{operator}', 'OperatorController@destroy')->name('admin.user.operator.destroy');
 });
 
 Route::middleware(['authc.basic:welcome,administrator,operator'])->group(function () {
     Route::middleware(['use.locale', 'view.share'])->group(function () {
+        Route::get('resources/quota', 'QuotaController@index')->name('resources.quota.index');
+        Route::get('resources/quota/create', 'QuotaController@create')->name('resources.quota.create');
+        Route::get('resources/quota/{quota}/edit', 'QuotaController@edit')->name('resources.quota.edit');
+
         Route::get('resources/registrar', 'RegistrarController@index')->name('resources.registrar.index');
         Route::get('resources/registrar/create', 'RegistrarController@create')->name('resources.registrar.create');
         Route::get('resources/registrar/{registrar}/edit', 'RegistrarController@edit')->name('resources.registrar.edit');
         Route::get('resources/registrar/{registrar}/validate', 'RegistrarController@show_validate')->name('resources.registrar.show_validate');
+
+        Route::get('resources/student', 'StudentController@index')->name('resources.student.index');
+        Route::get('resources/student/create', 'StudentController@create')->name('resources.student.create');
+        Route::get('resources/student/{student}/edit', 'StudentController@edit')->name('resources.student.edit');
     });
+
+    Route::post('resources/quota', 'QuotaController@store')->name('resources.quota.store');
+    Route::patch('resources/quota/{quota}', 'QuotaController@update')->name('resources.quota.update');
+    Route::delete('resources/quota', 'QuotaController@delete_any')->name('resources.quota.delete_any');
+    Route::delete('resources/quota/{quota}', 'QuotaController@delete')->name('resources.quota.delete');
+
     Route::post('resources/registrar', 'RegistrarController@store')->name('resources.registrar.store');
     Route::patch('resources/registrar/{registrar}', 'RegistrarController@update')->name('resources.registrar.update');
     Route::post('resources/registrar/{registrar}/validate', 'RegistrarController@perform_validate')->name('resources.registrar.perform_validate');
-    Route::delete('resources/registrar/{registrar}', 'RegistrarController@destroy')->name('resources.registrar.destroy');
+    Route::delete('resources/registrar', 'RegistrarController@destroy')->name('resources.registrar.destroy');
+    Route::delete('resources/registrar/{registrar}', 'RegistrarController@delete')->name('resources.registrar.delete');
+
+    Route::post('resources/student', 'StudentController@store')->name('resources.student.store');
+    Route::patch('resources/student/{student}', 'StudentController@update')->name('resources.student.update');
+    Route::delete('resources/student', 'StudentController@delete_any')->name('resources.student.delete_any');
+    Route::delete('resources/student/{student}', 'StudentController@delete')->name('resources.student.delete');
 });

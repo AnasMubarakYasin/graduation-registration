@@ -10,7 +10,9 @@ use App\Models\Faculty;
 use App\Models\Operator;
 use App\Models\Quota;
 use App\Models\Registrar;
+use App\Models\RegistrarStatus;
 use App\Models\Student;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -29,6 +31,15 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        $faculty_st = Faculty::factory()->create([
+            'name' => 'Sains dan Teknologi',
+            'departments' => ['Sistem Informasi', 'Teknik Informatika'],
+        ]);
+        $faculty_bi = Faculty::factory()->create([
+            'name' => 'Ekonomi dan Bisnis Islam',
+            'departments' => ['Ekonomi Syariah', 'Perbankan Syariah'],
+        ]);
+
         Administrator::factory()->create([
             'name' => 'super',
             'role' => 'super_administrator',
@@ -44,6 +55,7 @@ class DatabaseSeeder extends Seeder
         Operator::factory()->create([
             'name' => 'faculty',
             'department' => 'faculty',
+            'faculty' => $faculty_st->name,
             'email' => 'faculty@host.local',
             'password' => 'faculty',
         ]);
@@ -61,19 +73,23 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $quota = Quota::factory()->create();
-        foreach (range(1, 30) as $_) {
-            Registrar::factory()->for(Student::factory())->create([
+        Registrar::factory()
+            ->count(30)
+            ->state(new Sequence(
+                ['status' => RegistrarStatus::Validate->value],
+                ['status' => RegistrarStatus::Revision->value],
+                ['status' => RegistrarStatus::Revalidate->value],
+                ['status' => RegistrarStatus::Validated->value],
+            ))
+            ->state(new Sequence(
+                ['faculty' => $faculty_st->name, 'study_program' => 'Sistem Informasi'],
+                ['faculty' => $faculty_st->name, 'study_program' => 'Teknik Informatika'],
+                ['faculty' => $faculty_bi->name, 'study_program' => 'Ekonomi Syariah'],
+                ['faculty' => $faculty_bi->name, 'study_program' => 'Perbankan Syariah'],
+            ))
+            ->for(Student::factory())
+            ->create([
                 'quota_id' => $quota->id,
             ]);
-        }
-
-        Faculty::factory()->create([
-            'name' => 'Sains dan Teknologi',
-            'departments' => ['Sistem Informasi', 'Teknik Informatika'],
-        ]);
-        Faculty::factory()->create([
-            'name' => 'Ekonomi dan Bisnis Islam',
-            'departments' => ['Ekonomi Syariah', 'Perbankan Syariah'],
-        ]);
     }
 }
