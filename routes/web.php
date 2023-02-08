@@ -55,14 +55,30 @@ Route::middleware(['authc.basic:welcome,operator'])->group(function () {
         Route::get('operator/academic/dashboard', 'User\Operator\AcademicController@dashboard')->name('operator.academic.dashboard');
         Route::get('operator/academic/empty', 'User\Operator\AcademicController@empty')->name('operator.academic.empty');
 
-        Route::get('operator/academic/registrar', 'User\Operator\AcademicController@registrar')->name('operator.academic.registrar.index');
-        Route::get('operator/academic/registrar/{registrar}/validate', 'User\Operator\AcademicController@registrar_validate')->name('operator.academic.registrar.validate');
-
         Route::get('operator/faculty/dashboard', 'User\Operator\FacultyController@dashboard')->name('operator.faculty.dashboard');
         Route::get('operator/faculty/empty', 'User\Operator\FacultyController@empty')->name('operator.faculty.empty');
         
-        Route::get('operator/faculty/registrar', 'User\Operator\FacultyController@registrar')->name('operator.faculty.registrar.index');
-        Route::get('operator/faculty/registrar/{registrar}/validate', 'User\Operator\FacultyController@registrar_validate')->name('operator.faculty.registrar.validate');
+        Route::get('operator/faculty/registrar', 'User\Operator\FacultyController@empty')->name('operator.faculty.registrar');
+        Route::get('operator/faculty/registrar/validate', 'User\Operator\FacultyController@registrar_validate')->name('operator.faculty.registrar.validate');
+        Route::get('operator/faculty/registrar/revision', 'User\Operator\FacultyController@registrar_revision')->name('operator.faculty.registrar.revision');
+        Route::get('operator/faculty/registrar/revalidate', 'User\Operator\FacultyController@registrar_revalidate')->name('operator.faculty.registrar.revalidate');
+        Route::get('operator/faculty/registrar/validated', 'User\Operator\FacultyController@registrar_validated')->name('operator.faculty.registrar.validated');
+
+        Route::get('operator/faculty/registrar/validate/{registrar}/validate', 'User\Operator\FacultyController@registrar_validate_validate')->name('operator.faculty.registrar.validate_validate');
+        Route::get('operator/faculty/registrar/revision/{registrar}/validate', 'User\Operator\FacultyController@registrar_revision_validate')->name('operator.faculty.registrar.revision_validate');
+        Route::get('operator/faculty/registrar/revalidate/{registrar}/validate', 'User\Operator\FacultyController@registrar_revalidate_validate')->name('operator.faculty.registrar.revalidate_validate');
+        Route::get('operator/faculty/registrar/validated/{registrar}/validate', 'User\Operator\FacultyController@registrar_validated_validate')->name('operator.faculty.registrar.validated_validate');
+
+        Route::get('operator/academic/registrar', 'User\Operator\AcademicController@empty')->name('operator.academic.registrar');
+        Route::get('operator/academic/registrar/validate', 'User\Operator\AcademicController@registrar_validate')->name('operator.academic.registrar.validate');
+        Route::get('operator/academic/registrar/revision', 'User\Operator\AcademicController@registrar_revision')->name('operator.academic.registrar.revision');
+        Route::get('operator/academic/registrar/revalidate', 'User\Operator\AcademicController@registrar_revalidate')->name('operator.academic.registrar.revalidate');
+        Route::get('operator/academic/registrar/validated', 'User\Operator\AcademicController@registrar_validated')->name('operator.academic.registrar.validated');
+
+        Route::get('operator/academic/registrar/validate/{registrar}/validate', 'User\Operator\AcademicController@registrar_validate_validate')->name('operator.academic.registrar.validate_validate');
+        Route::get('operator/academic/registrar/revision/{registrar}/validate', 'User\Operator\AcademicController@registrar_revision_validate')->name('operator.academic.registrar.revision_validate');
+        Route::get('operator/academic/registrar/revalidate/{registrar}/validate', 'User\Operator\AcademicController@registrar_revalidate_validate')->name('operator.academic.registrar.revalidate_validate');
+        Route::get('operator/academic/registrar/validated/{registrar}/validate', 'User\Operator\AcademicController@registrar_validated_validate')->name('operator.academic.registrar.validated_validate');
     });
 });
 

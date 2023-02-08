@@ -15,17 +15,55 @@ class FacultyController extends Controller
             'registrar' => Registrar::stats_status(auth()->user()->faculty),
         ]);
     }
-    public function registrar()
-    {
-        $this->authorize('viewAny', Registrar::class);
-        return view('operator.faculty.registrar');
-    }
-    public function registrar_validate(Registrar $registrar)
-    {
-        return view('operator.faculty.registrar-validate', ['registrar' => $registrar]);
-    }
     public function empty()
     {
         return view('operator.faculty.empty');
     }
+
+    public function registrar_validate()
+    {
+        $this->authorize('viewAny', Registrar::class);
+        return view('operator.faculty.registrar.validate.index', [
+            'data' => Registrar::all(),
+        ]);
+    }
+    public function registrar_revision()
+    {
+        $this->authorize('viewAny', Registrar::class);
+        return view('operator.faculty.registrar.revision.index', [
+            'data' => Registrar::all(),
+        ]);
+    }
+    public function registrar_revalidate()
+    {
+        $this->authorize('viewAny', Registrar::class);
+        return view('operator.faculty.registrar.revalidate.index', [
+            'data' => Registrar::all(),
+        ]);
+    }
+    public function registrar_validated()
+    {
+        $this->authorize('viewAny', Registrar::class);
+        return view('operator.faculty.registrar.validated.index', [
+            'data' => Registrar::all(),
+        ]);
+    }
+
+    public function registrar_validate_validate(Registrar $registrar)
+    {
+        return view('operator.faculty.registrar.validate.validate', ['registrar' => $registrar]);
+    }
+    public function registrar_revision_validate(Registrar $registrar)
+    {
+        return view('operator.faculty.registrar.revision.validate', ['registrar' => $registrar]);
+    }
+    public function registrar_revalidate_validate(Registrar $registrar)
+    {
+        return view('operator.faculty.registrar.revalidate.validate', ['registrar' => $registrar]);
+    }
+    public function registrar_validated_validate(Registrar $registrar)
+    {
+        return view('operator.faculty.registrar.validated.validate', ['registrar' => $registrar]);
+    }
+
 }

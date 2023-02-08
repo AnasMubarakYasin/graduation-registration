@@ -87,7 +87,7 @@
                                         </label>
                                         <select id="f_faculty" name="f_faculty"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            <option selected>{{ __('choose a ' . $value) }}</option>
+                                            <option selected value="">{{ __('choose a ' . $value) }}</option>
                                             @foreach (App\Models\Faculty::all() as $faculty)
                                                 <option @selected(request()->query('f_faculty') == $faculty->name) value="{{ $faculty->name }}">
                                                     {{ $faculty->name }}
@@ -105,7 +105,7 @@
                                         </label>
                                         <select id="f_study_program" name="f_study_program"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            <option selected>{{ __('choose a ' . $value) }}</option>
+                                            <option selected value="">{{ __('choose a ' . $value) }}</option>
                                             @foreach (App\Models\Faculty::all() as $faculty)
                                                 <optgroup label="{{ $faculty->name }}">
                                                     @foreach ($faculty->departments as $department)

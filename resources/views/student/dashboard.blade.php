@@ -24,8 +24,10 @@
                         </p>
                         <p class="text-base font-semibold">{{ $registrar['data']['comment'] }}</p>
                     </div>
-                    <button
-                        class="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">Kirim</button>
+                    <a href="{{ route('student.data.show') }}"
+                        class="w-full text-white text-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
+                        Kirim
+                    </a>
                 </div>
             @elseif ($user->registrar->is_revalidate)
                 <div class="grid gap-4 grid-cols-[10fr,2fr] shadow dark:shadow-none transition-colors items-center p-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg dark:bg-yellow-200 dark:text-yellow-800"
@@ -68,8 +70,10 @@
                             pendaftaran
                             wisuda UIN Alauddin Makassar.</p>
                     </div>
-                    <button
-                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Kirim</button>
+                    <a href="{{ route('student.data.show') }}"
+                        class="w-full text-white text-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        Kirim
+                    </a>
                 </div>
             @endif
         @else
@@ -82,114 +86,70 @@
                             pendaftaran
                             wisuda UIN Alauddin Makassar.</p>
                     </div>
-                    <button
-                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Kirim</button>
+                    <a href="{{ route('student.data.show') }}"
+                        class="w-full text-white text-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        Kirim
+                    </a>
                 </div>
             @else
             @endif
         @endif
-        {{-- <div class="grid gap-4 grid-cols-[1fr,1fr,1fr,1fr]">
-        <div class="grid">
-            <div>
-                Pendaftar Wisuda
-            </div>
-            <div class="grid bg-gray-200 dark:bg-gray-700 rounded-lg">
-                <div class="h-5 bg-blue-500 rounded-t-lg">&nbsp;</div>
-                <div class="grid h-10 text-xl font-semibold place-content-center">200</div>
-                <div class="h-5 bg-blue-500 rounded-b-lg">&nbsp;</div>
-            </div>
-        </div>
-        <div class="grid">
-            <div>
-                Kuota Wisuda
-            </div>
-            <div class="grid bg-gray-200 dark:bg-gray-700 rounded-lg">
-                <div class="h-5 bg-blue-500 rounded-t-lg">&nbsp;</div>
-                <div class="grid h-10 text-xl font-semibold place-content-center">200</div>
-                <div class="h-5 bg-blue-500 rounded-b-lg">&nbsp;</div>
-            </div>
-        </div>
-    </div> --}}
-        {{-- <div class="flex items-center gap-4">
-        <span>Status: </span>
-        <span
-            class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">Default</span>
-    </div> --}}
         <div class="grid grid-cols-3 gap-4">
             @if ($quota)
                 <div
-                    class="p-4 text-black dark:text-gray-50 bg-white dark:bg-gray-800 rounded-lg border shadow dark:shadow-none dark:border-gray-700 transition-colors">
-                    <div>
-                        <div>Kuota Wisuda</div>
-                        <div>{{ $quota['total'] }}</div>
+                    class="grid gap-2 p-4 bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
+                    <div class="text-base text-gray-700 dark:text-gray-200 font-medium capitalize">
+                        Kuota Wisuda
                     </div>
-                    <div></div>
+                    <div class="text-3xl text-gray-900 dark:text-gray-50 font-normal">
+                        {{ $quota['total'] }}
+                    </div>
                 </div>
                 <div
-                    class="p-4 text-black dark:text-gray-50 bg-white dark:bg-gray-800 rounded-lg border shadow dark:shadow-none dark:border-gray-700 transition-colors">
-                    <div>
-                        <div>Sisa Kuota Wisuda</div>
-                        <div>{{ $quota['remaining'] }}</div>
+                    class="grid gap-2 p-4 bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
+                    <div class="text-base text-gray-700 dark:text-gray-200 font-medium capitalize">
+                        Sisa Kuota Wisuda
                     </div>
-                    <div></div>
+                    <div class="text-3xl text-gray-900 dark:text-gray-50 font-normal">
+                        {{ $quota['remaining'] }}
+                    </div>
                 </div>
                 <div
-                    class="p-4 text-black dark:text-gray-50 bg-white dark:bg-gray-800 rounded-lg border shadow dark:shadow-none dark:border-gray-700 transition-colors">
-                    <div>
-                        <div>Total Wisudawan</div>
-                        <div>{{ $quota['filled'] }}</div>
+                    class="grid gap-2 p-4 bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
+                    <div class="text-base text-gray-700 dark:text-gray-200 font-medium capitalize">
+                        Total Wisudawan
                     </div>
-                    <div></div>
+                    <div class="text-3xl text-gray-900 dark:text-gray-50 font-normal">
+                        {{ $quota['filled'] }}
+                    </div>
                 </div>
             @endif
             <div
-                class="p-4 text-black dark:text-gray-50 bg-white dark:bg-gray-800 rounded-lg border shadow dark:shadow-none dark:border-gray-700 transition-colors">
-                <div>
-                    <div>Kelengkapan Biodata</div>
-                    <div>
-                        @isset($registrar['biodata'])
-                            {{ (int) $registrar['biodata'] }}
-                        @else
-                            {{ 0 }}
-                        @endisset
-                    </div>
+                class="grid gap-2 p-4 bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
+                <div class="text-base text-gray-700 dark:text-gray-200 font-medium capitalize">
+                    Kelengkapan Biodata
                 </div>
-                <div></div>
+                <div class="text-3xl text-gray-900 dark:text-gray-50 font-normal">
+                    @isset($registrar['biodata'])
+                        {{ (int) $registrar['biodata'] }}
+                    @else
+                        {{ 0 }}
+                    @endisset
+                </div>
             </div>
             <div
-                class="p-4 text-black dark:text-gray-50 bg-white dark:bg-gray-800 rounded-lg border shadow dark:shadow-none dark:border-gray-700 transition-colors">
-                <div>
-                    <div>Kelengkapan Berkas</div>
-                    <div>
-                        @isset($registrar['file'])
-                            {{ (int) $registrar['file'] }}
-                        @else
-                            {{ 0 }}
-                        @endisset
-                    </div>
+                class="grid gap-2 p-4 bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
+                <div class="text-base text-gray-700 dark:text-gray-200 font-medium capitalize">
+                    Kelengkapan Berkas
                 </div>
-                <div></div>
+                <div class="text-3xl text-gray-900 dark:text-gray-50 font-normal">
+                    @isset($registrar['file'])
+                        {{ (int) $registrar['file'] }}
+                    @else
+                        {{ 0 }}
+                    @endisset
+                </div>
             </div>
         </div>
-        {{-- <div class="grid grid-cols-2 grid-rows-2 gap-4">
-        <div class="grid gap-2 col-start-1 row-start-1">
-            <div class="flex justify-between w-full text-lg font-medium dark:text-white">
-                <div>Biodata</div>
-                <div>70%</div>
-            </div>
-            <div class="w-full h-4 bg-gray-200 rounded-full dark:bg-gray-700">
-                <div class="h-4 bg-blue-500 rounded-full dark:bg-blue-500" style="width: 70%"></div>
-            </div>
-        </div>
-        <div class="grid col-start-1 row-start-2">
-            <div class="flex justify-between w-full text-lg font-medium dark:text-white">
-                <div>File</div>
-                <div>70%</div>
-            </div>
-            <div class="w-full h-4 bg-gray-200 rounded-full dark:bg-gray-700">
-                <div class="h-4 bg-blue-500 rounded-full dark:bg-blue-500" style="width: 70%"></div>
-            </div>
-        </div>
-    </div> --}}
     </div>
 @endsection

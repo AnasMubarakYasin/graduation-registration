@@ -233,21 +233,19 @@
                 <ul class="pt-4 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700 capitalize">
                     <li>
                         {{-- //TODO -  --}}
-                        <button type="button"
-                            data-dropdown-show="{{ str(request()->url())->startsWith(route('admin.user.index')) }}"
-                            @class([
-                                'flex items-center w-full p-2 text-base font-normal rounded-lg',
-                                'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' => !str(
-                                    request()->url())->startsWith(route('admin.user.index')),
-                                'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
-                                    request()->url())->startsWith(route('admin.user.index')),
-                            ]) aria-controls="menu_user" data-collapse-toggle="menu_user">
+                        <button type="button" @class([
+                            'flex items-center w-full p-2 text-base font-normal rounded-lg',
+                            'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' => !str(
+                                request()->url())->startsWith(route('admin.user.index')),
+                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
+                                request()->url())->startsWith(route('admin.user.index')),
+                        ]) aria-controls="menu_user"
+                            data-collapse-toggle="menu_user">
                             <svg xmlns="http://www.w3.org/2000/svg" @class([
                                 'w-6 h-6 transition',
                                 'text-gray-700 dark:text-white' => !str(request()->url())->startsWith(
                                     route('admin.user.index')),
-                                '' => str(request()->url())->startsWith(
-                                    route('admin.user.index')),
+                                '' => str(request()->url())->startsWith(route('admin.user.index')),
                             ]) fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -261,16 +259,18 @@
                                     clip-rule="evenodd"></path>
                             </svg>
                         </button>
-                        <ul id="menu_user" class="hidden py-2 space-y-2">
+                        <ul id="menu_user"
+                            class="py-2 space-y-2 {{ str_starts_with(request()->url(), route('admin.user.index')) ? '' : 'hidden' }}">
                             @foreach (App\Models\UserType::to_array() as $key => $value)
                                 <li>
-                                    <a href="{{ route('admin.user.' . $key . '.index') }}" @class([
-                                        'flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition group',
-                                        'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
-                                            request()->url() != route('admin.user.' . $key . '.index'),
-                                        'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
-                                            request()->url() == route('admin.user.' . $key . '.index'),
-                                    ])>
+                                    <a href="{{ route('admin.user.' . $key . '.index') }}"
+                                        @class([
+                                            'flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition group',
+                                            'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
+                                                request()->url() != route('admin.user.' . $key . '.index'),
+                                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                                                request()->url() == route('admin.user.' . $key . '.index'),
+                                        ])>
                                         {{ $value }}
                                     </a>
                                 </li>

@@ -72,9 +72,11 @@ class DatabaseSeeder extends Seeder
             'password' => 'student',
         ]);
 
-        $quota = Quota::factory()->create();
+        $quota = Quota::factory()->create([
+            'quota' => 90
+        ]);
         Registrar::factory()
-            ->count(30)
+            ->count(100)
             ->state(new Sequence(
                 ['status' => RegistrarStatus::Validate->value],
                 ['status' => RegistrarStatus::Revision->value],

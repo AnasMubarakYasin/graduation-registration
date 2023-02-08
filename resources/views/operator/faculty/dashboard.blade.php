@@ -63,9 +63,11 @@
                 </div>
             @endif
         </div>
+        <div class="text-lg text-gray-700 dark:text-gray-200 font-medium capitalize">
+            {{ __('study program') }}
+        </div>
         <div class="grid grid-cols-3 gap-4">
             @if ($registrar)
-
                 @foreach ($registrar['study_programs'] as $name => $study_program)
                     <div
                         class="grid gap-2 p-4 bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">

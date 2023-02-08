@@ -31,6 +31,15 @@ class Registrar extends Model
             'validated' => __('validated'),
         ];
     }
+    public static function operator_list_status()
+    {
+        return [
+            'validate' => __('validate'),
+            'revision' => __('revision'),
+            'revalidate' => __('revalidate'),
+            'validated' => __('validated'),
+        ];
+    }
 
     public static function stats_status(string $faculty = null)
     {
@@ -281,7 +290,7 @@ class Registrar extends Model
         $result['biodata'] = $this->check_biodata();
         $result['file'] = $this->check_file();
         if ($result['biodata'] == 100.0 && $result['file'] == 100.0) {
-            if ($this->is_revision) {
+            if ($this->is_revision && auth()->user()::class == Student::class) {
                 $this->status = RegistrarStatus::Revalidate->value;
                 $this->saveQuietly();
             } elseif ($this->is_create) {

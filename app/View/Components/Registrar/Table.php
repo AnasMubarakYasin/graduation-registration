@@ -25,18 +25,27 @@ class Table extends Component
         'ipk' => 'IPK',
         'status' => 'status',
     ];
-    public array $columns = ['name', 'nim', 'faculty', 'study_program', 'ipk', 'status'];
+    public array $columns = [];
     public LengthAwarePaginator $paginator;
-    public function __construct(Request $request, public string|null $index = null, public string|null $create = null, public Closure|null $edit = null, public Closure|null $validate = null)
-    {
+    public function __construct(
+        Request $request,
+        string|null $state = null,
+        array $columns = ['name', 'nim', 'faculty', 'study_program', 'ipk', 'status'],
+        public string|null $index = null,
+        public string|null $create = null,
+        public Closure|null $edit = null,
+        public Closure|null $validate = null
+    ) {
         if (auth()->user()->is_faculty) {
-            $request->query->set("f_faculty", auth()->user()->faculty);
-            // $query->whereNot('status', RegistrarStatus::Create->value);
+            $request->query->set(
+                "f_faculty",
+                auth()->user()->faculty
+            );
         }
         /** @var Builder|EloquentBuilder */
         $query = Registrar::query();
         $perpage = $request->query('perpage', 5);
-        $this->columns = $request->query('columns', $this->columns);
+        $this->columns = $request->query('columns', $columns);
         if ($request->query('sort')) {
             foreach ($this->columns as $column) {
                 if ($request->query('s_' . $column)) {
@@ -44,21 +53,26 @@ class Table extends Component
                 }
             }
         }
+        if ($state) {
+            $request->query->set("filter", "on");
+            $request->query->set("f_status", $state);
+            $request->query->set("f_logical", 'and');
+        }
         if ($request->query('filter')) {
-            if ($request->query('f_name')) {
-                $query->whereFullText('name', $request->query('f_name'));
-            }
-            foreach ($this->columns as $column) {
+            $columns = array_keys($this->fields);
+            // $columns = $this->columns;
+            // dd($columns, request()->query->all());
+            foreach ($columns as $column) {
                 switch ($column) {
                     case 'name':
                         if ($request->query('f_name')) {
-                            $query->whereFullText('name', $request->query('f_name'));
+                            $query->whereFullText('name', $request->query('f_name'), boolean: $request->query('f_logical', 'or'));
                         }
                         break;
 
                     default:
                         if ($request->query('f_' . $column)) {
-                            $query->orWhere($column, $request->query('f_' . $column));
+                            $query->where($column, $request->query('f_' . $column), boolean: $request->query('f_logical', 'or'));
                         }
                         break;
                 }
