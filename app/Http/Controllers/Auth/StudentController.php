@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentLoginRequest;
+use App\Models\Student;
 use Illuminate\Support\Arr;
 
 class StudentController extends Controller
@@ -16,8 +17,10 @@ class StudentController extends Controller
     public function login_perform(StudentLoginRequest $request)
     {
         $data = $request->validated();
-        if (auth('student')->attempt(Arr::only($data, ['nim', 'password']), isset($data['remember']))) {
-            session()->regenerate();
+        $user = Student::where('nim', $data['nim'])->where('password', $data['password'])->first();
+        if ($user) {
+            auth()->login($user, isset($data['remember']));
+            // session()->regenerate();
 
             return to_route('student.dashboard.show');
         } else {

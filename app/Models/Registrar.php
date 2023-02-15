@@ -141,8 +141,7 @@ class Registrar extends Model
             if (isset($this->attributes['photo'])) {
                 Storage::delete($this->attributes['photo']);
             }
-            $path = $this->id ? "$this->id" : 'temp';
-            $this->attributes['photo'] = Storage::put("registrar/$path", $value);
+            $this->attributes['photo'] = Storage::put("registrar/$this->nim", $value);
         }
     }
 
@@ -163,8 +162,7 @@ class Registrar extends Model
             if (isset($this->attributes['munaqasyah'])) {
                 Storage::delete($this->attributes['munaqasyah']);
             }
-            $path = $this->id ? "$this->id" : 'temp';
-            $this->attributes['munaqasyah'] = Storage::put("registrar/$path", $value);
+            $this->attributes['munaqasyah'] = Storage::put("registrar/$this->nim", $value);
         }
     }
 
@@ -185,8 +183,7 @@ class Registrar extends Model
             if (isset($this->attributes['school_certificate'])) {
                 Storage::delete($this->attributes['school_certificate']);
             }
-            $path = $this->id ? "$this->id" : 'temp';
-            $this->attributes['school_certificate'] = Storage::put("registrar/$path", $value);
+            $this->attributes['school_certificate'] = Storage::put("registrar/$this->nim", $value);
         }
     }
 
@@ -207,8 +204,7 @@ class Registrar extends Model
             if (isset($this->attributes['kk'])) {
                 Storage::delete($this->attributes['kk']);
             }
-            $path = $this->id ? "$this->id" : 'temp';
-            $this->attributes['kk'] = Storage::put("registrar/$path", $value);
+            $this->attributes['kk'] = Storage::put("registrar/$this->nim", $value);
         }
     }
 
@@ -229,8 +225,7 @@ class Registrar extends Model
             if (isset($this->attributes['ktp'])) {
                 Storage::delete($this->attributes['ktp']);
             }
-            $path = $this->id ? "$this->id" : 'temp';
-            $this->attributes['ktp'] = Storage::put("registrar/$path", $value);
+            $this->attributes['ktp'] = Storage::put("registrar/$this->nim", $value);
         }
     }
 
@@ -251,8 +246,7 @@ class Registrar extends Model
             if (isset($this->attributes['spukt'])) {
                 Storage::delete($this->attributes['spukt']);
             }
-            $path = $this->id ? "$this->id" : 'temp';
-            $this->attributes['spukt'] = Storage::put("registrar/$path", $value);
+            $this->attributes['spukt'] = Storage::put("registrar/$this->nim", $value);
         }
     }
 

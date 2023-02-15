@@ -48,4 +48,8 @@ class RegistrarPolicy
     {
         return $user->is_administrator || $user->is_academic || $user->is_faculty;
     }
+    public function export(Administrator|Operator $user)
+    {
+        return $user->is_administrator || $user->is_academic || $user->is_faculty;
+    }
 }

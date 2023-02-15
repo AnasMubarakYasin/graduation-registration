@@ -20,10 +20,10 @@ class Student extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'photo',
-        'name',
+        // 'photo',
+        // 'name',
         'nim',
-        'email',
+        // 'email',
         'password',
     ];
 
@@ -33,7 +33,7 @@ class Student extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        // 'password',
         'remember_token',
     ];
 
@@ -43,7 +43,7 @@ class Student extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        // 'email_verified_at' => 'datetime',
     ];
 
     /** @return Collection<Student> */
@@ -52,28 +52,28 @@ class Student extends Authenticatable
         return Student::whereDoesntHave('registrar')->get();
     }
 
-    public function setPhotoAttribute($value)
-    {
-        if (is_string($value)) {
-            $this->attributes['photo'] = $value;
-        } else {
-            if (isset($this->attributes['photo'])) {
-                Storage::delete($this->attributes['photo']);
-            }
-            $path = $this->id ? "student/$this->id" : '';
-            $this->attributes['photo'] = Storage::put("public/$path", $value, 'public');
-        }
-    }
+    // public function setPhotoAttribute($value)
+    // {
+    //     if (is_string($value)) {
+    //         $this->attributes['photo'] = $value;
+    //     } else {
+    //         if (isset($this->attributes['photo'])) {
+    //             Storage::delete($this->attributes['photo']);
+    //         }
+    //         $path = $this->id ? "student/$this->id" : '';
+    //         $this->attributes['photo'] = Storage::put("public/$path", $value, 'public');
+    //     }
+    // }
 
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
+    // public function setPasswordAttribute($value)
+    // {
+    //     $this->attributes['password'] = bcrypt($value);
+    // }
 
-    public function getPhotoUrlAttribute()
-    {
-        return Storage::url($this->photo);
-    }
+    // public function getPhotoUrlAttribute()
+    // {
+    //     return Storage::url($this->photo);
+    // }
 
     public function registrar()
     {

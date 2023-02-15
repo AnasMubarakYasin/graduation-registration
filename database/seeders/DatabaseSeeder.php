@@ -66,9 +66,9 @@ class DatabaseSeeder extends Seeder
             'password' => 'academic',
         ]);
         Student::factory()->create([
-            'name' => 'student',
+            // 'name' => 'student',
             'nim' => '00000000000',
-            'email' => 'student@host.local',
+            // 'email' => 'student@host.local',
             'password' => 'student',
         ]);
 

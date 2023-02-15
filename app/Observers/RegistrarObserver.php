@@ -20,8 +20,8 @@ class RegistrarObserver
      */
     public function created(Registrar $registrar)
     {
-        $registrar->saveQuietly();
-        $this->move_file($registrar);
+        // $registrar->saveQuietly();
+        // $this->move_file($registrar);
     }
 
     /**
@@ -110,6 +110,6 @@ class RegistrarObserver
         if ($registrar->spukt) {
             Storage::delete($registrar->spukt);
         }
-        Storage::deleteDirectory("registrar/$registrar->id");
+        Storage::deleteDirectory("registrar/$registrar->nim");
     }
 }

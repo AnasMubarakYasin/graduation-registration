@@ -17,10 +17,10 @@ class StudentFactory extends Factory
     public function definition()
     {
         return [
-            'photo' => fake()->imageUrl(),
-            'name' => fake()->name(),
+            // 'photo' => fake()->imageUrl(),
+            // 'name' => fake()->name(),
             'nim' => fake()->unique()->regexify('[0-9]{11}'),
-            'email' => fake()->unique()->email(),
+            // 'email' => fake()->unique()->email(),
             'password' => 'student',
         ];
     }

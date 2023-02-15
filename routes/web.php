@@ -79,6 +79,14 @@ Route::middleware(['authc.basic:welcome,operator'])->group(function () {
         Route::get('operator/academic/registrar/revision/{registrar}/validate', 'User\Operator\AcademicController@registrar_revision_validate')->name('operator.academic.registrar.revision_validate');
         Route::get('operator/academic/registrar/revalidate/{registrar}/validate', 'User\Operator\AcademicController@registrar_revalidate_validate')->name('operator.academic.registrar.revalidate_validate');
         Route::get('operator/academic/registrar/validated/{registrar}/validate', 'User\Operator\AcademicController@registrar_validated_validate')->name('operator.academic.registrar.validated_validate');
+
+        Route::get('operator/academic/student', 'User\Operator\AcademicController@student_index')->name('operator.academic.student.index');
+        Route::get('operator/academic/student/create', 'User\Operator\AcademicController@student_create')->name('operator.academic.student.create');
+        Route::get('operator/academic/student/{student}/edit', 'User\Operator\AcademicController@student_edit')->name('operator.academic.student.edit');
+
+        Route::get('operator/faculty/student', 'User\Operator\FacultyController@student_index')->name('operator.faculty.student.index');
+        Route::get('operator/faculty/student/create', 'User\Operator\FacultyController@student_create')->name('operator.faculty.student.create');
+        Route::get('operator/faculty/student/{student}/edit', 'User\Operator\FacultyController@student_edit')->name('operator.faculty.student.edit');
     });
 });
 
@@ -159,6 +167,7 @@ Route::middleware(['authc.basic:welcome,administrator,operator'])->group(functio
     Route::delete('resources/quota', 'QuotaController@delete_any')->name('resources.quota.delete_any');
     Route::delete('resources/quota/{quota}', 'QuotaController@delete')->name('resources.quota.delete');
 
+    Route::get('resources/registrar/export', 'RegistrarController@export')->name('resources.registrar.export');
     Route::post('resources/registrar', 'RegistrarController@store')->name('resources.registrar.store');
     Route::patch('resources/registrar/{registrar}', 'RegistrarController@update')->name('resources.registrar.update');
     Route::post('resources/registrar/{registrar}/validate', 'RegistrarController@perform_validate')->name('resources.registrar.perform_validate');

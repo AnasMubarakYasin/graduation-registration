@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Administrator;
+use App\Models\Operator;
 use App\Models\Student;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -13,10 +14,10 @@ class StudentPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\Administrator  $user
+     * @param  \App\Models\Administrator|Operator  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(Administrator $user)
+    public function viewAny(Administrator|Operator $user)
     {
         return $user->is_administrator;
     }
@@ -24,11 +25,11 @@ class StudentPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\Administrator  $user
+     * @param  \App\Models\Administrator|Operator  $user
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(Administrator $user, Student $student)
+    public function view(Administrator|Operator $user, Student $student)
     {
         return $user->is_administrator;
     }
@@ -36,39 +37,45 @@ class StudentPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\Administrator  $user
+     * @param  \App\Models\Administrator|Operator  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(Administrator $user)
+    public function create(Administrator|Operator $user)
     {
-        return $user->is_administrator;
+        return match ($user::class) {
+            Administrator::class => true,
+            Operator::class => true,
+        };
     }
 
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\Administrator  $user
+     * @param  \App\Models\Administrator|Operator  $user
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(Administrator $user, Student $student)
+    public function update(Administrator|Operator $user, Student $student)
     {
-        return $user->is_administrator;
+        return match ($user::class) {
+            Administrator::class => true,
+            Operator::class => true,
+        };
     }
 
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\Administrator  $user
+     * @param  \App\Models\Administrator|Operator  $user
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(Administrator $user, Student $student)
+    public function delete(Administrator|Operator $user, Student $student)
     {
         return $user->is_administrator;
     }
 
-    public function deleteAny(Administrator $user)
+    public function deleteAny(Administrator|Operator $user)
     {
         return $user->is_administrator;
     }
@@ -76,11 +83,11 @@ class StudentPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \App\Models\Administrator  $user
+     * @param  \App\Models\Administrator|Operator  $user
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(Administrator $user, Student $student)
+    public function restore(Administrator|Operator $user, Student $student)
     {
         return $user->is_administrator;
     }
@@ -88,11 +95,11 @@ class StudentPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \App\Models\Administrator  $user
+     * @param  \App\Models\Administrator|Operator  $user
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(Administrator $user, Student $student)
+    public function forceDelete(Administrator|Operator $user, Student $student)
     {
         return $user->is_administrator;
     }

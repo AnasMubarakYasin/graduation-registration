@@ -53,29 +53,53 @@
                             <span class="ml-3">Dashboard</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('student.data.show') }}" @class([
-                            'flex items-center p-2 text-base font-normal rounded-lg',
-                            'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
-                                request()->url() != route('student.data.show'),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
-                                request()->url() == route('student.data.show'),
-                        ])>
-                            <svg @class([
-                                'w-6 h-6 transition duration-75',
-                                'text-gray-700 dark:text-white' =>
+                    @if (!$user->registrar || !$user->registrar->is_validated)
+                        <li>
+                            <a href="{{ route('student.data.show') }}" @class([
+                                'flex items-center p-2 text-base font-normal rounded-lg',
+                                'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
                                     request()->url() != route('student.data.show'),
-                                '' => request()->url() == route('student.data.show'),
-                            ]) fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2">
-                                </path>
-                            </svg>
+                                'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                                    request()->url() == route('student.data.show'),
+                            ])>
+                                <svg @class([
+                                    'w-6 h-6 transition duration-75',
+                                    'text-gray-700 dark:text-white' =>
+                                        request()->url() != route('student.data.show'),
+                                    '' => request()->url() == route('student.data.show'),
+                                ]) fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2">
+                                    </path>
+                                </svg>
 
-                            <span class="ml-3">Biodata</span>
-                        </a>
-                    </li>
+                                <span class="ml-3">Biodata</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('student.file.show') }}" @class([
+                                'flex items-center p-2 text-base font-normal rounded-lg',
+                                'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
+                                    request()->url() != route('student.file.show'),
+                                'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                                    request()->url() == route('student.file.show'),
+                            ])>
+                                <svg @class([
+                                    'w-6 h-6 transition duration-75',
+                                    'text-gray-700 dark:text-white' =>
+                                        request()->url() != route('student.file.show'),
+                                    '' => request()->url() == route('student.file.show'),
+                                ]) fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z">
+                                    </path>
+                                </svg>
+                                <span class="ml-3">File</span>
+                            </a>
+                        </li>
+                    @endif
                     {{-- <li>
                         <a href="{{ route('student.data.show') }}" @class([
                             'flex items-center p-2 text-base font-normal rounded-lg',
@@ -98,28 +122,6 @@
                             <span class="ml-3">Academic</span>
                         </a>
                     </li> --}}
-                    <li>
-                        <a href="{{ route('student.file.show') }}" @class([
-                            'flex items-center p-2 text-base font-normal rounded-lg',
-                            'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
-                                request()->url() != route('student.file.show'),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
-                                request()->url() == route('student.file.show'),
-                        ])>
-                            <svg @class([
-                                'w-6 h-6 transition duration-75',
-                                'text-gray-700 dark:text-white' =>
-                                    request()->url() != route('student.file.show'),
-                                '' => request()->url() == route('student.file.show'),
-                            ]) fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z">
-                                </path>
-                            </svg>
-                            <span class="ml-3">File</span>
-                        </a>
-                    </li>
                 </ul>
                 {{-- <ul class="pt-4 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
                     <li>
@@ -177,8 +179,8 @@
                                 'text-gray-700 dark:text-white' =>
                                     request()->url() != route('student.about.show'),
                                 '' => request()->url() == route('student.about.show'),
-                            ]) fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            ]) fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
                                 </path>
@@ -287,8 +289,8 @@
                         </svg>
                     </div>
                     <div class="font-medium text-left dark:text-white">
-                        <div class="text-base">{{ $user->name }}</div>
-                        <div class="text-xs opacity-70">{{ $user->nim }}</div>
+                        {{-- <div class="text-base">{{ $user->name }}</div> --}}
+                        <div class="text-base">{{ $user->nim }}</div>
                     </div>
                     <svg class="w-4 h-4 mx-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">

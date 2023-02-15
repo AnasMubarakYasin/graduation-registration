@@ -49,7 +49,7 @@
             </div>
             <div>
                 <label for="nim" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIM</label>
-                <input type="text" id="nim" name="nim" value="{{ $data['nim'] ?? old('nim') }}"
+                <input type="text" id="nim" name="nim" value="{{ $user->nim }}" readonly
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Your NIM">
             </div>
@@ -79,7 +79,7 @@
                         </svg>
                     </div>
                     <input datepicker type="text" id="dob" name="dob"
-                        value="{{ $carbon::parse($data['dob'])->format('d/m/Y') ?? old('dob') }}"
+                        value="{{ (isset($data['dob']) ? $carbon::parse($data['dob'])->format('d/m/Y') : '') ?? old('dob') }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Your Date of Birth">
                 </div>

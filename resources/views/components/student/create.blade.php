@@ -1,5 +1,6 @@
 @props([
     'index' => route('resources.student.index'),
+    'password' => '',
 ])
 @section('head')
     @vite('resources/js/components/student/create.js')
@@ -10,7 +11,7 @@
     @csrf
     <input type="hidden" name="_index" value="{{ $index }}">
     <div class="grid gap-4">
-        <div class="flex items-end gap-4">
+        {{-- <div class="flex items-end gap-4">
             <div
                 class="flex-[30%] sm:flex-[20%]  grid place-content-center h-full aspect-square bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg">
                 <svg id="photo_placeholder" class="w-full aspect-square text-gray-400" fill="currentColor"
@@ -32,8 +33,8 @@
                     <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror
             </div>
-        </div>
-        <div>
+        </div> --}}
+        {{-- <div>
             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
             <input type="text" id="name" name="name" value="{{ old('name') }}"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -41,7 +42,7 @@
             @error('name')
                 <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
             @enderror
-        </div>
+        </div> --}}
         <div>
             <label for="nim" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIM</label>
             <input type="text" id="nim" name="nim" value="{{ old('nim') }}"
@@ -51,7 +52,7 @@
                 <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
             @enderror
         </div>
-        <div>
+        {{-- <div>
             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
             <input type="email" id="email" name="email" value="{{ old('email') }}"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -59,17 +60,17 @@
             @error('email')
                 <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
             @enderror
-        </div>
+        </div> --}}
         <div>
             <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-            <input type="password" id="password" name="password"
+            <input type="text" id="password" name="password" value="{{ old('password') ?? $password }}"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Your Password">
             @error('password')
                 <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
             @enderror
         </div>
-        <div>
+        {{-- <div>
             <label for="password_confirmation"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm Password</label>
             <input type="password" id="password_confirmation" name="password_confirmation"
@@ -78,7 +79,7 @@
             @error('password_confirmation')
                 <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
             @enderror
-        </div>
+        </div> --}}
     </div>
     <div class="grid place-items-center">
         <button

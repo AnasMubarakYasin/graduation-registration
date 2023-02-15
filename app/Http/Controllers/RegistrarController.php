@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\CreateRegistrarException;
+use App\Exports\RegistrarsExport;
 use App\Http\Requests\StoreRegistrarRequest;
 use App\Http\Requests\UpdateRegistrarRequest;
 use App\Models\Faculty;
@@ -10,6 +11,7 @@ use App\Models\Quota;
 use App\Models\Registrar;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RegistrarController extends Controller
 {
@@ -102,5 +104,9 @@ class RegistrarController extends Controller
         $registrar->delete();
 
         return back();
+    }
+    public function export()
+    {
+        return Excel::download(new RegistrarsExport, 'registrars.xlsx');
     }
 }

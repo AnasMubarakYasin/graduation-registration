@@ -10,11 +10,11 @@ use Illuminate\View\Component;
 class Index extends Component
 {
     public array $fields = [
-        'name' => 'name',
+        // 'name' => 'name',
         'nim' => 'NIM',
-        'email' => 'email',
+        'password' => 'password',
     ];
-    public array $columns = ['name', 'nim', 'email'];
+    public array $columns = [/* 'name', */ 'nim', 'password'];
     public LengthAwarePaginator $paginator;
 
     public function __construct(Request $request)

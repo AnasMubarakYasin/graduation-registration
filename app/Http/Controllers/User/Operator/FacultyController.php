@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User\Operator;
 use App\Http\Controllers\Controller;
 use App\Models\Quota;
 use App\Models\Registrar;
+use App\Models\Student;
+use Illuminate\Support\Str;
 
 class FacultyController extends Controller
 {
@@ -66,4 +68,18 @@ class FacultyController extends Controller
         return view('operator.faculty.registrar.validated.validate', ['registrar' => $registrar]);
     }
 
+    public function student_index()
+    {
+        return view('operator.faculty.student.index', []);
+    }
+    public function student_create()
+    {
+        return view('operator.faculty.student.create', [
+            'password'=> Str::random(8),
+        ]);
+    }
+    public function student_edit(Student $student)
+    {
+        return view('operator.faculty.student.edit', ['student' => $student]);
+    }
 }
