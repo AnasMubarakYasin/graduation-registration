@@ -36,7 +36,7 @@ class UpdateRegistrarRequest extends FormRequest
             'dob' => 'nullable|date',
             'faculty' => 'nullable|string',
             'study_program' => 'nullable|string',
-            'ipk' => 'nullable|integer',
+            'ipk' => 'nullable|numeric',
 
             'munaqasyah' => 'nullable|image|max:2048',
             'school_certificate' => 'nullable|image|max:2048',

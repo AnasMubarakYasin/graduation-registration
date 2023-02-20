@@ -34,7 +34,7 @@ class StoreRegistrarRequest extends FormRequest
             'dob' => 'required|date',
             'faculty' => 'required|string',
             'study_program' => 'required|string',
-            'ipk' => 'required|integer',
+            'ipk' => 'required|numeric',
 
             'munaqasyah' => 'required|image|max:2048',
             'school_certificate' => 'required|image|max:2048',

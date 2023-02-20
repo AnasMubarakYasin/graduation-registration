@@ -28,7 +28,7 @@ return new class extends Migration
             $table->date('dob')->nullable();
             $table->string('faculty')->nullable();
             $table->string('study_program')->nullable();
-            $table->integer('ipk')->nullable();
+            $table->double('ipk')->nullable();
 
             $table->string('munaqasyah')->nullable();
             $table->string('school_certificate')->nullable();
