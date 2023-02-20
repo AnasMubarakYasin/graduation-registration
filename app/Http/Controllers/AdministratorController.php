@@ -17,7 +17,7 @@ class AdministratorController extends Controller
     public function index(Request $request)
     {
         $this->authorize('viewAny', Administrator::class);
-        $columns = $request->query('columns', ['name', 'role', 'email']);
+        $columns = $request->query('columns', ['name']);
         $perpage = $request->query('perpage', 5);
         $query = Administrator::query();
         if ($request->query('sort')) {

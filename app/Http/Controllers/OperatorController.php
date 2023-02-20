@@ -17,7 +17,7 @@ class OperatorController extends Controller
     public function index(Request $request)
     {
         $this->authorize('viewAny', Operator::class);
-        $columns = $request->query('columns', ['name', 'department', 'email']);
+        $columns = $request->query('columns', ['name', 'department']);
         $perpage = $request->query('perpage', 5);
         $query = Operator::query();
         if ($request->query('sort')) {

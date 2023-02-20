@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('administrators', function (Blueprint $table) {
             $table->id();
-            $table->string('photo')->nullable();
+            // $table->string('photo')->nullable();
             $table->string('name');
             $table->enum('role', ['super_administrator', 'administrator']);
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            // $table->string('email')->unique();
+            // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

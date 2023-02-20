@@ -53,7 +53,7 @@
                             <span class="ml-3">Dashboard</span>
                         </a>
                     </li>
-                    @if (!$user->registrar || !$user->registrar->is_validated)
+                    {{-- @if (!$user->registrar || !$user->registrar->is_validated) --}}
                         <li>
                             <a href="{{ route('student.data.show') }}" @class([
                                 'flex items-center p-2 text-base font-normal rounded-lg',
@@ -99,7 +99,7 @@
                                 <span class="ml-3">File</span>
                             </a>
                         </li>
-                    @endif
+                    {{-- @endif --}}
                     {{-- <li>
                         <a href="{{ route('student.data.show') }}" @class([
                             'flex items-center p-2 text-base font-normal rounded-lg',
@@ -305,7 +305,7 @@
                         <div class="font-medium ">{{ $user->name }}</div>
                         <div class="truncate">{{ $user->nim }}</div>
                     </div> --}}
-                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                    {{-- <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
                         aria-labelledby="dropdownInformProfileButtonationButton">
                         <li>
                             <a href="{{ route('student.profile.show') }}"
@@ -319,7 +319,7 @@
                             <a href="#"
                                 class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Setting</a>
                         </li>
-                    </ul>
+                    </ul> --}}
                     <div class="py-1">
                         <a href="{{ route('student.logout.perform') }}"
                             class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">

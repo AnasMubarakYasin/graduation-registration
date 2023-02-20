@@ -60,7 +60,7 @@ class StudentController extends Controller
         $biodata->save();
         Notification::sendNow($user, new CreatedOrUpdatedRegistrar(asset('logo.svg'), 'Biodata Updated', 'student.data.show', $biodata));
 
-        return to_route('student.data.show');
+        return to_route('student.dashboard.show');
     }
 
     public function file_store(UpdateRegistrarRequest $request)
@@ -72,7 +72,7 @@ class StudentController extends Controller
         $biodata->save();
         Notification::sendNow($user, new CreatedOrUpdatedRegistrar(asset('logo.svg'), 'File Updated', 'student.file.show', $biodata));
 
-        return to_route('student.file.show');
+        return to_route('student.dashboard.show');
     }
 
     protected function get_registrar()

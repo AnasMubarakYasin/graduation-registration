@@ -53,16 +53,17 @@
                         d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                 </svg>
             </a>
-            @can('viewAny', App\Models\Student::class)
-            @endif
         @endcan
         @can('deleteAny', App\Models\Student::class)
             <form class="contents" id="delete_any" action="{{ $deleteAny }}" method="post"
                 enctype="multipart/form-data">
                 @csrf
                 @method('DELETE')
-                <input type="hidden" name="all" value="{{ $paginator->count() == $paginator->total() }}">
-                <button id="delete_any_btn"
+                @if ($paginator->count() == $paginator->total())
+                    <input type="hidden" name="all" value="1">
+                @endif
+                <button id="delete_any_btn" data-modal-target="delete_any_dialog" data-modal-toggle="delete_any_dialog"
+                    type="button"
                     class="hidden items-center p-2 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
@@ -71,6 +72,43 @@
                     <span class="sr-only">Delete Item</span>
                 </button>
             </form>
+            <div id="delete_any_dialog" tabindex="-1"
+                class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+                <div class="relative w-full h-full max-w-md md:h-auto">
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <button type="button"
+                            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                            data-modal-hide="delete_any_dialog">
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                        <div class="p-6 text-center">
+                            <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                                Apakah anda yakin ingin menghapus data?
+                            </h3>
+                            <button data-modal-hide="delete_any_dialog" type="submit" form="delete_any"
+                                class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                                Ya
+                            </button>
+                            <button data-modal-hide="delete_any_dialog" type="button"
+                                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                Batal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         @endcan
         <form id="filter" action="" class="z-10 w-auto hidden bg-white rounded shadow dark:bg-gray-700">
             <input type="hidden" name="filter" value="on">
@@ -86,8 +124,8 @@
                                             class="text-sm font-medium text-gray-900 dark:text-white capitalize">
                                             {{ __($value) }}
                                         </label>
-                                        <input type="number" step=".1" max="4" min="0" id="f_ipk"
-                                            name="f_ipk" value="{{ request()->query('f_' . $key) }}"
+                                        <input type="number" step=".1" max="4" min="0"
+                                            id="f_ipk" name="f_ipk" value="{{ request()->query('f_' . $key) }}"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="{{ __('search ' . $value) }}...">
                                     </div>
@@ -164,218 +202,260 @@
                 </button>
             </div>
         </form>
-    </div>
-    <div class="overflow-x-auto pb-2">
-        <table id="student"
-            class="w-full text-sm text-left text-gray-500 dark:text-gray-400 dark:border dark:border-separate dark:border-spacing-0 dark:border-gray-700 rounded-lg shadow-md dark:shadow-none">
-            <thead>
-                <tr class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <th scope="col" class="p-4 rounded-tl-lg">
+</div>
+<div class="overflow-x-auto pb-2">
+    <table id="student"
+        class="w-full text-sm text-left text-gray-500 dark:text-gray-400 dark:border dark:border-separate dark:border-spacing-0 dark:border-gray-700 rounded-lg shadow-md dark:shadow-none">
+        <thead>
+            <tr class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <th scope="col" class="p-4 rounded-tl-lg">
+                    <div class="flex items-center">
+                        <input id="checkbox-all" type="checkbox"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-600 dark:border-gray-600">
+                        <label for="checkbox-all" class="sr-only">checkbox</label>
+                    </div>
+                </th>
+                @foreach ($fields as $key => $value)
+                    @if (in_array($key, $columns))
+                        <th scope="col" class="text-base py-3 px-6 capitalize">
+                            <div class="flex items-center">
+                                {{ __($value) }}
+                                <a
+                                    href="{{ request()->fullUrlWithQuery(['sort' => 'on', 's_' . $key => request()->query('s_' . $key, 'desc') == 'desc' ? 'asc' : 'desc']) }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3.5 h-3.5"
+                                        aria-hidden="true" fill="currentColor" viewBox="0 0 320 512">
+                                        <path
+                                            d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </th>
+                    @endif
+                @endforeach
+                <th scope="col" class="text-base text-center py-3 px-6 rounded-tr-lg capitalize">
+                    {{ __('action') }}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($paginator as $item)
+                <tr @class([
+                    'bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-600 dark:border-gray-700',
+                    'border-b' => !$loop->last,
+                ])>
+                    <td class="p-4 w-4 {{ $loop->last ? 'rounded-bl-lg' : '' }}">
                         <div class="flex items-center">
-                            <input id="checkbox-all" type="checkbox"
-                                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-600 dark:border-gray-600">
-                            <label for="checkbox-all" class="sr-only">checkbox</label>
+                            <input id="" type="checkbox" name="id[]" form="delete_any"
+                                value="{{ $item->id }}"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="" class="sr-only">checkbox</label>
                         </div>
-                    </th>
+                    </td>
+
                     @foreach ($fields as $key => $value)
                         @if (in_array($key, $columns))
-                            <th scope="col" class="text-base py-3 px-6 capitalize">
-                                <div class="flex items-center">
-                                    {{ __($value) }}
-                                    <a
-                                        href="{{ request()->fullUrlWithQuery(['sort' => 'on', 's_' . $key => request()->query('s_' . $key, 'desc') == 'desc' ? 'asc' : 'desc']) }}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3.5 h-3.5"
-                                            aria-hidden="true" fill="currentColor" viewBox="0 0 320 512">
-                                            <path
-                                                d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
-                                        </svg>
-                                    </a>
-                                </div>
-                            </th>
+                            @switch($key)
+                                @case('date')
+                                    <td class="py-4 px-6 text-gray-900 dark:text-white whitespace-nowrap">
+                                        {{ $item->start_date }} - {{ $item->end_date }}
+                                    </td>
+                                @break
+
+                                @default
+                                    <td class="py-4 px-6 text-gray-900 dark:text-white whitespace-nowrap">
+                                        {{ $item->{$key} }}
+                                    </td>
+                            @endswitch
                         @endif
                     @endforeach
-                    <th scope="col" class="text-base text-center py-3 px-6 rounded-tr-lg capitalize">
-                        {{ __('action') }}
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($paginator as $item)
-                    <tr @class([
-                        'bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-600 dark:border-gray-700',
-                        'border-b' => !$loop->last,
-                    ])>
-                        <td class="p-4 w-4 {{ $loop->last ? 'rounded-bl-lg' : '' }}">
-                            <div class="flex items-center">
-                                <input id="" type="checkbox" name="id[]" form="delete_any"
-                                    value="{{ $item->id }}"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="" class="sr-only">checkbox</label>
-                            </div>
-                        </td>
 
-                        @foreach ($fields as $key => $value)
-                            @if (in_array($key, $columns))
-                                @switch($key)
-                                    @case('date')
-                                        <td class="py-4 px-6 text-gray-900 dark:text-white whitespace-nowrap">
-                                            {{ $item->start_date }} - {{ $item->end_date }}
-                                        </td>
-                                    @break
-
-                                    @default
-                                        <td class="py-4 px-6 text-gray-900 dark:text-white whitespace-nowrap">
-                                            {{ $item->{$key} }}
-                                        </td>
-                                @endswitch
-                            @endif
-                        @endforeach
-
-                        <td
-                            class="flex justify-center gap-2 py-4 px-6 capitalize {{ $loop->last ? 'rounded-br-lg' : '' }}">
-                            @can('update', $item)
-                                <a id="edt_btn" href="{{ $edit($item) }}"
-                                    class="p-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <td
+                        class="flex justify-center gap-2 py-4 px-6 capitalize {{ $loop->last ? 'rounded-br-lg' : '' }}">
+                        @can('update', $item)
+                            <a id="edt_btn" href="{{ $edit($item) }}"
+                                class="p-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                    </path>
+                                </svg>
+                                <span class="sr-only">Edit Item</span>
+                            </a>
+                        @endcan
+                        @can('delete', $item)
+                            <form id="item-delete-{{ $item->id }}" class="contents"
+                                action="{{ route('resources.student.delete', ['student' => $item]) }}"
+                                method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button id="del_btn" type="button"
+                                    data-modal-target="dialog-delete-{{ $item->id }}"
+                                    data-modal-toggle="dialog-delete-{{ $item->id }}"
+                                    class="p-2 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm text-center inline-flex items-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                                        </path>
+                                            d="M20 12H4"></path>
                                     </svg>
-                                    <span class="sr-only">Edit Item</span>
-                                </a>
-                            @endcan
-                            @can('delete', $item)
-                                <form class="contents"
-                                    action="{{ route('resources.student.delete', ['student' => $item]) }}"
-                                    method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button id="del_btn"
-                                        class="p-2 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm text-center inline-flex items-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M20 12H4"></path>
-                                        </svg>
-                                        <span class="sr-only">Delete Item</span>
-                                    </button>
-                                </form>
-                            @endcan
+                                    <span class="sr-only">Delete Item</span>
+                                </button>
+                            </form>
+                            <div id="dialog-delete-{{ $item->id }}" tabindex="-1"
+                                class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+                                <div class="relative w-full h-full max-w-md md:h-auto">
+                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                        <button type="button"
+                                            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                                            data-modal-hide="dialog-delete-{{ $item->id }}">
+                                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
+                                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                        <div class="p-6 text-center">
+                                            <svg aria-hidden="true"
+                                                class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200"
+                                                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                                                Apakah anda yakin ingin menghapus item?
+                                            </h3>
+                                            <button data-modal-hide="dialog-delete-{{ $item->id }}"
+                                                type="submit" form="item-delete-{{ $item->id }}"
+                                                class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                                                Ya
+                                            </button>
+                                            <button data-modal-hide="dialog-delete-{{ $item->id }}"
+                                                type="button"
+                                                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                                Batal
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endcan
+                    </td>
+                </tr>
+                @empty
+                    <tr>
+                        <td class="p-4 text-center text-lg text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 rounded-b-lg capitalize"
+                            colspan="{{ count($columns) + 2 }}">
+                            {{ __('empty') }}
                         </td>
                     </tr>
-                    @empty
-                        <tr>
-                            <td class="p-4 text-center text-lg text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 rounded-b-lg capitalize"
-                                colspan="{{ count($columns) + 2 }}">
-                                {{ __('empty') }}
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-        <nav class="flex justify-between items-center" aria-label="Table navigation">
-            <div class="flex items-center gap-2 text-sm font-normal text-gray-700 dark:text-gray-400">
-                <div>
-                    <span class="capitalize">{{ __('showing') }}</span>
-                    @if ($paginator->onFirstPage())
-                        <span class="font-semibold text-gray-900 dark:text-white">
-                            {{ $paginator->firstItem() }}
-                        </span>
-                        <span> {{ __('to') }} </span>
-                        <span class="font-semibold text-gray-900 dark:text-white">
-                            {{ $paginator->lastItem() }}
-                        </span>
-                    @else
-                        <span class="font-semibold text-gray-900 dark:text-white">
-                            {{ $paginator->count() }}
-                        </span>
-                    @endif
-                    <span>{{ __('of') }}</span>
-                    <span class="font-semibold text-gray-900 dark:text-white">{{ $paginator->total() }}</span>
-                    <span>{{ __('results') }}</span>.
-                </div>
-                <form id="fperpage">
-                    <label for="perpage" class="capitalize">
-                        {{ __('perpage') }}:
-                    </label>
-                    <select id="perpage" name="perpage"
-                        class="text-gray-700 bg-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 capitalize">
-                        @foreach (range(1, 3) as $per)
-                            <option @selected($paginator->perPage() == $per * 5) value="{{ $per * 5 }}">{{ $per * 5 }}</option>
-                        @endforeach
-                        <option @selected($paginator->perPage() == $paginator->total()) value="{{ $paginator->total() }}">{{ __('all') }}
-                        </option>
-                    </select>
-                </form>
-            </div>
-            <ul class="inline-flex items-center -space-x-px">
-                <li>
-                    @if ($paginator->previousPageUrl())
-                        <a href="{{ $paginator->previousPageUrl() }}"
-                            class="block py-2 px-2 text-gray-700 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span class="sr-only">Previous</span>
-                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </a>
-                    @else
-                        <button disabled
-                            class="cursor-not-allowed py-2 px-2 rounded-l-lg border border-gray-300 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span class="sr-only">Previous</span>
-                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </button>
-                    @endif
-                </li>
-                @if (($count = (int) floor($paginator->total() / $paginator->perPage())) && $count > 1)
-                    @foreach (range(1, $count) as $item)
-                        <li>
-                            <a href="{{ $paginator->url($loop->iteration) }}" @class([
-                                'grid place-content-center p-2 w-5 h-5 aspect-square box-content text-base',
-                                'text-gray-700 bg-white border border-gray-300 hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' =>
-                                    $paginator->currentPage() != $loop->iteration,
-                                'text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white' =>
-                                    $paginator->currentPage() == $loop->iteration,
-                            ])>
-                                {{ $loop->iteration }}
-                            </a>
-                        </li>
-                    @endforeach
-                @endif
-                <li>
-                    @if ($paginator->nextPageUrl())
-                        <a href="{{ $paginator->nextPageUrl() }}"
-                            class="block py-2 px-2 text-gray-700 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span class="sr-only">Next</span>
-                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </a>
-                    @else
-                        <button disabled
-                            class="cursor-not-allowed py-2 px-2 rounded-r-lg border border-gray-300 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span class="sr-only">Previous</span>
-                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </button>
-                    @endif
-                </li>
-            </ul>
-        </nav>
+                @endforelse
+            </tbody>
+        </table>
     </div>
+    <nav class="flex justify-between items-center" aria-label="Table navigation">
+        <div class="flex items-center gap-2 text-sm font-normal text-gray-700 dark:text-gray-400">
+            <div>
+                <span class="capitalize">{{ __('showing') }}</span>
+                @if ($paginator->onFirstPage())
+                    <span class="font-semibold text-gray-900 dark:text-white">
+                        {{ $paginator->firstItem() }}
+                    </span>
+                    <span> {{ __('to') }} </span>
+                    <span class="font-semibold text-gray-900 dark:text-white">
+                        {{ $paginator->lastItem() }}
+                    </span>
+                @else
+                    <span class="font-semibold text-gray-900 dark:text-white">
+                        {{ $paginator->count() }}
+                    </span>
+                @endif
+                <span>{{ __('of') }}</span>
+                <span class="font-semibold text-gray-900 dark:text-white">{{ $paginator->total() }}</span>
+                <span>{{ __('results') }}</span>.
+            </div>
+            <form id="fperpage">
+                <label for="perpage" class="capitalize">
+                    {{ __('perpage') }}:
+                </label>
+                <select id="perpage" name="perpage"
+                    class="text-gray-700 bg-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 capitalize">
+                    @foreach (range(1, 3) as $per)
+                        <option @selected($paginator->perPage() == $per * 5) value="{{ $per * 5 }}">{{ $per * 5 }}</option>
+                    @endforeach
+                    <option @selected($paginator->perPage() == $paginator->total()) value="{{ $paginator->total() }}">{{ __('all') }}
+                    </option>
+                </select>
+            </form>
+        </div>
+        <ul class="inline-flex items-center -space-x-px">
+            <li>
+                @if ($paginator->previousPageUrl())
+                    <a href="{{ $paginator->previousPageUrl() }}"
+                        class="block py-2 px-2 text-gray-700 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <span class="sr-only">Previous</span>
+                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                @else
+                    <button disabled
+                        class="cursor-not-allowed py-2 px-2 rounded-l-lg border border-gray-300 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <span class="sr-only">Previous</span>
+                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                @endif
+            </li>
+            @if (($count = (int) floor($paginator->total() / $paginator->perPage())) && $count > 1)
+                @foreach (range(1, $count) as $item)
+                    <li>
+                        <a href="{{ $paginator->url($loop->iteration) }}" @class([
+                            'grid place-content-center p-2 w-5 h-5 aspect-square box-content text-base',
+                            'text-gray-700 bg-white border border-gray-300 hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' =>
+                                $paginator->currentPage() != $loop->iteration,
+                            'text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white' =>
+                                $paginator->currentPage() == $loop->iteration,
+                        ])>
+                            {{ $loop->iteration }}
+                        </a>
+                    </li>
+                @endforeach
+            @endif
+            <li>
+                @if ($paginator->nextPageUrl())
+                    <a href="{{ $paginator->nextPageUrl() }}"
+                        class="block py-2 px-2 text-gray-700 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <span class="sr-only">Next</span>
+                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                @else
+                    <button disabled
+                        class="cursor-not-allowed py-2 px-2 rounded-r-lg border border-gray-300 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <span class="sr-only">Previous</span>
+                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                @endif
+            </li>
+        </ul>
+    </nav>
+</div>

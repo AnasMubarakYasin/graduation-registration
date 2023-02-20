@@ -284,7 +284,7 @@ class Registrar extends Model
         $result['biodata'] = $this->check_biodata();
         $result['file'] = $this->check_file();
         if ($result['biodata'] == 100.0 && $result['file'] == 100.0) {
-            if ($this->is_revision && auth()->user()::class == Student::class) {
+            if ($this->is_revision && auth()->user() instanceof Student) {
                 $this->status = RegistrarStatus::Revalidate->value;
                 $this->saveQuietly();
             } elseif ($this->is_create) {

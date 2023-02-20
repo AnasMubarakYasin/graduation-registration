@@ -43,26 +43,26 @@ class DatabaseSeeder extends Seeder
         Administrator::factory()->create([
             'name' => 'super',
             'role' => 'super_administrator',
-            'email' => 'super@host.local',
+            // 'email' => 'super@host.local',
             'password' => 'super',
         ]);
         Administrator::factory()->create([
             'name' => 'admin',
             'role' => 'administrator',
-            'email' => 'admin@host.local',
+            // 'email' => 'admin@host.local',
             'password' => 'admin',
         ]);
         Operator::factory()->create([
             'name' => 'faculty',
             'department' => 'faculty',
             'faculty' => $faculty_st->name,
-            'email' => 'faculty@host.local',
+            // 'email' => 'faculty@host.local',
             'password' => 'faculty',
         ]);
         Operator::factory()->create([
             'name' => 'academic',
             'department' => 'academic',
-            'email' => 'academic@host.local',
+            // 'email' => 'academic@host.local',
             'password' => 'academic',
         ]);
         Student::factory()->create([
