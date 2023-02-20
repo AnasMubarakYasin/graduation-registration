@@ -10,7 +10,7 @@
     <div class="grid grid-cols-2 gap-4">
         <div class="grid gap-4">
             <div class="flex flex-col gap-2">
-                <label class="block text-sm font-medium text-gray-900 dark:text-white capitalize" for="photo">
+                <label class="block text-base font-semibold text-gray-900 dark:text-white capitalize" for="photo">
                     {{ __('photo') }}
                 </label>
                 <output id="photo_url" name="photo_url" class="w-20 h-20 text-base text-gray-700 dark:text-gray-100">
@@ -23,29 +23,29 @@
             </div>
             <div class="flex flex-col gap-2">
                 <label for="name"
-                    class="text-sm font-medium text-gray-900 dark:text-white capitalize">{{ __('name') }}</label>
+                    class="text-base font-semibold text-gray-900 dark:text-white capitalize">{{ __('name') }}</label>
                 <output id="name" name="name"
                     class="text-base text-gray-700 dark:text-gray-100">{{ $registrar->name }}</output>
             </div>
             <div class="flex flex-col gap-2">
-                <label for="nim" class="text-sm font-medium text-gray-900 dark:text-white">NIM</label>
+                <label for="nim" class="text-base font-semibold text-gray-900 dark:text-white">NIM</label>
                 <output id="nim" name="nim"
                     class="text-base text-gray-700 dark:text-gray-100">{{ $registrar->nim }}</output>
             </div>
             <div class="flex flex-col gap-2">
-                <label for="nik" class="text-sm font-medium text-gray-900 dark:text-white">NIK</label>
+                <label for="nik" class="text-base font-semibold text-gray-900 dark:text-white">NIK</label>
                 <output id="nik" name="nik"
                     class="text-base text-gray-700 dark:text-gray-100">{{ $registrar->nik }}</output>
             </div>
             <div class="flex flex-col gap-2">
-                <label for="pob" class="text-sm font-medium text-gray-900 dark:text-white capitalize">
+                <label for="pob" class="text-base font-semibold text-gray-900 dark:text-white capitalize">
                     {{ __('place of birth') }}
                 </label>
                 <output id="pob" name="pob"
                     class="text-base text-gray-700 dark:text-gray-100">{{ $registrar->pob }}</output>
             </div>
             <div class="flex flex-col gap-2">
-                <label for="dob" class="text-sm font-medium text-gray-900 dark:text-white capitalize">
+                <label for="dob" class="text-base font-semibold text-gray-900 dark:text-white capitalize">
                     {{ __('date of birth') }}
                 </label>
                 <output id="dob" name="dob"
@@ -53,24 +53,24 @@
             </div>
             <div class="flex flex-col gap-2">
                 <label for="faculty"
-                    class="text-sm font-medium text-gray-900 dark:text-white capitalize">{{ __('faculty') }}</label>
+                    class="text-base font-semibold text-gray-900 dark:text-white capitalize">{{ __('faculty') }}</label>
                 <output id="faculty" name="faculty"
                     class="text-base text-gray-700 dark:text-gray-100">{{ $registrar->faculty }}</output>
             </div>
             <div class="flex flex-col gap-2">
-                <label for="study_program" class="text-sm font-medium text-gray-900 dark:text-white capitalize">
+                <label for="study_program" class="text-base font-semibold text-gray-900 dark:text-white capitalize">
                     {{ __('study program') }}
                 </label>
                 <output id="study_program" name="study_program"
                     class="text-base text-gray-700 dark:text-gray-100">{{ $registrar->study_program }}</output>
             </div>
             <div class="flex flex-col gap-2">
-                <label for="ipk" class="text-sm font-medium text-gray-900 dark:text-white">IPK</label>
+                <label for="ipk" class="text-base font-semibold text-gray-900 dark:text-white">IPK</label>
                 <output id="ipk" name="ipk"
                     class="text-base text-gray-700 dark:text-gray-100">{{ $registrar->ipk }}</output>
             </div>
             <div class="flex flex-col gap-2">
-                <label class="block text-sm font-medium text-gray-900 dark:text-white" for="munaqasyah">
+                <label class="block text-base font-semibold text-gray-900 dark:text-white" for="munaqasyah">
                     SK Munaqasyah
                 </label>
                 <output id="munaqasyah_url" name="munaqasyah_url"
@@ -83,7 +83,7 @@
                 </output>
             </div>
             <div class="flex flex-col gap-2">
-                <label class="block text-sm font-medium text-gray-900 dark:text-white" for="school_certificate">
+                <label class="block text-base font-semibold text-gray-900 dark:text-white" for="school_certificate">
                     Ijazah SMA/SMK/MA
                 </label>
                 <output id="school_certificate_url" name="school_certificate_url"
@@ -96,7 +96,7 @@
                 </output>
             </div>
             <div class="flex flex-col gap-2">
-                <label class="block text-sm font-medium text-gray-900 dark:text-white" for="kk">
+                <label class="block text-base font-semibold text-gray-900 dark:text-white" for="kk">
                     Kartu Tanda Pengenal (KTP)
                 </label>
                 <output id="kk_url" name="kk_url" class="w-20 h-20 text-base text-gray-700 dark:text-gray-100">
@@ -108,7 +108,7 @@
                 </output>
             </div>
             <div class="flex flex-col gap-2">
-                <label class="block text-sm font-medium text-gray-900 dark:text-white" for="ktp">
+                <label class="block text-base font-semibold text-gray-900 dark:text-white" for="ktp">
                     Kartu Keluarga (KK)
                 </label>
                 <output id="ktp_url" name="ktp_url" class="w-20 h-20 text-base text-gray-700 dark:text-gray-100">
@@ -120,7 +120,7 @@
                 </output>
             </div>
             <div class="flex flex-col gap-2">
-                <label class="block text-sm font-medium text-gray-900 dark:text-white" for="spukt">
+                <label class="block text-base font-semibold text-gray-900 dark:text-white" for="spukt">
                     Slip Pembayaran Uang Kuliah Tunggal
                 </label>
                 <output id="spukt_url" name="spukt_url" class="w-20 h-20 text-base text-gray-700 dark:text-gray-100">
@@ -132,7 +132,7 @@
                 </output>
             </div>
             <div class="flex flex-col gap-2">
-                <label for="status" class="text-sm font-medium text-gray-900 dark:text-white">
+                <label for="status" class="text-base font-semibold text-gray-900 dark:text-white">
                     Status
                 </label>
                 <select id="status" name="status"
@@ -147,7 +147,7 @@
                 @enderror
             </div>
             <div>
-                <label for="comment" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white capitalize">
+                <label for="comment" class="block mb-2 text-base font-semibold text-gray-900 dark:text-white capitalize">
                     {{ __('message') }}
                 </label>
                 <textarea id="comment" rows="4" name="comment"
