@@ -23,8 +23,8 @@
         <aside id="drawer-main" class="bg-white dark:bg-gray-800 shadow transition-colors" tabindex="-1">
             <header
                 class="flex gap-4 items-center justify-center sticky top-0 bg-white dark:bg-gray-800 text-xl font-semibold h-[56px] shadow transition-colors">
-                <div><img src="{{ asset('logo.png') }}" alt="Bladerlaiga" class="w-8 h-8 object-contain rounded-md"></div>
-                <div class="text-green-700 dark:text-green-500">UIN Alauddin</div>
+                <div><img src="{{ env('APP_LOGO') }}" alt="Bladerlaiga" class="w-8 h-8 object-contain rounded-md"></div>
+                <div class="text-green-700 dark:text-green-500">{{ env('APP_NAME') }}</div>
             </header>
             <nav
                 class="flex flex-col h-[calc(100vh_-_56px)] p-4 overflow-auto bg-white dark:bg-gray-800 shadow transition-colors">
@@ -313,7 +313,7 @@
                         </a>
                     </li>
                 </ul>
-                <div id="dropdown-cta" class="p-4 mt-4 bg-blue-50 rounded-lg dark:bg-blue-900" role="alert">
+                {{-- <div id="dropdown-cta" class="p-4 mt-4 bg-blue-50 rounded-lg dark:bg-blue-900" role="alert">
                     <div class="flex items-center mb-3">
                         <span
                             class="bg-orange-100 text-orange-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-orange-900">
@@ -334,9 +334,9 @@
                     <p class="mb-3 text-sm text-blue-900 dark:text-blue-400">
                         Preview the Bladerlaiga panel page.
                     </p>
-                </div>
+                </div> --}}
                 <div class="flex-grow"></div>
-                <ul class="pt-4 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
+                {{-- <ul class="pt-4 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
                     <li>
                         <a href="{{ route('admin.empty.show') }}" @class([
                             'flex items-center p-2 text-base font-normal rounded-lg',
@@ -359,7 +359,7 @@
                             <span class="ml-3">About</span>
                         </a>
                     </li>
-                </ul>
+                </ul> --}}
             </nav>
         </aside>
         <div id="content" class="flex-grow grid h-screen grid-rows-[56px,auto,56px]">
@@ -497,7 +497,7 @@
                         <div class="font-medium ">{{ $user->name }}</div>
                         <div class="truncate">{{ $user->readable_role }}</div>
                     </div> --}}
-                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                    {{-- <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
                         aria-labelledby="dropdownInformProfileButtonationButton">
                         <li>
                             <a href="{{ route('admin.profile.show') }}"
@@ -511,7 +511,7 @@
                             <a href="{{ route('admin.empty.show') }}"
                                 class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
                         </li>
-                    </ul>
+                    </ul> --}}
                     <div class="py-1">
                         <a href="{{ route('admin.logout.perform') }}"
                             class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">

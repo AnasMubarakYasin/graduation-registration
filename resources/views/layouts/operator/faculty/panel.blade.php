@@ -23,8 +23,8 @@
         <aside id="drawer-main" class="bg-white dark:bg-gray-800 shadow transition-colors" tabindex="-1">
             <header
                 class="flex gap-4 items-center justify-center sticky top-0 bg-white dark:bg-gray-800 text-xl font-semibold h-[56px] shadow transition-colors">
-                <div><img src="{{ asset('logo.png') }}" alt="Bladerlaiga" class="w-8 h-8 object-contain rounded-md"></div>
-                <div class="text-green-700 dark:text-green-500">UIN Alauddin</div>
+                <div><img src="{{ env('APP_LOGO') }}" alt="Bladerlaiga" class="w-8 h-8 object-contain rounded-md"></div>
+                <div class="text-green-700 dark:text-green-500">{{ env('APP_NAME') }}</div>
             </header>
             <nav
                 class="flex flex-col h-[calc(100vh_-_56px)] p-4 overflow-auto bg-white dark:bg-gray-800 shadow transition-colors">
@@ -109,7 +109,7 @@
                 <ul class="pt-4 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700 capitalize">
                     <li>
                         @php
-                            $link = route('operator.faculty.student.index')
+                            $link = route('operator.faculty.student.index');
                         @endphp
                         <a href="{{ $link }}" @class([
                             'flex items-center p-2 text-base font-normal rounded-lg',
@@ -121,8 +121,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                                 stroke="currentColor" @class([
                                     'w-6 h-6 transition',
-                                    'text-gray-700 dark:text-white' =>
-                                        request()->url() != $link,
+                                    'text-gray-700 dark:text-white' => request()->url() != $link,
                                     '' => request()->url() == $link,
                                 ])>
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -145,53 +144,6 @@
                         </a>
                     </li>
                 </ul>
-                <div id="dropdown-cta" class="p-4 mt-4 bg-blue-50 rounded-lg dark:bg-blue-900" role="alert">
-                    <div class="flex items-center mb-3">
-                        <span
-                            class="bg-orange-100 text-orange-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-orange-900">
-                            Alpha
-                        </span>
-                        <button type="button"
-                            class="ml-auto -mx-1.5 -my-1.5 bg-blue-50 text-blue-900 rounded-lg focus:ring-2 focus:ring-blue-400 p-1 hover:bg-blue-200 inline-flex h-6 w-6 dark:bg-blue-900 dark:text-blue-400 dark:hover:bg-blue-800"
-                            data-collapse-toggle="dropdown-cta" aria-label="Close">
-                            <span class="sr-only">Close</span>
-                            <svg aria-hidden="true" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </button>
-                    </div>
-                    <p class="mb-3 text-sm text-blue-900 dark:text-blue-400">
-                        Preview the Bladerlaiga panel page.
-                    </p>
-                </div>
-                <div class="flex-grow"></div>
-                <ul class="pt-4 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
-                    <li>
-                        <a href="{{ route('operator.faculty.empty') }}" @class([
-                            'flex items-center p-2 text-base font-normal rounded-lg',
-                            'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
-                                request()->url() != route('operator.faculty.empty'),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
-                                request()->url() == route('operator.faculty.empty'),
-                        ])>
-                            <svg @class([
-                                'w-6 h-6 transition',
-                                'text-gray-700 dark:text-white' =>
-                                    request()->url() != route('operator.faculty.empty'),
-                                '' => request()->url() == route('operator.faculty.empty'),
-                            ]) fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                                </path>
-                            </svg>
-                            <span class="ml-3">About</span>
-                        </a>
-                    </li>
-                </ul>
             </nav>
         </aside>
         <div id="content" class="flex-grow grid h-screen grid-rows-[56px,auto,56px]">
@@ -210,7 +162,7 @@
                     <h1 class="text-base font-medium capitalize">@yield('title', 'Panel')</h1>
                 </div>
                 <div class="flex relative gap-2 items-center pr-4">
-                    <button id="notif-btn" data-dropdown-toggle="notif-ddw"
+                    {{-- <button id="notif-btn" data-dropdown-toggle="notif-ddw"
                         class="text-sm p-2 text-gray-700 hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-800">
                         @empty($user->unreadNotifications->all())
                         @else
@@ -225,7 +177,7 @@
                                 d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
                             </path>
                         </svg>
-                    </button>
+                    </button> --}}
                     <div id="notif-ddw"
                         class="hidden z-20 w-full max-w-sm bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
                         aria-labelledby="notif-btn">
@@ -256,18 +208,9 @@
                                 </div>
                             @endforelse
                         </div>
-                    @empty($user->unreadNotifications->all())
-                    @else
-                        <a href="{{ route('operator.faculty.dashboard') }}"
-                            class="block py-2 text-sm font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white">
-                            <div class="inline-flex items-center">
-                                View all
-                            </div>
-                        </a>
-                    @endempty
-                </div>
+                    </div>
 
-                <button id="theme-btn"
+                    {{-- <button id="theme-btn"
                     class="text-sm p-2 text-gray-700 hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-800">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
@@ -275,9 +218,9 @@
                             d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
                         </path>
                     </svg>
-                </button>
+                </button> --}}
 
-                <button id="LangButton" data-dropdown-toggle="Lang"
+                    {{-- <button id="LangButton" data-dropdown-toggle="Lang"
                     class="grid place-content-center gap-2 h-10 aspect-square text-sm text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-600 hover:text-blue-600 dark:hover:text-blue-500 rounded-lg">
                     <span class="sr-only">Open language menu</span>
                     <div class="p-2.5">
@@ -300,32 +243,32 @@
                             </li>
                         @endforeach
                     </ul>
-                </div>
+                </div> --}}
 
-                <button id="ProfileButton" data-dropdown-toggle="Profile"
-                    class="flex items-center gap-2 text-sm font-medium text-gray-900 rounded-lg hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white">
-                    <span class="sr-only">Open user menu</span>
-                    <div class="bg-gray-100 p-2 rounded-lg dark:bg-gray-600">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    <button id="ProfileButton" data-dropdown-toggle="Profile"
+                        class="flex items-center gap-2 text-sm font-medium text-gray-900 rounded-lg hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white">
+                        <span class="sr-only">Open user menu</span>
+                        <div class="bg-gray-100 p-2 rounded-lg dark:bg-gray-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                        </div>
+                        <div class="text-left font-medium dark:text-white">
+                            <div class="text-base">{{ $user->name }}</div>
+                            <div class="text-xs opacity-70">{{ $user->department }}</div>
+                        </div>
+                        <svg class="w-4 h-4 mx-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            <path fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
                         </svg>
-                    </div>
-                    <div class="text-left font-medium dark:text-white">
-                        <div class="text-base">{{ $user->name }}</div>
-                        <div class="text-xs opacity-70">{{ $user->department }}</div>
-                    </div>
-                    <svg class="w-4 h-4 mx-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </button>
-                <div id="Profile"
-                    class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                    </button>
+                    <div id="Profile"
+                        class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                        {{-- <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
                         aria-labelledby="dropdownInformProfileButtonationButton">
                         <li>
                             <a href="{{ route('operator.faculty.empty') }}"
@@ -339,32 +282,32 @@
                             <a href="{{ route('operator.faculty.empty') }}"
                                 class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
                         </li>
-                    </ul>
-                    <div class="py-1">
-                        <a href="{{ route('operator.logout.perform') }}"
-                            class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                            Logout
-                        </a>
+                    </ul> --}}
+                        <div class="py-1">
+                            <a href="{{ route('operator.logout.perform') }}"
+                                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                Logout
+                            </a>
+                        </div>
                     </div>
-                </div>
 
-            </div>
-        </header>
-        <main class="flex-grow p-4 overflow-auto">
-            @if (isset($content_card) && $content_card)
-                <div class="grid gap-4 p-4 bg-white dark:bg-gray-800 rounded-lg shadow transition-colors">
-                    @yield('content')
                 </div>
-            @else
-                @yield('content')
-            @endif
-        </main>
-        <footer
-            class="flex items-center justify-center h-[56px] bg-white dark:bg-gray-800 shadow transition-colors">
-            <div class="text-sm">Copyright &copy; 2022 Bladerlaiga, All Right Reserved.</div>
-        </footer>
+            </header>
+            <main class="flex-grow p-4 overflow-auto">
+                @if (isset($content_card) && $content_card)
+                    <div class="grid gap-4 p-4 bg-white dark:bg-gray-800 rounded-lg shadow transition-colors">
+                        @yield('content')
+                    </div>
+                @else
+                    @yield('content')
+                @endif
+            </main>
+            <footer
+                class="flex items-center justify-center h-[56px] bg-white dark:bg-gray-800 shadow transition-colors">
+                <div class="text-sm">Copyright &copy; 2022 Bladerlaiga, All Right Reserved.</div>
+            </footer>
+        </div>
     </div>
-</div>
 </body>
 
 </html>

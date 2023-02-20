@@ -24,8 +24,8 @@
             class="flex-[0_0_300px] overflow-y-auto bg-white dark:bg-gray-800 shadow transition-colors" tabindex="-1">
             <header
                 class="flex gap-4 items-center justify-center sticky top-0 bg-white dark:bg-gray-800 text-xl font-semibold h-[56px] shadow transition-colors">
-                <div><img src="{{ asset('logo.png') }}" alt="Bladerlaiga" class="w-8 h-8 object-contain rounded-md"></div>
-                <div class="text-green-700 dark:text-green-500">UIN Alauddin</div>
+                <div><img src="{{ env('APP_LOGO') }}" alt="Bladerlaiga" class="w-8 h-8 object-contain rounded-md"></div>
+                <div class="text-green-700 dark:text-green-500">{{ env('APP_NAME') }}</div>
             </header>
             <nav
                 class="flex flex-col h-[calc(100vh_-_56px)] p-4 overflow-auto bg-white dark:bg-gray-800 shadow transition-colors">
@@ -54,51 +54,51 @@
                         </a>
                     </li>
                     {{-- @if (!$user->registrar || !$user->registrar->is_validated) --}}
-                        <li>
-                            <a href="{{ route('student.data.show') }}" @class([
-                                'flex items-center p-2 text-base font-normal rounded-lg',
-                                'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
+                    <li>
+                        <a href="{{ route('student.data.show') }}" @class([
+                            'flex items-center p-2 text-base font-normal rounded-lg',
+                            'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
+                                request()->url() != route('student.data.show'),
+                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                                request()->url() == route('student.data.show'),
+                        ])>
+                            <svg @class([
+                                'w-6 h-6 transition duration-75',
+                                'text-gray-700 dark:text-white' =>
                                     request()->url() != route('student.data.show'),
-                                'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
-                                    request()->url() == route('student.data.show'),
-                            ])>
-                                <svg @class([
-                                    'w-6 h-6 transition duration-75',
-                                    'text-gray-700 dark:text-white' =>
-                                        request()->url() != route('student.data.show'),
-                                    '' => request()->url() == route('student.data.show'),
-                                ]) fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2">
-                                    </path>
-                                </svg>
+                                '' => request()->url() == route('student.data.show'),
+                            ]) fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2">
+                                </path>
+                            </svg>
 
-                                <span class="ml-3">Biodata</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('student.file.show') }}" @class([
-                                'flex items-center p-2 text-base font-normal rounded-lg',
-                                'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
+                            <span class="ml-3">Biodata</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('student.file.show') }}" @class([
+                            'flex items-center p-2 text-base font-normal rounded-lg',
+                            'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
+                                request()->url() != route('student.file.show'),
+                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                                request()->url() == route('student.file.show'),
+                        ])>
+                            <svg @class([
+                                'w-6 h-6 transition duration-75',
+                                'text-gray-700 dark:text-white' =>
                                     request()->url() != route('student.file.show'),
-                                'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
-                                    request()->url() == route('student.file.show'),
-                            ])>
-                                <svg @class([
-                                    'w-6 h-6 transition duration-75',
-                                    'text-gray-700 dark:text-white' =>
-                                        request()->url() != route('student.file.show'),
-                                    '' => request()->url() == route('student.file.show'),
-                                ]) fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z">
-                                    </path>
-                                </svg>
-                                <span class="ml-3">File</span>
-                            </a>
-                        </li>
+                                '' => request()->url() == route('student.file.show'),
+                            ]) fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z">
+                                </path>
+                            </svg>
+                            <span class="ml-3">File</span>
+                        </a>
+                    </li>
                     {{-- @endif --}}
                     {{-- <li>
                         <a href="{{ route('student.data.show') }}" @class([
@@ -140,7 +140,7 @@
                         </a>
                     </li>
                 </ul> --}}
-                <div id="dropdown-cta" class="p-4 mt-6 bg-blue-50 rounded-lg dark:bg-blue-900" role="alert">
+                {{-- <div id="dropdown-cta" class="p-4 mt-6 bg-blue-50 rounded-lg dark:bg-blue-900" role="alert">
                     <div class="flex items-center mb-3">
                         <span
                             class="bg-orange-100 text-orange-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-orange-900">
@@ -161,8 +161,6 @@
                     <p class="mb-3 text-sm text-blue-900 dark:text-blue-400">
                         Preview the Bladerlaiga panel page.
                     </p>
-                    {{-- <a class="text-sm text-blue-900 underline hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-                        href="#">Turn new navigation off</a> --}}
                 </div>
                 <div class="flex-grow"></div>
                 <ul class="pt-4 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
@@ -188,7 +186,7 @@
                             <span class="ml-3">About</span>
                         </a>
                     </li>
-                </ul>
+                </ul> --}}
             </nav>
         </aside>
         <div id="content" class="flex-grow grid h-screen grid-rows-[56px,auto,56px]">
@@ -204,17 +202,15 @@
                             </path>
                         </svg>
                     </button>
-                    <h1 class="text-base font-medium">@yield('title', 'Panel')</h1>
+                    <h1 class="text-base font-medium capitalize">@yield('title', 'Panel')</h1>
                 </div>
-                <div class="flex relative gap-2 items-center pr-8">
-                    <button id="notif-btn" data-dropdown-toggle="notif-ddw"
-                        class="relative text-sm p-2 text-gray-700 hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-800">
+                <div class="flex relative gap-2 items-center pr-4">
+                    {{-- <button id="notif-btn" data-dropdown-toggle="notif-ddw"
+                        class="text-sm p-2 text-gray-700 hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-800">
                         @empty($user->unreadNotifications->all())
                         @else
-                            <div class="grid w-full h-full absolute">
-                                <div
-                                    class="grid place-content-center relative w-4 h-4 bottom-1 left-3 text-xs font-semibold text-white bg-blue-500 rounded-full">
-                                    {{ $user->unreadNotifications->count() }}
+                            <div class="flex absolute">
+                                <div class="inline-flex relative w-3 h-3 left-3 bg-blue-500 rounded-full">
                                 </div>
                             </div>
                         @endempty
@@ -224,20 +220,20 @@
                                 d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
                             </path>
                         </svg>
-                    </button>
+                    </button> --}}
                     <div id="notif-ddw"
                         class="hidden z-20 w-full max-w-sm bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
                         aria-labelledby="notif-btn">
                         <div
-                            class="block py-2 px-4 font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-white">
+                            class="block py-2 px-4 font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-white rounded-t-md">
                             Notifications
                         </div>
                         <div class="divide-y divide-gray-100 dark:divide-gray-700">
                             @forelse ($user->unreadNotifications as $notification)
-                                <a href="{{ route('notification.read', ['guard' => 'student', 'id' => $notification]) }}"
+                                <a href="{{ route($notification->data['route'], ['notification' => $notification]) }}"
                                     class="flex py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-600">
                                     <div class="flex-shrink-0">
-                                        <img class="w-11 h-11 rounded-full" src="{{ $notification->data['badge'] }}"
+                                        <img class="w-11 h-11 rounded-full" src="{{ asset('logo.png') }}"
                                             alt="">
                                     </div>
                                     <div class="pl-3 w-full">
@@ -255,18 +251,9 @@
                                 </div>
                             @endforelse
                         </div>
-                    @empty($user->unreadNotifications->all())
-                    @else
-                        <a href="{{ route('student.notification.show') }}"
-                            class="block py-2 text-sm font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white">
-                            <div class="inline-flex items-center">
-                                View all
-                            </div>
-                        </a>
-                    @endempty
-                </div>
+                    </div>
 
-                <button id="theme-btn"
+                    {{-- <button id="theme-btn"
                     class="text-sm p-2 text-gray-700 hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-800">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
@@ -274,77 +261,96 @@
                             d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
                         </path>
                     </svg>
-                </button>
+                </button> --}}
 
-                <button id="ProfileButton" data-dropdown-toggle="Profile"
-                    class="flex items-center gap-2 text-sm font-medium text-gray-900 rounded-lg hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white">
-                    <span class="sr-only">Open user menu</span>
-                    {{-- <img class="mr-2 w-8 h-8 rounded-full" src="{{ asset('logo.png') }}" alt="user photo"> --}}
-                    {{-- <div>Bonnie Green</div> --}}
-                    <div class="bg-gray-100 p-2 rounded-lg dark:bg-gray-600">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
+                    {{-- <button id="LangButton" data-dropdown-toggle="Lang"
+                    class="grid place-content-center gap-2 h-10 aspect-square text-sm text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-600 hover:text-blue-600 dark:hover:text-blue-500 rounded-lg">
+                    <span class="sr-only">Open language menu</span>
+                    <div class="p-2.5">
+                        <div class="font-medium uppercase">{{ App::getLocale() }}</div>
                     </div>
-                    <div class="font-medium text-left dark:text-white">
-                        {{-- <div class="text-base">{{ $user->name }}</div> --}}
-                        <div class="text-base">{{ $user->nim }}</div>
-                    </div>
-                    <svg class="w-4 h-4 mx-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                    </svg>
                 </button>
-                <div id="Profile"
-                    class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                    {{-- <div class="py-3 px-4 text-sm text-gray-900 dark:text-white">
-                        <div class="font-medium ">{{ $user->name }}</div>
-                        <div class="truncate">{{ $user->nim }}</div>
-                    </div> --}}
-                    {{-- <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                <div id="Lang"
+                    class="hidden z-10 w-auto bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
+                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="LangDefault">
+                        @foreach (['en' => 'English', 'id' => 'Indonesia'] as $key => $value)
+                            <li>
+                                <a href="{{ route('language.set', ['locale' => $key]) }}"
+                                    @class([
+                                        'block py-2 px-4 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white',
+                                        'text-white bg-blue-500 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white' =>
+                                            $key == App::getLocale(),
+                                    ])>
+                                    {{ $value }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div> --}}
+
+                    <button id="ProfileButton" data-dropdown-toggle="Profile"
+                        class="flex items-center gap-2 text-sm font-medium text-gray-900 rounded-lg hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white">
+                        <span class="sr-only">Open user menu</span>
+                        <div class="bg-gray-100 p-2 rounded-lg dark:bg-gray-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                        </div>
+                        <div class="text-left font-medium dark:text-white">
+                            <div class="text-base">{{ $user->name }}</div>
+                            <div class="text-xs opacity-70">{{ $user->department }}</div>
+                        </div>
+                        <svg class="w-4 h-4 mx-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                    <div id="Profile"
+                        class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                        {{-- <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
                         aria-labelledby="dropdownInformProfileButtonationButton">
                         <li>
-                            <a href="{{ route('student.profile.show') }}"
+                            <a href="{{ route('operator.faculty.empty') }}"
                                 class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
                         </li>
                         <li>
-                            <a href="{{ route('student.notification.show') }}"
+                            <a href="{{ route('operator.faculty.empty') }}"
                                 class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Notifications</a>
                         </li>
                         <li>
-                            <a href="#"
-                                class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Setting</a>
+                            <a href="{{ route('operator.faculty.empty') }}"
+                                class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
                         </li>
                     </ul> --}}
-                    <div class="py-1">
-                        <a href="{{ route('student.logout.perform') }}"
-                            class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                            Logout
-                        </a>
+                        <div class="py-1">
+                            <a href="{{ route('operator.logout.perform') }}"
+                                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                Logout
+                            </a>
+                        </div>
                     </div>
-                </div>
 
-            </div>
-        </header>
-        <main class="flex-grow p-4 overflow-auto">
-            @if (isset($content_card) && $content_card)
-                <div class="grid gap-4 p-4 bg-white dark:bg-gray-800 rounded-lg shadow transition-colors">
-                    @yield('content')
                 </div>
-            @else
-                @yield('content')
-            @endif
-        </main>
-        <footer
-            class="flex items-center justify-center h-[56px] bg-white dark:bg-gray-800 shadow transition-colors">
-            <div class="text-sm">Copyright &copy; 2022 Bladerlaiga, All Right Reserved.</div>
-        </footer>
+            </header>
+            <main class="flex-grow p-4 overflow-auto">
+                @if (isset($content_card) && $content_card)
+                    <div class="grid gap-4 p-4 bg-white dark:bg-gray-800 rounded-lg shadow transition-colors">
+                        @yield('content')
+                    </div>
+                @else
+                    @yield('content')
+                @endif
+            </main>
+            <footer
+                class="flex items-center justify-center h-[56px] bg-white dark:bg-gray-800 shadow transition-colors">
+                <div class="text-sm">Copyright &copy; 2022 Bladerlaiga, All Right Reserved.</div>
+            </footer>
+        </div>
     </div>
-</div>
 </body>
 
 </html>
