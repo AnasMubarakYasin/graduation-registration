@@ -24,7 +24,7 @@
             class="flex-[0_0_300px] overflow-y-auto bg-white dark:bg-gray-800 shadow transition-colors" tabindex="-1">
             <header
                 class="flex gap-4 items-center justify-center sticky top-0 bg-white dark:bg-gray-800 text-xl font-semibold h-[56px] shadow transition-colors">
-                <div><img src="{{ asset('logo.svg') }}" alt="Bladerlaiga" class="w-8 h-8 rounded-md"></div>
+                <div><img src="{{ asset('logo.png') }}" alt="Bladerlaiga" class="w-8 h-8 object-contain rounded-md"></div>
                 <div class="text-green-700 dark:text-green-500">UIN Alauddin</div>
             </header>
             <nav
@@ -279,7 +279,7 @@
                 <button id="ProfileButton" data-dropdown-toggle="Profile"
                     class="flex items-center gap-2 text-sm font-medium text-gray-900 rounded-lg hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white">
                     <span class="sr-only">Open user menu</span>
-                    {{-- <img class="mr-2 w-8 h-8 rounded-full" src="{{ asset('logo.svg') }}" alt="user photo"> --}}
+                    {{-- <img class="mr-2 w-8 h-8 rounded-full" src="{{ asset('logo.png') }}" alt="user photo"> --}}
                     {{-- <div>Bonnie Green</div> --}}
                     <div class="bg-gray-100 p-2 rounded-lg dark:bg-gray-600">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"

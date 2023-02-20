@@ -23,7 +23,7 @@
         <aside id="drawer-main" class="bg-white dark:bg-gray-800 shadow transition-colors" tabindex="-1">
             <header
                 class="flex gap-4 items-center justify-center sticky top-0 bg-white dark:bg-gray-800 text-xl font-semibold h-[56px] shadow transition-colors">
-                <div><img src="{{ asset('logo.svg') }}" alt="Bladerlaiga" class="w-8 h-8 rounded-md"></div>
+                <div><img src="{{ asset('logo.png') }}" alt="Bladerlaiga" class="w-8 h-8 object-contain rounded-md"></div>
                 <div class="text-green-700 dark:text-green-500">UIN Alauddin</div>
             </header>
             <nav
@@ -238,7 +238,7 @@
                                 <a href="{{ route($notification->data['route'], ['notification' => $notification]) }}"
                                     class="flex py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-600">
                                     <div class="flex-shrink-0">
-                                        <img class="w-11 h-11 rounded-full" src="{{ asset('logo.svg') }}"
+                                        <img class="w-11 h-11 rounded-full" src="{{ asset('logo.png') }}"
                                             alt="">
                                     </div>
                                     <div class="pl-3 w-full">

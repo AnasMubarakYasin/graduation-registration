@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Mail\StudentCreated;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Symfony\Component\Console\Input\Input;
 
 class StudentController extends Controller
 {
@@ -21,9 +24,19 @@ class StudentController extends Controller
     }
     public function store(StoreStudentRequest $request)
     {
+        // dd($request->all());
         $this->authorize('create', Student::class);
         $data = $request->validated();
-        Student::create($data);
+        $student = Student::create($data);
+
+        if ($request->input('send_mail')) {
+            $host = env('MAIL_STUDENT_HOST');
+            if ($host) {
+                Mail::to("{$student->nim}{$host}")->send(new StudentCreated($student));
+            } else {
+                logger('student created mail failed host');
+            }
+        }
 
         return redirect()->intended($request->string('_index'));
     }
