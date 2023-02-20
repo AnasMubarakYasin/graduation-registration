@@ -23,6 +23,12 @@ class Registrar extends Model
 
     public static function list_status()
     {
+        if (auth()->user() instanceof Operator) {
+            return  [
+                'revision' => __('revision'),
+                'validated' => __('validated'),
+            ];
+        }
         return [
             'create' => __('create'),
             'validate' => __('validate'),
