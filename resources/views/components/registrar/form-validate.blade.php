@@ -10,6 +10,18 @@
     <div class="grid grid-cols-2 gap-4">
         <div class="grid gap-4">
             <div class="flex flex-col gap-2">
+                <label class="block text-sm font-medium text-gray-900 dark:text-white capitalize" for="photo">
+                    {{ __('photo') }}
+                </label>
+                <output id="photo_url" name="photo_url" class="w-20 h-20 text-base text-gray-700 dark:text-gray-100">
+                    <button type="button" id="photo_btn"
+                        class="text-sm p-1 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 dark:hover:bg-gray-600 hover:text-white focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-blue-500 dark:border-gray-600">
+                        <img id="photo_img" class="w-[9rem] aspect-square object-cover object-center"
+                            src="{{ $registrar->photo_url }}" alt="">
+                    </button>
+                </output>
+            </div>
+            <div class="flex flex-col gap-2">
                 <label for="name"
                     class="text-sm font-medium text-gray-900 dark:text-white capitalize">{{ __('name') }}</label>
                 <output id="name" name="name"
@@ -56,18 +68,6 @@
                 <label for="ipk" class="text-sm font-medium text-gray-900 dark:text-white">IPK</label>
                 <output id="ipk" name="ipk"
                     class="text-base text-gray-700 dark:text-gray-100">{{ $registrar->ipk }}</output>
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="block text-sm font-medium text-gray-900 dark:text-white capitalize" for="photo">
-                    {{ __('photo') }}
-                </label>
-                <output id="photo_url" name="photo_url" class="w-20 h-20 text-base text-gray-700 dark:text-gray-100">
-                    <button type="button" id="photo_btn"
-                        class="text-sm p-1 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 dark:hover:bg-gray-600 hover:text-white focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-blue-500 dark:border-gray-600">
-                        <img id="photo_img" class="w-[9rem] aspect-square object-cover object-center"
-                            src="{{ $registrar->photo_url }}" alt="">
-                    </button>
-                </output>
             </div>
             <div class="flex flex-col gap-2">
                 <label class="block text-sm font-medium text-gray-900 dark:text-white" for="munaqasyah">
