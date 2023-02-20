@@ -48,7 +48,7 @@ class StudentCreated extends Mailable
         return new Content(
             view: 'mails.student.created',
             with: [
-                'url' => route('student.dashboard.show'),
+                'url' => route('student.login.show'),
                 'student' => $this->student,
                 'thanksto' => 'Executive Committee',
             ],
