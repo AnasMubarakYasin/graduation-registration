@@ -96,4 +96,9 @@ class QuotaPolicy
     {
         return $user->is_administrator;
     }
+
+    public function archive(Administrator $user, Quota $quota)
+    {
+        return $user->is_administrator;
+    }
 }

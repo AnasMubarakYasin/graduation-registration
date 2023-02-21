@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Quota;
 use App\Models\Registrar;
 use App\Models\Student;
+use App\Observers\QuotaObserver;
 use App\Observers\RegistrarObserver;
 use App\Observers\StudentObserver;
 use Illuminate\Auth\Events\Registered;
@@ -31,6 +33,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $observers = [
         Student::class => [StudentObserver::class],
+        Quota::class => [QuotaObserver::class],
         Registrar::class => [RegistrarObserver::class],
     ];
 

@@ -82,4 +82,13 @@ class AdministratorController extends Controller
     {
         return view('admin.student.edit', ['student' => $student]);
     }
+
+    public function archive_quota()
+    {
+        return view('admin.archive.quota');
+    }
+    public function archive_registrar(Quota $quota)
+    {
+        return view('admin.archive.registrar', ['quota' => $quota]);
+    }
 }

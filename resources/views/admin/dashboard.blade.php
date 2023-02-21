@@ -5,11 +5,12 @@
 @section('content')
     <div class="grid gap-4">
         <div class="grid grid-cols-3 items-start gap-4">
-            @if ($quota)
+            {{-- @if ($quota)
                 <div
                     class="grid gap-2 p-4 bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
                     <div class="text-base text-gray-700 dark:text-gray-200 font-medium capitalize">
-                        {{ __($quota['name']) }}</div>
+                        {{ __($quota['name']) }}
+                    </div>
                     <div class="text-3xl text-gray-900 dark:text-gray-50 font-normal">
                         {{ __(':current of :total', [
                             'current' => $quota['filled'],
@@ -22,7 +23,7 @@
                     </div>
                     <div class="text-base">{{ __(':day days left', ['day' => $quota['remaining_days']]) }}</div>
                 </div>
-            @endif
+            @endif --}}
             {{-- <div class="grid gap-2 p-4 bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
                 <div class="text-base text-gray-700 dark:text-gray-200 font-medium capitalize">
                     {{ __('student') }}</div>

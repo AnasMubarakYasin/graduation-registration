@@ -277,28 +277,61 @@
                             @endforeach
                         </ul>
                     </li>
+
                     <li>
-                        <a href="{{ route('admin.empty.show') }}" @class([
-                            'flex items-center p-2 text-base font-normal rounded-lg',
-                            'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
-                                request()->url() != route('admin.empty.show'),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
-                                request()->url() == route('admin.empty.show'),
-                        ])>
+                        @php
+                            $link = route('admin.archive.index');
+                        @endphp
+                        <button type="button" @class([
+                            'flex items-center w-full p-2 text-base font-normal rounded-lg',
+                            'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' => !str(
+                                request()->url())->startsWith($link),
+                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
+                                request()->url())->startsWith($link),
+                        ]) aria-controls="menu_registrar"
+                            data-collapse-toggle="menu_registrar">
                             <svg @class([
                                 'w-6 h-6 transition',
-                                'text-gray-700 dark:text-white' =>
-                                    request()->url() != route('admin.empty.show'),
-                                '' => request()->url() == route('admin.empty.show'),
+                                'text-gray-700 dark:text-white' => !str_starts_with(
+                                    request()->url(),
+                                    $link),
+                                '' => str_starts_with(request()->url(), $link),
                             ]) fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4">
                                 </path>
                             </svg>
-                            <span class="ml-3">{{ __('archive') }}</span>
-                        </a>
+                            <span class="flex-1 ml-3 text-left whitespace-nowrap capitalize"
+                                sidebar-toggle-item>{{ __('archive') }}</span>
+                            <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                        <ul id="menu_registrar"
+                            class="py-2 space-y-2 {{ str_starts_with(request()->url(), $link) ? '' : 'hidden' }}">
+                            @foreach (['quota' => 'quota'] as $key => $value)
+                                <li>
+                                    @php
+                                        $link = route("admin.archive.$key.index");
+                                    @endphp
+                                    <a href="{{ $link }}" @class([
+                                        'flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition group',
+                                        'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
+                                            request()->url() != $link,
+                                        'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                                            request()->url() == $link,
+                                    ])>
+                                        {{ $value }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
                     </li>
+
                     <li>
                         <a href="{{ route('admin.logout.perform') }}" @class([
                             'flex items-center p-2 text-base font-normal rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700',

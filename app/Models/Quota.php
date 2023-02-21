@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Exceptions\QuotaReachedException;
+use App\Exceptions\StatusQuotaException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,31 +20,10 @@ class Quota extends Model
             'close' => __('close'),
         ];
     }
-
-    protected $fillable = [
-        'name',
-        'quota',
-        'start_date',
-        'end_date',
-        'status',
-    ];
-
-    /** @return Quota|null */
-    public static function get_first_open()
-    {
-        return Quota::where('status', 'open')->first();
-    }
-
-    /** @return Collection<Quota> */
-    public static function get_all_open()
-    {
-        return Quota::where('status', 'open')->get();
-    }
-
     public static function stats()
     {
-        $quota = self::get_first_open();
-        if (! $quota) {
+        $quota = self::first_open();
+        if (!$quota) {
             return null;
         }
         $result = ['total' => 0, 'remaining' => 0, 'filled' => 0];
@@ -56,6 +37,36 @@ class Quota extends Model
         return $result;
     }
 
+    /** @return Quota|null */
+    public static function first_open()
+    {
+        return Quota::where('status', 'open')->first();
+    }
+    /** @return Collection<Quota> */
+    public static function all_open()
+    {
+        return Quota::where('status', 'open')->get();
+    }
+
+    protected $fillable = [
+        'name',
+        'quota',
+        'start_date',
+        'end_date',
+        'status',
+    ];
+    protected $observables = ['increment'];
+
+    public function quota_increment(Registrar $registrar)
+    {
+        if (
+            $this->quota <= $this->registrars_validated()->count()
+        ) {
+            throw new QuotaReachedException();
+        }
+        $this->fireModelEvent('increment');
+    }
+
     public function getRemainingDaysAttribute()
     {
         $remaining_days = Carbon::now()->diffInDays(Carbon::parse($this->end_date));
@@ -66,5 +77,13 @@ class Quota extends Model
     public function registrars()
     {
         return $this->hasMany(Registrar::class);
+    }
+    public function registrars_unvalidated()
+    {
+        return $this->registrars()->get()->where('status', '!=', 'validated');
+    }
+    public function registrars_validated()
+    {
+        return $this->registrars()->get()->where('status', 'validated');
     }
 }

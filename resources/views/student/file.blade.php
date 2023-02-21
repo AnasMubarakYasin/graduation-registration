@@ -5,8 +5,11 @@
     $readonly = $data['status'] == 'validate' || $data['status'] == 'revalidate' || $data['status'] == 'validated';
 @endphp
 @section('content')
-    <form id="biodata" class="grid gap-4" action="{{ route('student.file.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
+    <form id="biodata" class="grid gap-4" action="{{ route('student.file.store') }}" method="POST"
+        enctype="multipart/form-data">
+        @if (!$readonly)
+            @csrf
+        @endif
         <div class="grid gap-2">
             <label class="block text-lg font-medium text-gray-900 dark:text-white" for="munaqasyah">SK Munaqasyah</label>
             <p class="text-sm text-gray-500 dark:text-gray-300" id="munaqasyah_help">
@@ -102,7 +105,7 @@
             @if (!$readonly)
                 <button data-modal-target="dialog-submit" data-modal-toggle="dialog-submit" type='button'
                     class="w-full sm:w-1/2 lg:w-1/4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                    Kirim
+                    Simpan
                 </button>
             @endif
         </div>
@@ -136,7 +139,7 @@
                             d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                     <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                        Apakah anda yakin?
+                        Apakah anda yakin ingin menyimpan?
                     </h3>
                     <button data-modal-hide="dialog-submit" type="submit" form="biodata"
                         class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">

@@ -39,10 +39,12 @@ Route::middleware(['authc.basic:welcome,student'])->group(function () {
 
         Route::get('student/biodata', 'User\StudentController@biodata_show')->name('student.data.show');
         Route::get('student/file', 'User\StudentController@file_show')->name('student.file.show');
+        Route::get('student/print', 'User\StudentController@print')->name('student.print.show');
         Route::get('student/logout', 'Auth\StudentController@logout_perform')->name('student.logout.perform');
     });
     Route::post('student/biodata', 'User\StudentController@biodata_store')->name('student.data.store');
     Route::post('student/file', 'User\StudentController@file_store')->name('student.file.store');
+    Route::get('student/submit', 'User\StudentController@submit')->name('student.submit.perform');
 });
 
 Route::middleware(['authc.guard:operator'])->group(function () {
@@ -131,6 +133,11 @@ Route::middleware(['authc.basic:welcome,administrator'])->group(function () {
         Route::get('admin/user/operator', 'OperatorController@index')->name('admin.user.operator.index');
         Route::get('admin/user/operator/create', 'OperatorController@create')->name('admin.user.operator.create');
         Route::get('admin/user/operator/{operator}/edit', 'OperatorController@edit')->name('admin.user.operator.edit');
+
+        Route::get('admin/archive', 'User\AdministratorController@empty_show')->name('admin.archive.index');
+
+        Route::get('admin/archive/quota', 'User\AdministratorController@archive_quota')->name('admin.archive.quota.index');
+        Route::get('admin/archive/quota/{quota}/registrar', 'User\AdministratorController@archive_registrar')->name('admin.archive.quota.registrar.index');
     });
 
     Route::post('admin/faculty', 'FacultyController@store')->name('admin.faculty.store');
@@ -166,6 +173,7 @@ Route::middleware(['authc.basic:welcome,administrator,operator'])->group(functio
     Route::patch('resources/quota/{quota}', 'QuotaController@update')->name('resources.quota.update');
     Route::delete('resources/quota', 'QuotaController@delete_any')->name('resources.quota.delete_any');
     Route::delete('resources/quota/{quota}', 'QuotaController@delete')->name('resources.quota.delete');
+    Route::put('resources/quota/{quota}/archive', 'QuotaController@archive')->name('resources.quota.archive');
 
     Route::get('resources/registrar/export', 'RegistrarController@export')->name('resources.registrar.export');
     Route::post('resources/registrar', 'RegistrarController@store')->name('resources.registrar.store');
@@ -178,4 +186,6 @@ Route::middleware(['authc.basic:welcome,administrator,operator'])->group(functio
     Route::patch('resources/student/{student}', 'StudentController@update')->name('resources.student.update');
     Route::delete('resources/student', 'StudentController@delete_any')->name('resources.student.delete_any');
     Route::delete('resources/student/{student}', 'StudentController@delete')->name('resources.student.delete');
+
+    Route::delete('resources/quota/{quota}/archive', 'QuotaController@archive')->name('resources.quota.archive');
 });

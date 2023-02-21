@@ -82,7 +82,7 @@ class RegistrarController extends Controller
     {
         $this->authorize('validate', $registrar);
         $data = $request->validated();
-        $registrar->update($data);
+        $registrar->validate($data['status'], $data['comment']);
 
         return redirect()->intended($request->input('index'));
     }

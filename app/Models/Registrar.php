@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Exceptions\RegistrarStatusException;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -49,7 +50,7 @@ class Registrar extends Model
 
     public static function stats_status(string $faculty = null)
     {
-        $quota = Quota::get_first_open();
+        $quota = Quota::first_open();
         if (!$quota) {
             return null;
         }
@@ -69,6 +70,17 @@ class Registrar extends Model
     public static function get_by_user(Student $user)
     {
         return Registrar::where('student_id', $user->id)->first();
+    }
+
+    /** @return Collection<int, Registrar> */
+    public static function all_validated()
+    {
+        return self::where('status', RegistrarStatus::Validated->value)->get();
+    }
+    /** @return Collection<int, Registrar> */
+    public static function all_quota_validated(Quota $quota)
+    {
+        return self::where('quota_id', $quota->id)->where('status', RegistrarStatus::Validated->value)->get();
     }
 
     protected $fillable = [
@@ -94,6 +106,8 @@ class Registrar extends Model
         'spukt',
     ];
 
+    protected $observables = ['validate'];
+
     public $biodata_field = [
         'photo',
         'name',
@@ -113,6 +127,13 @@ class Registrar extends Model
         'kk',
         'spukt',
     ];
+
+    public function validate(string $status, string|null $comment = null)
+    {
+        $this->status = $status;
+        $this->comment = $comment;
+        $this->fireModelEvent('validate');
+    }
 
     public function getIsCreateAttribute()
     {

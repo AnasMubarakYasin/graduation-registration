@@ -15,7 +15,7 @@ class RegistrarsExport implements FromCollection, WithHeadings, WithMapping
     */
     public function collection()
     {
-        return Registrar::all();
+        return Registrar::all_validated();
     }
     public function headings(): array
     {

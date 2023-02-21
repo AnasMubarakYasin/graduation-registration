@@ -1,53 +1,9 @@
-@props([
-    'fields' => [],
-    'columns' => [],
-    'create' => route('resources.quota.index'),
-    'show' => function ($item) {
-        return route('resources.quota.show', ['quota' => $item]);
-    },
-    'archive' => function ($item) {
-        return route('resources.quota.archive', ['quota' => $item]);
-    },
-    'edit' => function ($item) {
-        return route('resources.quota.edit', ['quota' => $item]);
-    },
-    'delete' => function ($item) {
-        return route('resources.quota.delete', ['quota' => $item]);
-    },
-    'deleteAny' => route('resources.quota.delete_any'),
-])
-
+@props([])
 @section('head')
-    @vite('resources/js/components/quota/table.js')
+    @vite('resources/js/components/registrar/table.js')
 @endsection
-
 <div class="grid gap-4">
-    @error('alert')
-        <div class="flex p-4 text-sm text-red-900 rounded-lg bg-red-50 dark:bg-red-900 dark:text-red-50"
-            role="alert">
-            <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                    clip-rule="evenodd"></path>
-            </svg>
-            <span class="sr-only">Danger</span>
-            <div>
-                {{ $message }}
-            </div>
-        </div>
-    @enderror
     <div class="flex gap-2 items-center">
-        @can('create', App\Models\Quota::class)
-            <a href="{{ $create }}"
-                class="text-sm p-1.5 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-800 dark:border-gray-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6">
-                    </path>
-                </svg>
-            </a>
-        @endcan
         <button id="filter_btn" data-dropdown-toggle="filter" data-dropdown-placement="bottom-start"
             class="text-sm p-1.5 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-800 dark:border-gray-600">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -65,6 +21,16 @@
                     d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
             </svg>
         </button>
+        {{-- @can('export', App\Models\Registrar::class)
+            <a href="{{ route('resources.registrar.export') }}" id="export_btn"
+                class="text-sm p-1.5 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-800 dark:border-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                </svg>
+            </a>
+        @endcan --}}
         @if (request()->query('sort') || request()->query('filter') || request()->query('column'))
             <a href="/{{ request()->path() }}"
                 class="text-sm p-1.5 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-800 dark:border-gray-600">
@@ -74,11 +40,9 @@
                         d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                 </svg>
             </a>
-            @can('viewAny', App\Models\Quota::class)
-            @endif
-        @endcan
-        @can('deleteAny', App\Models\Quota::class)
-            <form class="contents" id="delete_any" action="{{ $deleteAny }}" method="post"
+        @endif
+        @can('deleteAny', App\Models\Registrar::class)
+            <form class="contents" id="delete_any" action="{{ route('resources.registrar.destroy') }}" method="post"
                 enctype="multipart/form-data">
                 @csrf
                 @method('DELETE')
@@ -154,6 +118,46 @@
                                     </div>
                                 @break
 
+                                @case('faculty')
+                                    <div class="flex flex-col gap-1">
+                                        <label for="f_faculty"
+                                            class="text-sm font-medium text-gray-900 dark:text-white capitalize">
+                                            {{ __($value) }}
+                                        </label>
+                                        <select id="f_faculty" name="f_faculty"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option selected value="">{{ __('choose a ' . $value) }}</option>
+                                            @foreach (App\Models\Faculty::all() as $faculty)
+                                                <option @selected(request()->query('f_faculty') == $faculty->name) value="{{ $faculty->name }}">
+                                                    {{ $faculty->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @break
+
+                                @case('study_program')
+                                    <div class="flex flex-col gap-1">
+                                        <label for="f_study_program"
+                                            class="text-sm font-medium text-gray-900 dark:text-white capitalize">
+                                            {{ __($value) }}
+                                        </label>
+                                        <select id="f_study_program" name="f_study_program"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option selected value="">{{ __('choose a ' . $value) }}</option>
+                                            @foreach (App\Models\Faculty::all() as $faculty)
+                                                <optgroup label="{{ $faculty->name }}">
+                                                    @foreach ($faculty->departments as $department)
+                                                        <option @selected(request()->query('f_study_program') == $department) value="{{ $department }}">
+                                                            {{ $department }}
+                                                        </option>
+                                                    @endforeach
+                                                </optgroup>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @break
+
                                 @case('status')
                                     <div class="flex flex-col gap-1">
                                         <label for="f_status"
@@ -165,7 +169,13 @@
                                             @if (!request()->query('f_status'))
                                                 <option selected>{{ __('choose a ' . $value) }}</option>
                                             @endif
-                                            @foreach (App\Models\Quota::list_status() as $key => $value)
+                                            @php
+                                                $registrar_statuses = collect(App\Models\Registrar::list_status());
+                                                if (auth()->user()->is_faculty) {
+                                                    $registrar_statuses = $registrar_statuses->except(App\Models\RegistrarStatus::Create->value);
+                                                }
+                                            @endphp
+                                            @foreach ($registrar_statuses as $key => $value)
                                                 <option @selected($key == request()->query('f_status')) value="{{ $key }}"
                                                     class="capitalize">
                                                     {{ $value }}</option>
@@ -227,7 +237,7 @@
         </form>
     </div>
     <div class="overflow-x-auto pb-2">
-        <table id="quota"
+        <table id="registrar"
             class="w-full text-sm text-left text-gray-500 dark:text-gray-400 dark:border dark:border-separate dark:border-spacing-0 dark:border-gray-700 rounded-lg shadow-md dark:shadow-none">
             <thead>
                 <tr class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -261,7 +271,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($paginator as $item)
+                @forelse ($paginator as $item)
                     <tr @class([
                         'bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-600 dark:border-gray-700',
                         'border-b' => !$loop->last,
@@ -274,100 +284,19 @@
                                 <label for="" class="sr-only">checkbox</label>
                             </div>
                         </td>
-
                         @foreach ($fields as $key => $value)
                             @if (in_array($key, $columns))
-                                @switch($key)
-                                    @case('date')
-                                        <td class="py-4 px-6 text-gray-900 dark:text-white whitespace-nowrap">
-                                            {{ $item->start_date }} - {{ $item->end_date }}
-                                        </td>
-                                    @break
-
-                                    @default
-                                        <td class="py-4 px-6 text-gray-900 dark:text-white whitespace-nowrap">
-                                            {{ $item->{$key} }}
-                                        </td>
-                                @endswitch
+                                <td class="py-4 px-6 text-gray-900 dark:text-white whitespace-nowrap">
+                                    {{ $item->{$key} }}
+                                </td>
                             @endif
                         @endforeach
-
                         <td
                             class="flex justify-center gap-2 py-4 px-6 capitalize {{ $loop->last ? 'rounded-br-lg' : '' }}">
-                            @can('archive', $item)
-                                <form id="item-archive-{{ $item->id }}" class="contents"
-                                    action="{{ route('resources.quota.archive', ['quota' => $item]) }}" method="post">
-                                    @csrf
-                                    @method('PUT')
-                                    <button id="archive_btn" data-modal-target="dialog-archive-{{ $item->id }}"
-                                        data-modal-toggle="dialog-archive-{{ $item->id }}" type="button"
-                                        class="p-2 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="2" stroke="currentColor" class="w-5 h-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
-                                        </svg>
-
-                                        <span class="sr-only">Archive Item</span>
-                                    </button>
-                                </form>
-                                <div id="dialog-archive-{{ $item->id }}" tabindex="-1"
-                                    class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
-                                    <div class="relative w-full h-full max-w-md md:h-auto">
-                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                            <button type="button"
-                                                class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
-                                                data-modal-hide="dialog-archive-{{ $item->id }}">
-                                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
-                                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                                <span class="sr-only">Close modal</span>
-                                            </button>
-                                            <div class="p-6 text-center">
-                                                <svg aria-hidden="true"
-                                                    class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200"
-                                                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                </svg>
-                                                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                                    Apakah anda yakin ingin mengarsipkan item?
-                                                </h3>
-                                                <button data-modal-hide="dialog-archive-{{ $item->id }}"
-                                                    type="submit" form="item-archive-{{ $item->id }}"
-                                                    href="{{ $archive($item) }}"
-                                                    class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                                                    Ya
-                                                </button>
-                                                <button data-modal-hide="dialog-archive-{{ $item->id }}"
-                                                    type="button"
-                                                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                                                    Batal
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endcan
-                            @can('update', $item)
-                                <a id="edt_btn" href="{{ $edit($item) }}"
-                                    class="p-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                                        </path>
-                                    </svg>
-                                    <span class="sr-only">Edit Item</span>
-                                </a>
-                            @endcan
                             @can('delete', $item)
                                 <form id="item-delete-{{ $item->id }}" class="contents"
-                                    action="{{ route('resources.quota.delete', ['quota' => $item]) }}" method="post">
+                                    action="{{ route('resources.registrar.delete', ['registrar' => $item]) }}"
+                                    method="post">
                                     @csrf
                                     @method('DELETE')
                                     <button id="del_btn" type="button"
@@ -425,118 +354,118 @@
                             @endcan
                         </td>
                     </tr>
-                    @empty
-                        <tr>
-                            <td class="p-4 text-center text-lg text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 rounded-b-lg capitalize"
-                                colspan="{{ count($columns) + 2 }}">
-                                {{ __('empty') }}
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-        <nav class="flex justify-between items-center" aria-label="Table navigation">
-            <div class="flex items-center gap-2 text-sm font-normal text-gray-700 dark:text-gray-400">
-                <div>
-                    <span class="capitalize">{{ __('showing') }}</span>
-                    @if ($paginator->onFirstPage())
-                        <span class="font-semibold text-gray-900 dark:text-white">
-                            {{ $paginator->firstItem() }}
-                        </span>
-                        <span> {{ __('to') }} </span>
-                        <span class="font-semibold text-gray-900 dark:text-white">
-                            {{ $paginator->lastItem() }}
-                        </span>
-                    @else
-                        <span class="font-semibold text-gray-900 dark:text-white">
-                            {{ $paginator->count() }}
-                        </span>
-                    @endif
-                    <span>{{ __('of') }}</span>
-                    <span class="font-semibold text-gray-900 dark:text-white">{{ $paginator->total() }}</span>
-                    <span>{{ __('results') }}</span>.
-                </div>
-                <form id="fperpage">
-                    <label for="perpage" class="capitalize">
-                        {{ __('perpage') }}:
-                    </label>
-                    <select id="perpage" name="perpage"
-                        class="text-gray-700 bg-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 capitalize">
-                        @foreach (range(1, 3) as $per)
-                            <option @selected($paginator->perPage() == $per * 5) value="{{ $per * 5 }}">{{ $per * 5 }}</option>
-                        @endforeach
-                        <option @selected($paginator->perPage() == $paginator->total()) value="{{ $paginator->total() }}">{{ __('all') }}
-                        </option>
-                    </select>
-                </form>
-            </div>
-            <ul class="inline-flex items-center -space-x-px">
-                <li>
-                    @if ($paginator->previousPageUrl())
-                        <a href="{{ $paginator->previousPageUrl() }}"
-                            class="block py-2 px-2 text-gray-700 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span class="sr-only">Previous</span>
-                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </a>
-                    @else
-                        <button disabled
-                            class="cursor-not-allowed py-2 px-2 rounded-l-lg border border-gray-300 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span class="sr-only">Previous</span>
-                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </button>
-                    @endif
-                </li>
-                @if (($count = (int) floor($paginator->total() / $paginator->perPage())) && $count > 1)
-                    @foreach (range(1, $count) as $item)
-                        <li>
-                            <a href="{{ $paginator->url($loop->iteration) }}" @class([
-                                'grid place-content-center p-2 w-5 h-5 aspect-square box-content text-base',
-                                'text-gray-700 bg-white border border-gray-300 hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' =>
-                                    $paginator->currentPage() != $loop->iteration,
-                                'text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white' =>
-                                    $paginator->currentPage() == $loop->iteration,
-                            ])>
-                                {{ $loop->iteration }}
-                            </a>
-                        </li>
-                    @endforeach
-                @endif
-                <li>
-                    @if ($paginator->nextPageUrl())
-                        <a href="{{ $paginator->nextPageUrl() }}"
-                            class="block py-2 px-2 text-gray-700 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span class="sr-only">Next</span>
-                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </a>
-                    @else
-                        <button disabled
-                            class="cursor-not-allowed py-2 px-2 rounded-r-lg border border-gray-300 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span class="sr-only">Previous</span>
-                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </button>
-                    @endif
-                </li>
-            </ul>
-        </nav>
+                @empty
+                    <tr>
+                        <td class="p-4 text-center text-lg text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 rounded-b-lg capitalize"
+                            colspan="{{ count($columns) + 2 }}">
+                            {{ __('empty') }}
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
+    <nav class="flex justify-between items-center" aria-label="Table navigation">
+        <div class="flex items-center gap-2 text-sm font-normal text-gray-700 dark:text-gray-400">
+            <div>
+                <span class="capitalize">{{ __('showing') }}</span>
+                @if ($paginator->onFirstPage())
+                    <span class="font-semibold text-gray-900 dark:text-white">
+                        {{ $paginator->firstItem() }}
+                    </span>
+                    <span> {{ __('to') }} </span>
+                    <span class="font-semibold text-gray-900 dark:text-white">
+                        {{ $paginator->lastItem() }}
+                    </span>
+                @else
+                    <span class="font-semibold text-gray-900 dark:text-white">
+                        {{ $paginator->count() }}
+                    </span>
+                @endif
+                <span>{{ __('of') }}</span>
+                <span class="font-semibold text-gray-900 dark:text-white">{{ $paginator->total() }}</span>
+                <span>{{ __('results') }}</span>.
+            </div>
+            <form id="fperpage">
+                <label for="perpage" class="capitalize">
+                    {{ __('perpage') }}:
+                </label>
+                <select id="perpage" name="perpage"
+                    class="text-gray-700 bg-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 capitalize">
+                    @foreach (range(1, 3) as $per)
+                        <option @selected($paginator->perPage() == $per * 5) value="{{ $per * 5 }}">{{ $per * 5 }}</option>
+                    @endforeach
+                    <option @selected($paginator->perPage() == $paginator->total()) value="{{ $paginator->total() }}">{{ __('all') }}
+                    </option>
+                </select>
+            </form>
+        </div>
+        <ul class="inline-flex items-center -space-x-px">
+            <li>
+                @if ($paginator->previousPageUrl())
+                    <a href="{{ $paginator->previousPageUrl() }}"
+                        class="block py-2 px-2 text-gray-700 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <span class="sr-only">Previous</span>
+                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                @else
+                    <button disabled
+                        class="cursor-not-allowed py-2 px-2 rounded-l-lg border border-gray-300 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <span class="sr-only">Previous</span>
+                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                @endif
+            </li>
+            @if (($count = (int) floor($paginator->total() / $paginator->perPage())) && $count > 1)
+                @foreach (range(1, $count) as $item)
+                    <li>
+                        <a href="{{ $paginator->url($loop->iteration) }}" @class([
+                            'grid place-content-center p-2 w-5 h-5 aspect-square box-content text-base',
+                            'text-gray-700 bg-white border border-gray-300 hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' =>
+                                $paginator->currentPage() != $loop->iteration,
+                            'text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white' =>
+                                $paginator->currentPage() == $loop->iteration,
+                        ])>
+                            {{ $loop->iteration }}
+                        </a>
+                    </li>
+                @endforeach
+            @endif
+            <li>
+                @if ($paginator->nextPageUrl())
+                    <a href="{{ $paginator->nextPageUrl() }}"
+                        class="block py-2 px-2 text-gray-700 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <span class="sr-only">Next</span>
+                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                @else
+                    <button disabled
+                        class="cursor-not-allowed py-2 px-2 rounded-r-lg border border-gray-300 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <span class="sr-only">Previous</span>
+                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                @endif
+            </li>
+        </ul>
+    </nav>
+</div>

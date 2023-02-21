@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQuotaRequest;
 use App\Http\Requests\UpdateQuotaRequest;
+use App\Models\ArchiveQuota;
+use App\Models\ArchiveRegistrar;
 use App\Models\Quota;
 use Illuminate\Http\Request;
 
@@ -36,9 +38,25 @@ class QuotaController extends Controller
         $this->authorize('restore', Quota::class);
         return redirect()->intended($request->string('_index'));
     }
-    public function archive(Quota $quota)
+    public function archive(Request $request, Quota $quota)
     {
-        //
+        if ($quota->status != 'close') {
+            return back()->withErrors(['alert' => 'status of quota must be close']);
+        }
+        $quota_open = $quota::first_open();
+        if (!$quota_open) {
+            return back()->withErrors(['alert' => 'there is at least 1 open quota']);
+        }
+        ArchiveQuota::create($quota->toArray());
+        foreach ($quota->registrars_validated() as $registrar) {
+            ArchiveRegistrar::create($registrar->toArray());
+        }
+        foreach ($quota->registrars_unvalidated() as $registrar) {
+            $registrar->quota_id = $quota_open->id;
+            $registrar->saveQuietly();
+        }
+        $quota->deleteQuietly();
+        return back();
     }
     public function dearchive(Quota $quota)
     {

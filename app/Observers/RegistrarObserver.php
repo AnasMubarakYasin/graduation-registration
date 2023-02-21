@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\Quota;
 use App\Models\Registrar;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,8 +21,6 @@ class RegistrarObserver
      */
     public function created(Registrar $registrar)
     {
-        // $registrar->saveQuietly();
-        // $this->move_file($registrar);
     }
 
     /**
@@ -68,29 +67,15 @@ class RegistrarObserver
         $this->delete_file($registrar);
     }
 
-    public function move_file(Registrar $registrar)
+    public function validate(Registrar $registrar)
     {
-        if ($registrar->photo && Storage::exists($registrar->photo)) {
-            Storage::move($registrar->photo, "registrar/$registrar->id");
+        if ($registrar->status == 'validated') {
+            $registrar->quota()->first()->quota_increment($registrar);
         }
-        if ($registrar->munaqasyah && Storage::exists($registrar->munaqasyah)) {
-            Storage::move($registrar->munaqasyah, "registrar/$registrar->id");
-        }
-        if ($registrar->school_certificate && Storage::exists($registrar->school_certificate)) {
-            Storage::move($registrar->school_certificate, "registrar/$registrar->id");
-        }
-        if ($registrar->ktp && Storage::exists($registrar->ktp)) {
-            Storage::move($registrar->ktp, "registrar/$registrar->id");
-        }
-        if ($registrar->kk && Storage::exists($registrar->kk)) {
-            Storage::move($registrar->kk, "registrar/$registrar->id");
-        }
-        if ($registrar->spukt && Storage::exists($registrar->spukt)) {
-            Storage::move($registrar->spukt, "registrar/$registrar->id");
-        }
+        $registrar->saveQuietly();
     }
 
-    public function delete_file(Registrar $registrar)
+    protected function delete_file(Registrar $registrar)
     {
         if ($registrar->photo) {
             Storage::delete($registrar->photo);

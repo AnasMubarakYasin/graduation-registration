@@ -4,18 +4,27 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentLoginRequest;
+use App\Models\Quota;
 use App\Models\Student;
-use Illuminate\Support\Arr;
+use Illuminate\Http\Response;
 
 class StudentController extends Controller
 {
     public function login_show()
     {
-        return view('student.login');
+        /** @var Response */
+        $view = view('student.login');
+        if (!Quota::first_open()) {
+            return $view->withErrors(['status' => 'bukan waktu pendaftaran wisudawan']);
+        }
+        return $view;
     }
 
     public function login_perform(StudentLoginRequest $request)
     {
+        if (!Quota::first_open()) {
+            return back()->withInput()->withErrors(['status' => 'bukan waktu pendaftaran wisudawan']);
+        }
         $data = $request->validated();
         $user = Student::where('nim', $data['nim'])->where('password', $data['password'])->first();
         if ($user) {

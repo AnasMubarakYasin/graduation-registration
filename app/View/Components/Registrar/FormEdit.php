@@ -22,7 +22,7 @@ class FormEdit extends Component
      */
     public function __construct(public Registrar $registrar, public string $index = '')
     {
-        $this->quotas = Quota::get_all_open();
+        $this->quotas = Quota::all_open();
         $this->students = Student::all_without_registrar();
         $this->faculties = Faculty::all();
         $this->index ??= route('resources.registrar.index');

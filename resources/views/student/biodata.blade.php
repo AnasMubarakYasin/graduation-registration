@@ -15,7 +15,9 @@
 @section('content')
     <form id="biodata" class="grid gap-4" action="{{ route('student.data.store') }}" method="POST"
         enctype="multipart/form-data">
-        @csrf
+        @if (!$readonly)
+            @csrf
+        @endif
         <div class="flex items-end gap-2">
             <div class="grid place-content-center w-[10rem] aspect-square bg-gray-100 rounded-lg dark:bg-gray-600">
                 @if ($data['photo'])
@@ -123,7 +125,7 @@
             </div>
             <div>
                 <label for="ipk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">IPK</label>
-                <input type="number" id="ipk" name="ipk" step=".1" max="4" min="0"
+                <input type="number" id="ipk" name="ipk" step=".01" max="4" min="0"
                     value="{{ $data['ipk'] ?? old('ipk') }}" {{ $readonly ? 'readonly' : '' }}
                     class="bg-gray-50 border border-gray-300 {{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} text-sm rounded-lg focus-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:dark:focus:border-blue-500"
                     placeholder="Your IPK">
@@ -133,7 +135,7 @@
             @if (!$readonly)
                 <button data-modal-target="dialog-submit" data-modal-toggle="dialog-submit" type='button'
                     class="w-full sm:w-1/2 lg:w-1/4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                    Kirim
+                    Simpan
                 </button>
             @endif
         </div>
@@ -167,7 +169,7 @@
                             d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                     <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                        Apakah anda yakin?
+                        Apakah anda yakin ingin menyimpan?
                     </h3>
                     <button data-modal-hide="dialog-submit" type="submit" form="biodata"
                         class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">

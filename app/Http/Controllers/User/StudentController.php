@@ -16,7 +16,7 @@ class StudentController extends Controller
     public function dashboard_show()
     {
         return view('student.dashboard', [
-            'has_quota' => Quota::get_first_open(),
+            'has_quota' => Quota::first_open(),
             'quota' => Quota::stats(),
             'registrar' => $this->get_registrar()?->stats_filled(),
         ]);
@@ -57,22 +57,32 @@ class StudentController extends Controller
         $user = auth()->user();
         $biodata = $this->get_or_create_registrar();
         $biodata->fill($data);
-        $biodata->save();
-        Notification::sendNow($user, new CreatedOrUpdatedRegistrar(asset('logo.svg'), 'Biodata Updated', 'student.data.show', $biodata));
+        $biodata->saveQuietly();
 
         return to_route('student.dashboard.show');
     }
-
     public function file_store(UpdateRegistrarRequest $request)
     {
         $data = $request->validated();
         $user = auth()->user();
         $biodata = $this->get_or_create_registrar();
         $biodata->fill($data);
-        $biodata->save();
-        Notification::sendNow($user, new CreatedOrUpdatedRegistrar(asset('logo.svg'), 'File Updated', 'student.file.show', $biodata));
+        $biodata->saveQuietly();
 
         return to_route('student.dashboard.show');
+    }
+    public function submit()
+    {
+        $registrar = $this->get_registrar();
+        $registrar->check();
+
+        return to_route('student.dashboard.show');
+    }
+    public function print()
+    {
+        $registrar = $this->get_registrar();
+
+        return view('student.print', ['registrar' => $registrar]);
     }
 
     protected function get_registrar()
@@ -83,7 +93,7 @@ class StudentController extends Controller
     protected function get_or_create_registrar()
     {
         $user = auth()->user();
-        $quota = Quota::get_first_open();
+        $quota = Quota::first_open();
         $registrar = $this->get_registrar();
         if (!$registrar) {
             /** @var Registrar */
