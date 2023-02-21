@@ -2,7 +2,7 @@
 
 namespace App\View\Components\ArchiveRegistrar;
 
-use App\Models\Quota;
+use App\Models\ArchiveQuota;
 use App\Models\Registrar;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\View\Component;
@@ -17,7 +17,7 @@ class Index extends Component
     public array $columns = ['name', 'nim', 'nik'];
     public LengthAwarePaginator $paginator;
 
-    public function __construct(Quota $quota)
+    public function __construct(ArchiveQuota $quota)
     {
         /** @var Builder|EloquentBuilder */
         $query = Registrar::query()->where('quota_id', $quota->id);
