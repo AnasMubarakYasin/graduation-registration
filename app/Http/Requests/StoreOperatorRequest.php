@@ -24,11 +24,11 @@ class StoreOperatorRequest extends FormRequest
     public function rules()
     {
         return [
-            'photo' => 'required|image|max:2048',
+            // 'photo' => 'required|image|max:2048',
             'name' => 'required|string|unique:operators,name',
             'department' => 'required|string',
             'faculty' => 'required_if:department,faculty',
-            'email' => 'required|email|unique:operators,email',
+            // 'email' => 'required|email|unique:operators,email',
             'password' => 'required|string|confirmed',
             'password_confirmation' => 'required|string',
         ];

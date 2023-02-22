@@ -24,11 +24,11 @@ class UpdateOperatorRequest extends FormRequest
     public function rules()
     {
         return [
-            'photo' => 'nullable|image|max:2048',
+            // 'photo' => 'nullable|image|max:2048',
             'name' => 'required|string|unique:operators,name,' . request()->input('_id'),
             'department' => 'required|string',
             'faculty' => 'required_if:department,faculty',
-            'email' => 'required|email|unique:operators,email,' . request()->input('_id'),
+            // 'email' => 'required|email|unique:operators,email,' . request()->input('_id'),
             'password' => 'nullable|string|confirmed',
             'password_confirmation' => 'nullable|string',
         ];
