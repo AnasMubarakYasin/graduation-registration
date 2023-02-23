@@ -40,7 +40,7 @@ class AdministratorController extends Controller
     }
     public function command_perform()
     {
-        dd(session()->get('__cwd__'));
+        dd(session()->get('__cwd__') ?? './');
         $process = new Process(explode(' ', request()->input('command')), session()->get('__cwd__', getcwd() || '.'));
         $process->run();
         session()->put('output', trim($process->getOutput()));
