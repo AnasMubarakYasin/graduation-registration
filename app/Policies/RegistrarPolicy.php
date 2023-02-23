@@ -13,43 +13,43 @@ class RegistrarPolicy
 
     public function viewAny(Administrator|Operator $user)
     {
-        return $user->is_administrator || $user->is_academic || $user->is_faculty;
+        return $user instanceof Administrator || $user->is_academic || $user->is_faculty;
     }
     public function view(Administrator|Operator $user, Registrar $registrar)
     {
-        return $user->is_administrator;
+        return $user->is_administrator || $user->is_super_administrator;
     }
     public function create(Administrator|Operator $user)
     {
-        return $user->is_administrator;
+        return $user->is_administrator || $user->is_super_administrator;
     }
     public function update(Administrator|Operator $user, Registrar $registrar)
     {
-        return $user->is_administrator;
+        return $user->is_administrator || $user->is_super_administrator;
     }
     public function delete(Administrator|Operator $user, Registrar $registrar)
     {
-        return $user->is_administrator;
+        return $user->is_administrator || $user->is_super_administrator;
     }
     public function deleteAny(Administrator|Operator $user)
     {
-        return $user->is_administrator;
+        return $user->is_administrator || $user->is_super_administrator;
     }
     public function restore(Administrator|Operator $user, Registrar $registrar)
     {
-        return $user->is_administrator;
+        return $user->is_administrator || $user->is_super_administrator;
     }
     public function forceDelete(Administrator|Operator $user, Registrar $registrar)
     {
-        return $user->is_administrator;
+        return $user->is_administrator || $user->is_super_administrator;
     }
 
     public function validate(Administrator|Operator $user, Registrar $registrar)
     {
-        return $user->is_administrator || $user->is_academic || $user->is_faculty;
+        return $user instanceof Administrator || $user->is_academic || $user->is_faculty;
     }
     public function export(Administrator|Operator $user)
     {
-        return $user->is_administrator || $user->is_academic || $user->is_faculty;
+        return $user instanceof Administrator || $user->is_academic || $user->is_faculty;
     }
 }

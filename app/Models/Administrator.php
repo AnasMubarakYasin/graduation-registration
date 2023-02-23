@@ -51,10 +51,10 @@ class Administrator extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'photo',
+        // 'photo',
         'name',
-        'role',
-        'email',
+        // 'role',
+        // 'email',
         'password',
     ];
 

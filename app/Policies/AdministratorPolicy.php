@@ -17,7 +17,7 @@ class AdministratorPolicy
      */
     public function viewAny(Administrator $user)
     {
-        return $user->is_super_administrator || $user->is_administrator;
+        return $user->is_super_administrator;
     }
 
     /**
@@ -29,7 +29,7 @@ class AdministratorPolicy
      */
     public function view(Administrator $user, Administrator $administrator)
     {
-        //
+        return $user->is_super_administrator;
     }
 
     /**
@@ -40,7 +40,7 @@ class AdministratorPolicy
      */
     public function create(Administrator $user)
     {
-        return $user->is_super_administrator || $user->is_administrator;
+        return $user->is_super_administrator;
     }
 
     /**
@@ -52,7 +52,7 @@ class AdministratorPolicy
      */
     public function update(Administrator $user, Administrator $administrator)
     {
-        return $user->is_super_administrator || $user->is_administrator;
+        return $user->is_super_administrator;
     }
 
     /**
@@ -64,7 +64,7 @@ class AdministratorPolicy
      */
     public function delete(Administrator $user, Administrator $administrator)
     {
-        return $user->is_super_administrator || $user->is_administrator;
+        return $user->is_super_administrator;
     }
 
     /**
@@ -76,7 +76,7 @@ class AdministratorPolicy
      */
     public function restore(Administrator $user, Administrator $administrator)
     {
-        //
+        return $user->is_super_administrator;
     }
 
     /**
@@ -88,6 +88,6 @@ class AdministratorPolicy
      */
     public function forceDelete(Administrator $user, Administrator $administrator)
     {
-        //
+        return $user->is_super_administrator;
     }
 }

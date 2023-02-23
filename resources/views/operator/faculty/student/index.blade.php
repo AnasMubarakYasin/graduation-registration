@@ -3,7 +3,7 @@
 @section('title', __('list of student'))
 
 @section('content')
-    <x-student.index :create="route('operator.faculty.student.create')" :edit="function ($item) {
+    <x-student.index :checkbox="false" :action="false" :create="route('operator.faculty.student.create')" :edit="function ($item) {
         return route('operator.faculty.student.edit', ['student' => $item]);
     }"></x-student.index>
 @endsection

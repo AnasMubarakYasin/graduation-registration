@@ -10,7 +10,7 @@ table_checkbox('student', (checkbox) => {
     delete_btn.classList.replace('flex', 'hidden');
   }
 })
-document.getElementById('perpage').addEventListener('change', (event) => {
+document.getElementById('perpage')?.addEventListener('change', (event) => {
   const search = new URLSearchParams(location.search)
   search.append('perpage', event.target.value)
   location.assign('?' + search.toString())

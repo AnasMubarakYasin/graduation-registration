@@ -43,7 +43,7 @@ class RegistrarController extends Controller
     public function store(StoreRegistrarRequest $request)
     {
         $this->authorize('create', Registrar::class);
-        $quota = Quota::get_first_open();
+        $quota = Quota::first_open();
         if (!$quota) {
             throw new CreateRegistrarException('create registrar where not any quota open', 400);
         }

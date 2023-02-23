@@ -59,7 +59,8 @@ class AdministratorController extends Controller
     {
         $this->authorize('create', Administrator::class);
         $data = $request->validated();
-        $administrator = Administrator::create($data);
+        $administrator = new Administrator($data);
+        $administrator->save();
 
         return to_route('admin.user.administrator.index');
     }
@@ -97,6 +98,7 @@ class AdministratorController extends Controller
     {
         $this->authorize('update', $administrator);
         $data = $request->validated();
+        // dd($data);
         $administrator->update($data);
 
         return to_route('admin.user.administrator.index');

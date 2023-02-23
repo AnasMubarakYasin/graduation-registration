@@ -262,18 +262,20 @@
                         <ul id="menu_user"
                             class="py-2 space-y-2 {{ str_starts_with(request()->url(), route('admin.user.index')) ? '' : 'hidden' }}">
                             @foreach (App\Models\UserType::to_array() as $key => $value)
-                                <li>
-                                    <a href="{{ route('admin.user.' . $key . '.index') }}"
-                                        @class([
-                                            'flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition group',
-                                            'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
-                                                request()->url() != route('admin.user.' . $key . '.index'),
-                                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
-                                                request()->url() == route('admin.user.' . $key . '.index'),
-                                        ])>
-                                        {{ $value }}
-                                    </a>
-                                </li>
+                                @can('viewAny', App\Models\UserType::get_class($key))
+                                    <li>
+                                        <a href="{{ route('admin.user.' . $key . '.index') }}"
+                                            @class([
+                                                'flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition group',
+                                                'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
+                                                    request()->url() != route('admin.user.' . $key . '.index'),
+                                                'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                                                    request()->url() == route('admin.user.' . $key . '.index'),
+                                            ])>
+                                            {{ $value }}
+                                        </a>
+                                    </li>
+                                @endcan
                             @endforeach
                         </ul>
                     </li>

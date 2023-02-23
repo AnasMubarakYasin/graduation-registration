@@ -25,11 +25,13 @@ export function input_img_preview(
 }
 export function table_checkbox(table_id: string, change?: (elm: HTMLInputElement) => {}) {
     const table = document.getElementById(table_id) as HTMLTableElement
+    if (!table) return
     const table_head = table.querySelector('thead') as HTMLTableSectionElement;
     const table_body = table.querySelector('tbody') as HTMLTableSectionElement;
     const checkbox = table_head.querySelector('input[type=checkbox]') as HTMLInputElement;
     const checkboxs_n = table_body.querySelectorAll('tr input[type=checkbox]') as NodeListOf<HTMLInputElement>;
     const checkboxs = [...checkboxs_n];
+    if (!checkbox) return
     checkbox.addEventListener('change', (event) => {
         checkboxs.forEach((elm) => {
             elm.checked = checkbox.checked

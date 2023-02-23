@@ -21,4 +21,11 @@ enum UserType
       'operator' => UserType::Operator->to_string(),
     ];
   }
+  public static function get_class(string $key): string
+  {
+    return match ($key) {
+      'administrator' => Administrator::class,
+      'operator' => Operator::class,
+    };
+  }
 }

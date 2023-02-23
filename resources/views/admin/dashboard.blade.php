@@ -4,33 +4,36 @@
 
 @section('content')
     <div class="grid gap-4">
-        <div class="grid grid-cols-3 items-start gap-4">
-            {{-- @if ($quota)
+        <div class="grid grid-cols-3 gap-4">
+            @if ($quota)
                 <div
                     class="grid gap-2 p-4 bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
                     <div class="text-base text-gray-700 dark:text-gray-200 font-medium capitalize">
-                        {{ __($quota['name']) }}
+                        Kuota Wisuda
                     </div>
                     <div class="text-3xl text-gray-900 dark:text-gray-50 font-normal">
-                        {{ __(':current of :total', [
-                            'current' => $quota['filled'],
-                            'total' => $quota['total'],
-                        ]) }}
+                        {{ $quota['total'] }}
                     </div>
-                    <div class="w-full h-3 bg-gray-100 dark:bg-gray-700 rounded-full">
-                        <div class="h-3 bg-blue-500 rounded-full dark:bg-blue-500" style="width: {{ $quota['percent'] }}%">
-                        </div>
+                </div>
+                <div
+                    class="grid gap-2 p-4 bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
+                    <div class="text-base text-gray-700 dark:text-gray-200 font-medium capitalize">
+                        Sisa Kuota Wisuda
                     </div>
-                    <div class="text-base">{{ __(':day days left', ['day' => $quota['remaining_days']]) }}</div>
+                    <div class="text-3xl text-gray-900 dark:text-gray-50 font-normal">
+                        {{ $quota['remaining'] }}
+                    </div>
                 </div>
-            @endif --}}
-            {{-- <div class="grid gap-2 p-4 bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
-                <div class="text-base text-gray-700 dark:text-gray-200 font-medium capitalize">
-                    {{ __('student') }}</div>
-                <div class="text-3xl text-gray-900 dark:text-gray-50 font-normal">
-                    4000
+                <div
+                    class="grid gap-2 p-4 bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
+                    <div class="text-base text-gray-700 dark:text-gray-200 font-medium capitalize">
+                        Total Wisudawan
+                    </div>
+                    <div class="text-3xl text-gray-900 dark:text-gray-50 font-normal">
+                        {{ $quota['filled'] }}
+                    </div>
                 </div>
-            </div> --}}
+            @endif
         </div>
         <div class="grid grid-cols-3 gap-4">
             @if ($registrar)

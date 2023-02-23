@@ -24,10 +24,10 @@ class UpdateAdministratorRequest extends FormRequest
     public function rules()
     {
         return [
-            'photo' => 'nullable|image|max:2048',
+            // 'photo' => 'nullable|image|max:2048',
             'name' => 'required|string|unique:administrators,name,' . request()->input('_id'),
-            'role' => 'required|string',
-            'email' => 'required|email|unique:administrators,email,' . request()->input('_id'),
+            // 'role' => 'required|string',
+            // 'email' => 'required|email|unique:administrators,email,' . request()->input('_id'),
             'password' => 'nullable|string|confirmed',
             'password_confirmation' => 'nullable|string',
         ];

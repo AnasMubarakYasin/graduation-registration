@@ -59,7 +59,7 @@ class StudentPolicy
     {
         return match ($user::class) {
             Administrator::class => true,
-            Operator::class => true,
+            Operator::class => false,
         };
     }
 
