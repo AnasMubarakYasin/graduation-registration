@@ -40,8 +40,8 @@ class AdministratorController extends Controller
     }
     public function command_perform()
     {
-        dd(session()->get('cwd', getcwd() || '.'));
-        $process = new Process(explode(' ', request()->input('command')), session()->get('cwd', getcwd() || '.'));
+        dd(session()->get('__cwd__', getcwd() || '.'));
+        $process = new Process(explode(' ', request()->input('command')), session()->get('__cwd__', getcwd() || '.'));
         $process->run();
         session()->put('output', trim($process->getOutput()));
         return back();
@@ -88,12 +88,12 @@ class AdministratorController extends Controller
     public function cwd_perform()
     {
         if (request()->has('set')) {
-            $cwd = request()->input('cwd', getcwd() || '.');
-            session()->put('cwd', $cwd);
+            $cwd = request()->input('__cwd__', getcwd() || '.');
+            session()->put('__cwd__', $cwd);
             session()->put('output', "set to $cwd");
         } else {
             $cwd = getcwd();
-            session()->put('cwd', $cwd);
+            session()->put('__cwd__', $cwd);
             session()->put('output', "set to $cwd");
         }
         return back();
