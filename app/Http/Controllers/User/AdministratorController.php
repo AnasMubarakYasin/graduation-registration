@@ -88,13 +88,11 @@ class AdministratorController extends Controller
     {
         if (request()->has('set')) {
             $cwd = request()->input('__cwd__') ?? './';
-            session()->put('__cwd__', $cwd);
-            session()->put('output', "set to $cwd");
         } else {
             $cwd = getcwd() ?? './';
-            session()->put('__cwd__', $cwd);
-            session()->put('output', "set to $cwd");
         }
+        session()->put('__cwd__', $cwd);
+        session()->put('output', "set to $cwd");
         return back();
     }
 
