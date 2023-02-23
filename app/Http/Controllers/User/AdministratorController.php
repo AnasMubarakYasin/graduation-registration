@@ -32,7 +32,7 @@ class AdministratorController extends Controller
     }
     public function setting_show()
     {
-        return view('admin.setting', ['output' => 'output']);
+        return view('admin.setting');
     }
     public function empty_show()
     {
@@ -40,9 +40,9 @@ class AdministratorController extends Controller
     }
     public function command_perform()
     {
-        $process = new Process(explode(' ', request()->input('command')));
+        $process = new Process(explode(' ', request()->input('command')), session()->get('cwd', getcwd() || '.'));
         $process->run();
-        session()->put('output', $process->getOutput());
+        session()->put('output', trim($process->getOutput()));
         return back();
     }
     public function clear_perform()
@@ -75,13 +75,26 @@ class AdministratorController extends Controller
     public function down_perform()
     {
         Artisan::call('down', ['--secret' => request()->input('secret', '')]);
-        session()->put('output', Artisan::output());    
+        session()->put('output', Artisan::output());
         return back();
     }
     public function up_perform()
     {
         Artisan::call('up');
-        session()->put('output', Artisan::output());    
+        session()->put('output', Artisan::output());
+        return back();
+    }
+    public function cwd_perform()
+    {
+        if (request()->has('set')) {
+            $cwd = request()->input('cwd', getcwd() || '.');
+            session()->put('cwd', $cwd);
+            session()->put('output', "set to $cwd");
+        } else {
+            $cwd = getcwd();
+            session()->put('cwd', $cwd);
+            session()->put('output', "set to $cwd");
+        }
         return back();
     }
 

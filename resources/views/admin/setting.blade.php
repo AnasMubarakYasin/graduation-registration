@@ -17,7 +17,7 @@
                     </button>
                 </form>
             </label>
-            <output id="output" class="bg-gray-100 p-2 rounded whitespace-pre-wrap">
+            <output id="output" class="bg-gray-100 p-2 rounded whitespace-pre-line">
                 {{ session()->get('output', '') }}
             </output>
             <form class="flex gap-2" action="{{ route('admin.setting.command.perform') }}" method="post">
@@ -75,6 +75,28 @@
                 class="w-auto px-5 py-2.5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                 npm run build
             </button>
+        </form>
+        <form class="flex gap-2" action="{{ route('admin.setting.cwd.perform') }}" method="post">
+            @csrf
+            <div>
+                <label for="cwd">CWD</label>
+                <div class="flex gap-2">
+                    <input type="text" id="cwd" name="cwd" value="{{ session()->get('cwd') }}"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="cwd">
+                    @if (!session()->get('cwd'))
+                        <button name="set"
+                            class="w-auto px-5 py-2.5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                            Set
+                        </button>
+                    @else
+                        <button name="unset"
+                            class="w-auto px-5 py-2.5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                            Unset
+                        </button>
+                    @endif
+                </div>
+            </div>
         </form>
     </div>
 @endsection

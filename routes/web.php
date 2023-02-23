@@ -148,6 +148,7 @@ Route::middleware(['authc.basic:welcome,administrator'])->group(function () {
     Route::post('admin/setting/build', 'User\AdministratorController@build_perform')->name('admin.setting.build.perform');
     Route::post('admin/setting/up', 'User\AdministratorController@up_perform')->name('admin.setting.up.perform');
     Route::post('admin/setting/down', 'User\AdministratorController@down_perform')->name('admin.setting.down.perform');
+    Route::post('admin/setting/cwd', 'User\AdministratorController@cwd_perform')->name('admin.setting.cwd.perform');
 
     Route::post('admin/faculty', 'FacultyController@store')->name('admin.faculty.store');
     Route::patch('admin/faculty/{faculty}', 'FacultyController@update')->name('admin.faculty.update');
