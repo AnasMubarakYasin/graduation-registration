@@ -59,7 +59,7 @@ Route::middleware(['authc.basic:welcome,operator'])->group(function () {
 
         Route::get('operator/faculty/dashboard', 'User\Operator\FacultyController@dashboard')->name('operator.faculty.dashboard');
         Route::get('operator/faculty/empty', 'User\Operator\FacultyController@empty')->name('operator.faculty.empty');
-        
+
         Route::get('operator/faculty/registrar', 'User\Operator\FacultyController@empty')->name('operator.faculty.registrar');
         Route::get('operator/faculty/registrar/validate', 'User\Operator\FacultyController@registrar_validate')->name('operator.faculty.registrar.validate');
         Route::get('operator/faculty/registrar/revision', 'User\Operator\FacultyController@registrar_revision')->name('operator.faculty.registrar.revision');
@@ -101,6 +101,7 @@ Route::middleware(['authc.basic:welcome,administrator'])->group(function () {
         Route::get('admin/dashboard', 'User\AdministratorController@dashboard_show')->name('admin.dashboard.show');
         Route::get('admin/profile', 'User\AdministratorController@profile_show')->name('admin.profile.show');
         Route::get('admin/notification', 'User\AdministratorController@notification_show')->name('admin.notification.show');
+        Route::get('admin/setting', 'User\AdministratorController@setting_show')->name('admin.setting.show');
         Route::get('admin/empty', 'User\AdministratorController@empty_show')->name('admin.empty.show');
         Route::get('admin/logout', 'Auth\AdministratorController@logout_perfom')->name('admin.logout.perform');
 
@@ -139,6 +140,14 @@ Route::middleware(['authc.basic:welcome,administrator'])->group(function () {
         Route::get('admin/archive/quota', 'User\AdministratorController@archive_quota')->name('admin.archive.quota.index');
         Route::get('admin/archive/quota/{quota}/registrar', 'User\AdministratorController@archive_registrar')->name('admin.archive.quota.registrar.index');
     });
+
+    Route::post('admin/setting/command', 'User\AdministratorController@command_perform')->name('admin.setting.command.perform');
+    Route::post('admin/setting/clear', 'User\AdministratorController@clear_perform')->name('admin.setting.clear.perform');
+    Route::post('admin/setting/seeder', 'User\AdministratorController@seeder_perform')->name('admin.setting.seeder.perform');
+    Route::post('admin/setting/pull', 'User\AdministratorController@pull_perform')->name('admin.setting.pull.perform');
+    Route::post('admin/setting/build', 'User\AdministratorController@build_perform')->name('admin.setting.build.perform');
+    Route::post('admin/setting/up', 'User\AdministratorController@up_perform')->name('admin.setting.up.perform');
+    Route::post('admin/setting/down', 'User\AdministratorController@down_perform')->name('admin.setting.down.perform');
 
     Route::post('admin/faculty', 'FacultyController@store')->name('admin.faculty.store');
     Route::patch('admin/faculty/{faculty}', 'FacultyController@update')->name('admin.faculty.update');

@@ -10,6 +10,8 @@ use App\Models\ArchiveQuota;
 use App\Models\Quota;
 use App\Models\Registrar;
 use App\Models\Student;
+use Illuminate\Support\Facades\Artisan;
+use Symfony\Component\Process\Process;
 
 class AdministratorController extends Controller
 {
@@ -20,20 +22,67 @@ class AdministratorController extends Controller
 
         return view('admin.dashboard', ['quota' => $quota, 'registrar' => $registrar]);
     }
-
     public function profile_show()
     {
         return view('admin.profile');
     }
-
     public function notification_show()
     {
         return view('admin.notification');
     }
-
+    public function setting_show()
+    {
+        return view('admin.setting', ['output' => 'output']);
+    }
     public function empty_show()
     {
         return view('admin.empty');
+    }
+    public function command_perform()
+    {
+        $process = new Process(explode(' ', request()->input('command')));
+        $process->run();
+        session()->put('output', $process->getOutput());
+        return back();
+    }
+    public function clear_perform()
+    {
+        session()->put('output', '');
+        return back();
+    }
+    public function seeder_perform()
+    {
+        $user = auth()->user();
+        Artisan::call('migrate:refresh', ['--seed' => true]);
+        session()->put('output', Artisan::output());
+        auth()->login($user, true);
+        return back();
+    }
+    public function pull_perform()
+    {
+        $process = new Process(['git', 'pull']);
+        $process->run();
+        session()->put('output', $process->getOutput());
+        return back();
+    }
+    public function build_perform()
+    {
+        $process = new Process(['npm', 'run', 'build']);
+        $process->run();
+        session()->put('output', $process->getOutput());
+        return back();
+    }
+    public function down_perform()
+    {
+        Artisan::call('down', ['--secret' => request()->input('secret', '')]);
+        session()->put('output', Artisan::output());    
+        return back();
+    }
+    public function up_perform()
+    {
+        Artisan::call('up');
+        session()->put('output', Artisan::output());    
+        return back();
     }
 
     public function quota_index()
