@@ -91,7 +91,7 @@ class AdministratorPolicy
         return $user->is_super_administrator;
     }
 
-    public function setting(Administrator $user)
+    public function command(Administrator $user)
     {
         return $user->is_super_administrator;
     }

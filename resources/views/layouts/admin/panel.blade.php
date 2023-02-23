@@ -333,7 +333,7 @@
                             @endforeach
                         </ul>
                     </li>
-                    @can('setting', $user::class)
+                    @can('command', $user::class)
                         <li>
                             <a href="{{ route('admin.setting.show') }}" @class([
                                 'flex items-center p-2 text-base font-normal rounded-lg',
@@ -354,7 +354,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
-                                <span class="ml-3">Setting</span>
+                                <span class="ml-3">Command</span>
                             </a>
                         </li>
                     @endcan

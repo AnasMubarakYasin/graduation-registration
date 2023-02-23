@@ -32,6 +32,7 @@ class AdministratorController extends Controller
     }
     public function setting_show()
     {
+        session()->put('prompt', true);
         return view('admin.setting');
     }
     public function empty_show()
@@ -40,14 +41,20 @@ class AdministratorController extends Controller
     }
     public function command_perform()
     {
-        $process = new Process(explode(' ', request()->input('command')), session()->get('__cwd__') ?? './');
+        if (!request()->input('command')) return back();
+        $command = explode(' ', request()->input('command'));
+        $cwd = session()->get('__cwd__') ?? './';
+        logger('command', ['command' => $command, 'cwd' => $cwd]);
+        $process = new Process($command, $cwd);
         $process->run();
-        session()->put('output', trim($process->getOutput()));
+        $output = "{$process->getCommandLine()}\n{$process->getStatus()}\n\n";
+        $output .= $process->getOutput();
+        session()->put('output', $output);
         return back();
     }
     public function clear_perform()
     {
-        session()->put('output', '');
+        session()->remove('output');
         return back();
     }
     public function seeder_perform()
@@ -87,7 +94,7 @@ class AdministratorController extends Controller
     public function cwd_perform()
     {
         if (request()->has('set')) {
-            $cwd = request()->input('__cwd__') ?? './';
+            $cwd = realpath(request()->input('__cwd__') ?? './') ?? './';
         } else {
             $cwd = getcwd() ?? './';
         }
