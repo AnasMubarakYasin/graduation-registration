@@ -139,6 +139,7 @@ Route::middleware(['authc.basic:welcome,administrator'])->group(function () {
 
         Route::get('admin/archive/quota', 'User\AdministratorController@archive_quota')->name('admin.archive.quota.index');
         Route::get('admin/archive/quota/{quota}/registrar', 'User\AdministratorController@archive_registrar')->name('admin.archive.quota.registrar.index');
+        Route::get('admin/archive/quota/registrar/{registrar}', 'User\AdministratorController@archive_registrar_view')->name('admin.archive.quota.registrar.view');
     });
 
     Route::post('admin/setting/command', 'User\AdministratorController@command_perform')->name('admin.setting.command.perform');

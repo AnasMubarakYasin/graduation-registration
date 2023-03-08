@@ -7,6 +7,7 @@ use App\Http\Requests\StoreAdministratorRequest;
 use App\Http\Requests\UpdateAdministratorRequest;
 use App\Models\Administrator;
 use App\Models\ArchiveQuota;
+use App\Models\ArchiveRegistrar;
 use App\Models\Quota;
 use App\Models\Registrar;
 use App\Models\Student;
@@ -158,5 +159,9 @@ class AdministratorController extends Controller
     public function archive_registrar(ArchiveQuota $quota)
     {
         return view('admin.archive.registrar', ['quota' => $quota]);
+    }
+    public function archive_registrar_view(ArchiveRegistrar $registrar)
+    {
+        return view('admin.archive.registrar-view', ['registrar' => $registrar]);
     }
 }

@@ -1,6 +1,6 @@
 @props([])
 @section('head')
-    @vite('resources/js/components/registrar/table.js')
+    {{-- @vite('resources/js/components/registrar/table.js') --}}
 @endsection
 <div class="grid gap-4">
     <div class="flex gap-2 items-center">
@@ -76,8 +76,7 @@
                         </button>
                         <div class="p-6 text-center">
                             <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200"
-                                fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
@@ -241,13 +240,13 @@
             class="w-full text-sm text-left text-gray-500 dark:text-gray-400 dark:border dark:border-separate dark:border-spacing-0 dark:border-gray-700 rounded-lg shadow-md dark:shadow-none">
             <thead>
                 <tr class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <th scope="col" class="p-4 rounded-tl-lg">
+                    {{-- <th scope="col" class="p-4 rounded-tl-lg">
                         <div class="flex items-center">
                             <input id="checkbox-all" type="checkbox"
                                 class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-600 dark:border-gray-600">
                             <label for="checkbox-all" class="sr-only">checkbox</label>
                         </div>
-                    </th>
+                    </th> --}}
                     @foreach ($fields as $key => $value)
                         @if (in_array($key, $columns))
                             <th scope="col" class="text-base py-3 px-6 capitalize">
@@ -276,14 +275,14 @@
                         'bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-600 dark:border-gray-700',
                         'border-b' => !$loop->last,
                     ])>
-                        <td class="p-4 w-4 {{ $loop->last ? 'rounded-bl-lg' : '' }}">
+                        {{-- <td class="p-4 w-4 {{ $loop->last ? 'rounded-bl-lg' : '' }}">
                             <div class="flex items-center">
                                 <input id="" type="checkbox" name="id[]" form="delete_any"
                                     value="{{ $item->id }}"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                 <label for="" class="sr-only">checkbox</label>
                             </div>
-                        </td>
+                        </td> --}}
                         @foreach ($fields as $key => $value)
                             @if (in_array($key, $columns))
                                 <td class="py-4 px-6 text-gray-900 dark:text-white whitespace-nowrap">
@@ -293,6 +292,20 @@
                         @endforeach
                         <td
                             class="flex justify-center gap-2 py-4 px-6 capitalize {{ $loop->last ? 'rounded-br-lg' : '' }}">
+                            @can('view', $item)
+                                <a id="view_btn"
+                                    href="{{ route('admin.archive.quota.registrar.view', ['registrar' => $item]) }}"
+                                    class="p-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    <span class="sr-only">View Item</span>
+                                </a>
+                            @endcan
                             @can('delete', $item)
                                 <form id="item-delete-{{ $item->id }}" class="contents"
                                     action="{{ route('resources.registrar.delete', ['registrar' => $item]) }}"
@@ -400,7 +413,7 @@
                 </select>
             </form>
         </div>
-        <ul class="inline-flex items-center -space-x-px">
+        <ul class="hidden sm:flex items-center -space-x-px">
             <li>
                 @if ($paginator->previousPageUrl())
                     <a href="{{ $paginator->previousPageUrl() }}"
@@ -415,7 +428,7 @@
                     </a>
                 @else
                     <button disabled
-                        class="cursor-not-allowed py-2 px-2 rounded-l-lg border border-gray-300 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        class="cursor-not-allowed py-2 px-2 rounded-l-lg border border-gray-300 bg-gray-200 text-gray-700 dark:bg-gray-600 dark:border-gray-700 dark:text-gray-400">
                         <span class="sr-only">Previous</span>
                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -426,19 +439,57 @@
                     </button>
                 @endif
             </li>
-            @if (($count = (int) floor($paginator->total() / $paginator->perPage())) && $count > 1)
-                @foreach (range(1, $count) as $item)
-                    <li>
-                        <a href="{{ $paginator->url($loop->iteration) }}" @class([
-                            'grid place-content-center p-2 w-5 h-5 aspect-square box-content text-base',
-                            'text-gray-700 bg-white border border-gray-300 hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' =>
-                                $paginator->currentPage() != $loop->iteration,
-                            'text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white' =>
-                                $paginator->currentPage() == $loop->iteration,
-                        ])>
-                            {{ $loop->iteration }}
-                        </a>
-                    </li>
+            @php
+                $count = (int) ceil($paginator->total() / $paginator->perPage());
+            @endphp
+            @if ($count && $count > 1)
+                @php
+                    $index = 1;
+                    $limit = 5;
+                    if ($count > $limit) {
+                        $div = floor($limit / 2);
+                        $start = $paginator->currentPage() - $div;
+                        $percent = ($paginator->currentPage() / $count) * 100;
+                        if ($start < 1) {
+                            $start = 1;
+                        } else {
+                            if ($paginator->currentPage() + $div > $count) {
+                                $start = $count - ($limit - 1);
+                            }
+                        }
+                        $pages = range($start, $limit + ($start - 1));
+                        if (in_array(1, $pages)) {
+                            $elements = [$pages, '', [$count]];
+                        } elseif (in_array($count, $pages)) {
+                            $elements = [[1], '', $pages];
+                        } else {
+                            $elements = [[1], '', $pages, '', [$count]];
+                        }
+                    } else {
+                        $elements = [range(1, $count)];
+                    }
+                @endphp
+                @foreach ($elements as $element)
+                    @if (is_string($element))
+                        <div
+                            class="grid place-content-center p-2 w-5 h-5 aspect-square box-content text-base text-gray-700 bg-white border border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
+                            ...
+                        </div>
+                    @else
+                        @foreach ($element as $page)
+                            @if ($paginator->currentPage() == $page)
+                                <div
+                                    class="grid place-content-center p-2 w-5 h-5 aspect-square box-content text-base text-blue-600 border border-blue-300 bg-blue-100 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">
+                                    {{ $page }}
+                                </div>
+                            @else
+                                <a href="{{ $paginator->url($page) }}"
+                                    class="grid place-content-center p-2 w-5 h-5 aspect-square box-content text-base text-gray-700 bg-white border border-gray-300 hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                    {{ $page }}
+                                </a>
+                            @endif
+                        @endforeach
+                    @endif
                 @endforeach
             @endif
             <li>
@@ -455,7 +506,7 @@
                     </a>
                 @else
                     <button disabled
-                        class="cursor-not-allowed py-2 px-2 rounded-r-lg border border-gray-300 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        class="cursor-not-allowed py-2 px-2 rounded-r-lg border border-gray-300 bg-gray-200 text-gray-700 dark:bg-gray-600 dark:border-gray-700 dark:text-gray-400">
                         <span class="sr-only">Previous</span>
                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">

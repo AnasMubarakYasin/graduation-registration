@@ -3,5 +3,5 @@
 @section('title', 'Archive Registrar')
 
 @section('content')
-    <x-archive-registrar.index :quota="$quota"></x-archive-registrar.index>
+    <x-archive-registrar.view :registrar="$registrar"></x-archive-registrar.view>
 @endsection

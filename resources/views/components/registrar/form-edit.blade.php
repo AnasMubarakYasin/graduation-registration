@@ -143,6 +143,20 @@
                 <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
             @enderror
         </div>
+        <div class="flex flex-col gap-2">
+            <label for="gender" class="text-sm font-medium text-gray-900 dark:text-white">Gender</label>
+            <select id="gender" name="gender"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option selected>Choose a Gender</option>
+                @foreach (['male', 'female'] as $gender)
+                    <option @selected($registrar->gender == $gender) value="{{ $gender }}">{{ $gender }}</option>
+                @endforeach
+            </select>
+            @error('gender')
+                <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+            @enderror
+        </div>
+        <div></div>
         <div class="flex gap-2">
             <div class="flex flex-col gap-2 flex-grow">
                 <label class="block text-sm font-medium text-gray-900 dark:text-white" for="photo">

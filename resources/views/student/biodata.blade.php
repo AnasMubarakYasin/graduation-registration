@@ -34,8 +34,8 @@
             </div>
             <div class="">
                 @if (!$readonly)
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="photo">Upload
-                        photo
+                    <label class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="photo">
+                        {{ __('photo') }}
                     </label>
                     <input aria-describedby="photo_help" id="photo" name="photo" type="file"
                         class="block w-full text-sm text-gray-900 dark:text-white border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
@@ -50,36 +50,42 @@
         </div>
         <div class="grid gap-4 sm:w-1/2">
             <div>
-                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                <label for="name" class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    {{ __('name') }}
+                </label>
                 <input type="text" id="name" name="name" value="{{ $data['name'] ?? old('name') }}"
                     {{ $readonly ? 'readonly' : '' }}
                     class="bg-gray-50 {{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Your Name">
+                    placeholder="">
             </div>
             <div>
-                <label for="nim" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIM</label>
+                <label for="nim"
+                    class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIM</label>
                 <input type="text" id="nim" name="nim" value="{{ $user->nim }}" readonly
                     class="bg-gray-50 border border-gray-300 text-gray-600 dark:text-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Your NIM">
+                    placeholder="">
             </div>
             <div>
-                <label for="nik" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK</label>
+                <label for="nik"
+                    class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK</label>
                 <input type="text" id="nik" name="nik" value="{{ $data['nik'] ?? old('nik') }}"
                     {{ $readonly ? 'readonly' : '' }}
                     class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Your NIK">
+                    placeholder="">
             </div>
             <div>
-                <label for="pob" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Place of
-                    Birth</label>
+                <label for="pob" class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    {{ __('place of birth') }}
+                </label>
                 <input type="text" id="pob" name="pob" value="{{ $data['pob'] ?? old('pob') }}"
                     {{ $readonly ? 'readonly' : '' }}
                     class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Your Place of Birth">
+                    placeholder="">
             </div>
             <div>
-                <label for="dob" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date of
-                    Birth</label>
+                <label for="dob" class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    {{ __('date of birth') }}
+                </label>
                 <div class="relative">
                     <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                         <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
@@ -92,16 +98,13 @@
                     <input datepicker type="text" id="dob" name="dob" {{ $readonly ? 'readonly' : '' }}
                         value="{{ (isset($data['dob']) ? $carbon::parse($data['dob'])->format('d/m/Y') : '') ?? old('dob') }}"
                         class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Your Date of Birth">
+                        placeholder="">
                 </div>
             </div>
-            {{-- <div>
-                <input type="text" id="dob" name="dob"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Your Date of Birth">
-            </div> --}}
             <div>
-                <label for="faculty" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Faculty</label>
+                <label for="faculty" class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    {{ __('faculty') }}
+                </label>
                 <select id="faculty" name="faculty" {{ $readonly ? 'disabled' : '' }}
                     class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option selected>Pilih Fakultas</option>
@@ -112,8 +115,8 @@
                 </select>
             </div>
             <div>
-                <label for="study_program" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Study Program
+                <label for="study_program" class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    {{ __('study program') }}
                 </label>
                 <select id="study_program" name="study_program" {{ $readonly ? 'disabled' : '' }}
                     class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -124,11 +127,26 @@
                 </select>
             </div>
             <div>
-                <label for="ipk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">IPK</label>
+                <label for="ipk"
+                    class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">IPK</label>
                 <input type="number" id="ipk" name="ipk" step=".01" max="4" min="0"
                     value="{{ $data['ipk'] ?? old('ipk') }}" {{ $readonly ? 'readonly' : '' }}
                     class="bg-gray-50 border border-gray-300 {{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} text-sm rounded-lg focus-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:dark:focus:border-blue-500"
-                    placeholder="Your IPK">
+                    placeholder="">
+            </div>
+            <div>
+                <label for="gender" class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    {{ __('gender') }}
+                </label>
+                <select id="gender" name="gender" {{ $readonly ? 'disabled' : '' }}
+                    class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected>Pilih Jenis Kelamin</option>
+                    @foreach (['male', 'female'] as $gender)
+                        <option @selected($data->gender == $gender) value="{{ $gender }}">
+                            {{ __($gender) }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
         </div>
         <div class="grid place-items-center w-1/2">

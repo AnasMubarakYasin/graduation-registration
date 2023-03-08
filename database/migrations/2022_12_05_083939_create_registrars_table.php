@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('faculty')->nullable();
             $table->string('study_program')->nullable();
             $table->double('ipk')->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable();
 
             $table->string('munaqasyah')->nullable();
             $table->string('school_certificate')->nullable();

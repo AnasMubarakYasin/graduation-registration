@@ -79,6 +79,10 @@
                 <h2>IPK</h2>
                 <div>{{ $registrar->ipk }}</div>
             </section>
+            <section>
+                <h2>Jenis Kelamin</h2>
+                <div>{{ $registrar->gender }}</div>
+            </section>
         </main>
         <footer>
 

@@ -26,6 +26,7 @@ class RegistrarFactory extends Factory
             'faculty' => 'Sains dan Teknologi',
             'study_program' => 'Sistem Informasi',
             'ipk' => fake()->numberBetween(1, 4),
+            'gender' => fake()->randomElement(['male', 'female']),
 
             'munaqasyah' => fake()->imageUrl(),
             'school_certificate' => fake()->imageUrl(),

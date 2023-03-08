@@ -12,10 +12,12 @@ class Index extends Component
 {
     public array $fields = [
         'name' => 'name',
-        'nim' => 'nim',
-        'nik' => 'nik',
+        'nim' => 'NIM',
+        'faculty' => 'faculty',
+        'study_program' => 'study program',
+        'ipk' => 'IPK',
     ];
-    public array $columns = ['name', 'nim', 'nik'];
+    public array $columns = ['name', 'nim', 'faculty', 'study_program', 'ipk'];
     public LengthAwarePaginator $paginator;
 
     public function __construct(ArchiveQuota $quota)

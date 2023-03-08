@@ -98,6 +98,7 @@ class Registrar extends Model
         'faculty',
         'study_program',
         'ipk',
+        'gender',
 
         'munaqasyah',
         'school_certificate',
@@ -118,6 +119,7 @@ class Registrar extends Model
         'faculty',
         'study_program',
         'ipk',
+        'gender',
     ];
 
     public $file_field = [

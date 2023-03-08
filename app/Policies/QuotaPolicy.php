@@ -18,7 +18,7 @@ class QuotaPolicy
      */
     public function viewAny(Administrator $user)
     {
-        return $user->is_administrator;
+        return $user->is_administrator || $user->is_super_administrator;
     }
 
     /**
@@ -30,7 +30,7 @@ class QuotaPolicy
      */
     public function view(Administrator $user, Quota $quota)
     {
-        return $user->is_administrator;
+        return $user->is_administrator || $user->is_super_administrator;
     }
 
     /**
@@ -41,7 +41,7 @@ class QuotaPolicy
      */
     public function create(Administrator $user)
     {
-        return $user->is_administrator;
+        return $user->is_administrator || $user->is_super_administrator;
     }
 
     /**
@@ -53,7 +53,7 @@ class QuotaPolicy
      */
     public function update(Administrator $user, Quota $quota)
     {
-        return $user->is_administrator;
+        return $user->is_administrator || $user->is_super_administrator;
     }
 
     /**
@@ -65,12 +65,12 @@ class QuotaPolicy
      */
     public function delete(Administrator $user, Quota $quota)
     {
-        return $user->is_administrator;
+        return $user->is_administrator || $user->is_super_administrator;
     }
 
     public function deleteAny(Administrator $user)
     {
-        return $user->is_administrator;
+        return $user->is_administrator || $user->is_super_administrator;
     }
 
     /**
@@ -82,7 +82,7 @@ class QuotaPolicy
      */
     public function restore(Administrator $user, Quota $quota)
     {
-        return $user->is_administrator;
+        return $user->is_administrator || $user->is_super_administrator;
     }
 
     /**
@@ -94,11 +94,11 @@ class QuotaPolicy
      */
     public function forceDelete(Administrator $user, Quota $quota)
     {
-        return $user->is_administrator;
+        return $user->is_administrator || $user->is_super_administrator;
     }
 
     public function archive(Administrator $user, Quota $quota)
     {
-        return $user->is_administrator;
+        return $user->is_administrator || $user->is_super_administrator;
     }
 }
