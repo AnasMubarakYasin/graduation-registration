@@ -29,6 +29,7 @@ class ArchiveRegistrar extends Model
         'faculty',
         'study_program',
         'ipk',
+        'gender',
 
         'munaqasyah',
         'school_certificate',
