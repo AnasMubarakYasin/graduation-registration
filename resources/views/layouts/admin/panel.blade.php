@@ -34,7 +34,7 @@
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
                                 request()->url() != route('admin.dashboard.show'),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                            'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
                                 request()->url() == route('admin.dashboard.show'),
                         ])>
                             <svg @class([
@@ -52,102 +52,12 @@
                             <span class="ml-3">Dashboard</span>
                         </a>
                     </li>
-                    {{-- //TODO -  --}}
-                    {{-- <li>
-                        <button
-                            data-dropdown-show="{{ str(request()->url())->startsWith(route('admin.registrar.index')) }}"
-                            type="button" @class([
-                                'flex items-center w-full p-2 text-base font-normal rounded-lg',
-                                'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' => !str(
-                                    request()->url())->startsWith(route('admin.registrar.index')),
-                                'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
-                                    request()->url())->startsWith(route('admin.registrar.index')),
-                            ]) aria-controls="menu_registrar"
-                            data-collapse-toggle="menu_registrar">
-                            <svg @class([
-                                'w-6 h-6 transition',
-                                'text-gray-700 dark:text-white' => !str(request()->url())->startsWith(
-                                    route('admin.registrar.index')),
-                                '' => str(request()->url())->startsWith(route('admin.registrar.index')),
-                            ]) fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
-                                </path>
-                            </svg>
-                            <span class="flex-1 ml-3 text-left whitespace-nowrap capitalize"
-                                sidebar-toggle-item>{{ __('registrar') }}</span>
-                            <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </button>
-                        <ul id="menu_registrar" class="hidden py-2 space-y-2">
-                            <li>
-                                <a href="{{ route('admin.registrar.index') }}" @class([
-                                    'flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition group',
-                                    'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
-                                        request()->url() != route('admin.registrar.index'),
-                                    'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
-                                        request()->url() == route('admin.registrar.index'),
-                                ])>
-                                    {{ __('all') }}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('admin.registrar.validate.show') }}" @class([
-                                    'flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition group',
-                                    'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
-                                        request()->url() != route('admin.registrar.validate.show'),
-                                    'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
-                                        request()->url() == route('admin.registrar.validate.show'),
-                                ])>
-                                    {{ __('validate') }}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('admin.registrar.revision.show') }}" @class([
-                                    'flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition group',
-                                    'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
-                                        request()->url() != route('admin.registrar.revision.show'),
-                                    'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
-                                        request()->url() == route('admin.registrar.revision.show'),
-                                ])>
-                                    {{ __('not yet revision') }}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('admin.registrar.revalidate.show') }}" @class([
-                                    'flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition group',
-                                    'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
-                                        request()->url() != route('admin.registrar.revalidate.show'),
-                                    'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
-                                        request()->url() == route('admin.registrar.revalidate.show'),
-                                ])>
-                                    {{ __('revalidate') }}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('admin.registrar.validated.show') }}" @class([
-                                    'flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition group',
-                                    'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
-                                        request()->url() != route('admin.registrar.validated.show'),
-                                    'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
-                                        request()->url() == route('admin.registrar.validated.show'),
-                                ])>
-                                    {{ __('validated') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </li> --}}
                     <li>
                         <a href="{{ route('admin.quota.index') }}" @class([
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' => !str(
                                 request()->url())->startsWith(route('admin.quota.index')),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
+                            'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
                                 request()->url())->startsWith(route('admin.quota.index')),
                         ])>
                             <svg @class([
@@ -169,7 +79,7 @@
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' => !str(
                                 request()->url())->startsWith(route('admin.registrar.index')),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
+                            'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
                                 request()->url())->startsWith(route('admin.registrar.index')),
                         ])>
                             <svg @class([
@@ -191,7 +101,7 @@
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
                                 request()->url() != route('admin.faculty.index'),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                            'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
                                 request()->url() == route('admin.faculty.index'),
                         ])>
                             <svg @class([
@@ -213,7 +123,7 @@
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' => !str(
                                 request()->url())->startsWith(route('admin.student.index')),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
+                            'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
                                 request()->url())->startsWith(route('admin.student.index')),
                         ])>
                             <svg @class([
@@ -237,7 +147,7 @@
                             'flex items-center w-full p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' => !str(
                                 request()->url())->startsWith(route('admin.user.index')),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
+                            'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
                                 request()->url())->startsWith(route('admin.user.index')),
                         ]) aria-controls="menu_user"
                             data-collapse-toggle="menu_user">
@@ -269,7 +179,7 @@
                                                 'flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition group',
                                                 'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
                                                     request()->url() != route('admin.user.' . $key . '.index'),
-                                                'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                                                'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
                                                     request()->url() == route('admin.user.' . $key . '.index'),
                                             ])>
                                             {{ $value }}
@@ -288,7 +198,7 @@
                             'flex items-center w-full p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' => !str(
                                 request()->url())->startsWith($link),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
+                            'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
                                 request()->url())->startsWith($link),
                         ]) aria-controls="menu_registrar"
                             data-collapse-toggle="menu_registrar">
@@ -324,7 +234,7 @@
                                         'flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition group',
                                         'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
                                             request()->url() != $link,
-                                        'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                                        'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
                                             request()->url() == $link,
                                     ])>
                                         {{ $value }}
@@ -339,7 +249,7 @@
                                 'flex items-center p-2 text-base font-normal rounded-lg',
                                 'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
                                     request()->url() != route('admin.setting.show'),
-                                'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                                'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
                                     request()->url() == route('admin.setting.show'),
                             ])>
                                 <svg @class([
@@ -399,7 +309,7 @@
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
                                 request()->url() != route('admin.empty.show'),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                            'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
                                 request()->url() == route('admin.empty.show'),
                         ])>
                             <svg @class([
@@ -440,7 +350,7 @@
                         @empty($user->unreadNotifications->all())
                         @else
                             <div class="flex absolute">
-                                <div class="inline-flex relative w-3 h-3 left-3 bg-blue-500 rounded-full">
+                                <div class="inline-flex relative w-3 h-3 left-3 bg-green-500 rounded-full">
                                 </div>
                             </div>
                         @endempty
@@ -470,7 +380,7 @@
                                         <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
                                             {{ $notification->data['message'] }}
                                         </div>
-                                        <div class="text-xs text-blue-600 dark:text-blue-500">
+                                        <div class="text-xs text-green-600 dark:text-blue-500">
                                             {{ $notification->created_at->timespan() }}
                                         </div>
                                     </div>
@@ -503,7 +413,7 @@
                 </button>
 
                 <button id="LangButton" data-dropdown-toggle="Lang"
-                    class="grid place-content-center gap-2 h-10 aspect-square text-sm text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-600 hover:text-blue-600 dark:hover:text-blue-500 rounded-lg">
+                    class="grid place-content-center gap-2 h-10 aspect-square text-sm text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-600 hover:text-green-600 dark:hover:text-blue-500 rounded-lg">
                     <span class="sr-only">Open language menu</span>
                     <div class="p-2.5">
                         <div class="font-medium uppercase">{{ App::getLocale() }}</div>
@@ -517,7 +427,7 @@
                                 <a href="{{ route('language.set', ['locale' => $key]) }}"
                                     @class([
                                         'block py-2 px-4 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white',
-                                        'text-white bg-blue-500 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white' =>
+                                        'text-white bg-green-500 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white' =>
                                             $key == App::getLocale(),
                                     ])>
                                     {{ $value }}
@@ -528,7 +438,7 @@
                 </div>
 
                 <button id="ProfileButton" data-dropdown-toggle="Profile"
-                    class="flex items-center gap-2 text-sm font-medium text-gray-900 rounded-lg hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white">
+                    class="flex items-center gap-2 text-sm font-medium text-gray-900 rounded-lg hover:text-green-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white">
                     <span class="sr-only">Open user menu</span>
                     <div class="bg-gray-100 p-2 rounded-lg dark:bg-gray-600">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -550,25 +460,6 @@
                 </button>
                 <div id="Profile"
                     class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                    {{-- <div class="py-3 px-4 text-sm text-gray-900 dark:text-white">
-                        <div class="font-medium ">{{ $user->name }}</div>
-                        <div class="truncate">{{ $user->readable_role }}</div>
-                    </div> --}}
-                    {{-- <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                        aria-labelledby="dropdownInformProfileButtonationButton">
-                        <li>
-                            <a href="{{ route('admin.profile.show') }}"
-                                class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.notification.show') }}"
-                                class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Notifications</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.empty.show') }}"
-                                class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                        </li>
-                    </ul> --}}
                     <div class="py-1">
                         <a href="{{ route('admin.logout.perform') }}"
                             class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">

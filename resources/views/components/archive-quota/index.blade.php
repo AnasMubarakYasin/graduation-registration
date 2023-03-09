@@ -200,16 +200,10 @@
         class="w-full text-sm text-left text-gray-500 dark:text-gray-400 dark:border dark:border-separate dark:border-spacing-0 dark:border-gray-700 rounded-lg shadow-md dark:shadow-none">
         <thead>
             <tr class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <th scope="col" class="p-4 rounded-tl-lg">
-                    <div class="flex items-center">
-                        <input id="checkbox-all" type="checkbox"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-600 dark:border-gray-600">
-                        <label for="checkbox-all" class="sr-only">checkbox</label>
-                    </div>
-                </th>
                 @foreach ($fields as $key => $value)
                     @if (in_array($key, $columns))
-                        <th scope="col" class="text-base py-3 px-6 capitalize">
+                        <th scope="col"
+                            class="text-base py-3 px-6 capitalize {{ $loop->first ? 'rounded-tl-lg' : '' }} {{ $loop->last ? 'rounded-tr-lg' : ''}}">
                             <div class="flex items-center whitespace-nowrap">
                                 {{ __($value) }}
                                 <a
@@ -224,9 +218,6 @@
                         </th>
                     @endif
                 @endforeach
-                <th scope="col" class="text-base text-center py-3 px-6 rounded-tr-lg capitalize">
-                    {{ __('action') }}
-                </th>
             </tr>
         </thead>
         <tbody>
@@ -235,15 +226,6 @@
                     'bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-600 dark:border-gray-700',
                     'border-b' => !$loop->last,
                 ])>
-                    <td class="p-4 w-4 {{ $loop->last ? 'rounded-bl-lg' : '' }}">
-                        <div class="flex items-center">
-                            <input id="" type="checkbox" name="id[]" form="delete_any"
-                                value="{{ $item->id }}"
-                                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="" class="sr-only">checkbox</label>
-                        </div>
-                    </td>
-
                     @foreach ($fields as $key => $value)
                         @if (in_array($key, $columns))
                             @switch($key)
@@ -271,121 +253,6 @@
                             @endswitch
                         @endif
                     @endforeach
-
-                    <td
-                        class="flex justify-center gap-2 py-4 px-6 capitalize {{ $loop->last ? 'rounded-br-lg' : '' }}">
-                        {{-- @can('archive', $item)
-                                <button id="archive_btn" data-modal-target="dialog-archive-{{ $item->id }}"
-                                    data-modal-toggle="dialog-archive-{{ $item->id }}"
-                                    class="p-2 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="2" stroke="currentColor" class="w-5 h-5">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
-                                    </svg>
-
-                                    <span class="sr-only">Archive Item</span>
-                                </button>
-                                <div id="dialog-archive-{{ $item->id }}" tabindex="-1"
-                                    class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
-                                    <div class="relative w-full h-full max-w-md md:h-auto">
-                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                            <button type="button"
-                                                class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
-                                                data-modal-hide="dialog-archive-{{ $item->id }}">
-                                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
-                                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                                <span class="sr-only">Close modal</span>
-                                            </button>
-                                            <div class="p-6 text-center">
-                                                <svg aria-hidden="true"
-                                                    class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200"
-                                                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                </svg>
-                                                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                                    Apakah anda yakin ingin mengarsipkan item?
-                                                </h3>
-                                                <a data-modal-hide="dialog-archive-{{ $item->id }}" type="submit"
-                                                    form="item-delete-{{ $item->id }}" href="{{ $archive($item) }}"
-                                                    class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                                                    Ya
-                                                </a>
-                                                <button data-modal-hide="dialog-archive-{{ $item->id }}"
-                                                    type="button"
-                                                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                                                    Batal
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endcan --}}
-                        @can('delete', $item)
-                            <form id="item-delete-{{ $item->id }}" class="contents"
-                                action="{{ route('resources.quota.delete', ['quota' => $item]) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button id="del_btn" type="button"
-                                    data-modal-target="dialog-delete-{{ $item->id }}"
-                                    data-modal-toggle="dialog-delete-{{ $item->id }}"
-                                    class="p-2 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm text-center inline-flex items-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M20 12H4"></path>
-                                    </svg>
-                                    <span class="sr-only">Delete Item</span>
-                                </button>
-                            </form>
-                            <div id="dialog-delete-{{ $item->id }}" tabindex="-1"
-                                class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
-                                <div class="relative w-full h-full max-w-md md:h-auto">
-                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                        <button type="button"
-                                            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
-                                            data-modal-hide="dialog-delete-{{ $item->id }}">
-                                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
-                                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd"
-                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                            <span class="sr-only">Close modal</span>
-                                        </button>
-                                        <div class="p-6 text-center">
-                                            <svg aria-hidden="true"
-                                                class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200"
-                                                fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
-                                            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                                Apakah anda yakin ingin menghapus item?
-                                            </h3>
-                                            <button data-modal-hide="dialog-delete-{{ $item->id }}"
-                                                type="submit" form="item-delete-{{ $item->id }}"
-                                                class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                                                Ya
-                                            </button>
-                                            <button data-modal-hide="dialog-delete-{{ $item->id }}"
-                                                type="button"
-                                                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                                                Batal
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endcan
-                    </td>
                 </tr>
                 @empty
                     <tr>
