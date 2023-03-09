@@ -34,7 +34,7 @@
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
                                 request()->url() != route('operator.faculty.dashboard'),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                            'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
                                 request()->url() == route('operator.faculty.dashboard'),
                         ])>
                             <svg @class([
@@ -60,7 +60,7 @@
                             'flex items-center w-full p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' => !str(
                                 request()->url())->startsWith($link),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
+                            'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' => str(
                                 request()->url())->startsWith($link),
                         ]) aria-controls="menu_registrar"
                             data-collapse-toggle="menu_registrar">
@@ -96,7 +96,7 @@
                                         'flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition group',
                                         'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
                                             request()->url() != $link,
-                                        'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                                        'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
                                             request()->url() == $link,
                                     ])>
                                         {{ $value }}
@@ -115,7 +115,7 @@
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
                                 request()->url() != $link,
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                            'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
                                 request()->url() == $link,
                         ])>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
@@ -167,7 +167,7 @@
                         @empty($user->unreadNotifications->all())
                         @else
                             <div class="flex absolute">
-                                <div class="inline-flex relative w-3 h-3 left-3 bg-blue-500 rounded-full">
+                                <div class="inline-flex relative w-3 h-3 left-3 bg-green-500 rounded-full">
                                 </div>
                             </div>
                         @endempty
@@ -197,7 +197,7 @@
                                         <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
                                             {{ $notification->data['message'] }}
                                         </div>
-                                        <div class="text-xs text-blue-600 dark:text-blue-500">
+                                        <div class="text-xs text-green-600 dark:text-green-500">
                                             {{ $notification->created_at->timespan() }}
                                         </div>
                                     </div>
@@ -221,7 +221,7 @@
                 </button> --}}
 
                     {{-- <button id="LangButton" data-dropdown-toggle="Lang"
-                    class="grid place-content-center gap-2 h-10 aspect-square text-sm text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-600 hover:text-blue-600 dark:hover:text-blue-500 rounded-lg">
+                    class="grid place-content-center gap-2 h-10 aspect-square text-sm text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-600 hover:text-green-600 dark:hover:text-green-500 rounded-lg">
                     <span class="sr-only">Open language menu</span>
                     <div class="p-2.5">
                         <div class="font-medium uppercase">{{ App::getLocale() }}</div>
@@ -235,7 +235,7 @@
                                 <a href="{{ route('language.set', ['locale' => $key]) }}"
                                     @class([
                                         'block py-2 px-4 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white',
-                                        'text-white bg-blue-500 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white' =>
+                                        'text-white bg-green-500 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white' =>
                                             $key == App::getLocale(),
                                     ])>
                                     {{ $value }}
@@ -246,7 +246,7 @@
                 </div> --}}
 
                     <button id="ProfileButton" data-dropdown-toggle="Profile"
-                        class="flex items-center gap-2 text-sm font-medium text-gray-900 rounded-lg hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white">
+                        class="flex items-center gap-2 text-sm font-medium text-gray-900 rounded-lg hover:text-green-600 dark:hover:text-green-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white">
                         <span class="sr-only">Open user menu</span>
                         <div class="bg-gray-100 p-2 rounded-lg dark:bg-gray-600">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"

@@ -35,7 +35,7 @@
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
                                 request()->url() != route('student.dashboard.show'),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                            'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
                                 request()->url() == route('student.dashboard.show'),
                         ])>
                             <svg @class([
@@ -59,7 +59,7 @@
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
                                 request()->url() != route('student.data.show'),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                            'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
                                 request()->url() == route('student.data.show'),
                         ])>
                             <svg @class([
@@ -82,7 +82,7 @@
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
                                 request()->url() != route('student.file.show'),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                            'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
                                 request()->url() == route('student.file.show'),
                         ])>
                             <svg @class([
@@ -105,7 +105,7 @@
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
                                 request()->url() != route('student.data.show'),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                            'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
                                 request()->url() == route('student.data.show'),
                         ])>
                             <svg @class([
@@ -140,14 +140,14 @@
                         </a>
                     </li>
                 </ul> --}}
-                {{-- <div id="dropdown-cta" class="p-4 mt-6 bg-blue-50 rounded-lg dark:bg-blue-900" role="alert">
+                {{-- <div id="dropdown-cta" class="p-4 mt-6 bg-green-50 rounded-lg dark:bg-green-900" role="alert">
                     <div class="flex items-center mb-3">
                         <span
                             class="bg-orange-100 text-orange-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-orange-900">
                             Alpha
                         </span>
                         <button type="button"
-                            class="ml-auto -mx-1.5 -my-1.5 bg-blue-50 text-blue-900 rounded-lg focus:ring-2 focus:ring-blue-400 p-1 hover:bg-blue-200 inline-flex h-6 w-6 dark:bg-blue-900 dark:text-blue-400 dark:hover:bg-blue-800"
+                            class="ml-auto -mx-1.5 -my-1.5 bg-green-50 text-green-900 rounded-lg focus:ring-2 focus:ring-green-400 p-1 hover:bg-green-200 inline-flex h-6 w-6 dark:bg-green-900 dark:text-green-400 dark:hover:bg-green-800"
                             data-collapse-toggle="dropdown-cta" aria-label="Close">
                             <span class="sr-only">Close</span>
                             <svg aria-hidden="true" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
@@ -158,7 +158,7 @@
                             </svg>
                         </button>
                     </div>
-                    <p class="mb-3 text-sm text-blue-900 dark:text-blue-400">
+                    <p class="mb-3 text-sm text-green-900 dark:text-green-400">
                         Preview the Bladerlaiga panel page.
                     </p>
                 </div>
@@ -169,7 +169,7 @@
                             'flex items-center p-2 text-base font-normal rounded-lg',
                             'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' =>
                                 request()->url() != route('student.about.show'),
-                            'text-white bg-blue-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
+                            'text-white bg-green-500 hover:text-black hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-700' =>
                                 request()->url() == route('student.about.show'),
                         ])>
                             <svg @class([
@@ -210,7 +210,7 @@
                         @empty($user->unreadNotifications->all())
                         @else
                             <div class="flex absolute">
-                                <div class="inline-flex relative w-3 h-3 left-3 bg-blue-500 rounded-full">
+                                <div class="inline-flex relative w-3 h-3 left-3 bg-green-500 rounded-full">
                                 </div>
                             </div>
                         @endempty
@@ -240,7 +240,7 @@
                                         <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
                                             {{ $notification->data['message'] }}
                                         </div>
-                                        <div class="text-xs text-blue-600 dark:text-blue-500">
+                                        <div class="text-xs text-green-600 dark:text-green-500">
                                             {{ $notification->created_at->timespan() }}
                                         </div>
                                     </div>
@@ -264,7 +264,7 @@
                 </button> --}}
 
                     {{-- <button id="LangButton" data-dropdown-toggle="Lang"
-                    class="grid place-content-center gap-2 h-10 aspect-square text-sm text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-600 hover:text-blue-600 dark:hover:text-blue-500 rounded-lg">
+                    class="grid place-content-center gap-2 h-10 aspect-square text-sm text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-600 hover:text-green-600 dark:hover:text-green-500 rounded-lg">
                     <span class="sr-only">Open language menu</span>
                     <div class="p-2.5">
                         <div class="font-medium uppercase">{{ App::getLocale() }}</div>
@@ -278,7 +278,7 @@
                                 <a href="{{ route('language.set', ['locale' => $key]) }}"
                                     @class([
                                         'block py-2 px-4 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white',
-                                        'text-white bg-blue-500 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white' =>
+                                        'text-white bg-green-500 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white' =>
                                             $key == App::getLocale(),
                                     ])>
                                     {{ $value }}
@@ -289,7 +289,7 @@
                 </div> --}}
 
                     <button id="ProfileButton" data-dropdown-toggle="Profile"
-                        class="flex items-center gap-2 text-sm font-medium text-gray-900 rounded-lg hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white">
+                        class="flex items-center gap-2 text-sm font-medium text-gray-900 rounded-lg hover:text-green-600 dark:hover:text-green-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white">
                         <span class="sr-only">Open user menu</span>
                         <div class="bg-gray-100 p-2 rounded-lg dark:bg-gray-600">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"

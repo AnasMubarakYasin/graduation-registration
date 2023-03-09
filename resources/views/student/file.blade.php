@@ -1,6 +1,20 @@
 @extends('layouts.student.panel', ['content_card' => true])
 
 @section('title', 'File')
+@section('head')
+    <style>
+        ::-webkit-file-upload-button {
+            display: none;
+        }
+    </style>
+    <script type="module">
+        document.querySelectorAll('[data-file]').forEach(element => {
+            element.addEventListener('click', () => {
+                document.getElementById(element.dataset.file).click()
+            })
+        });
+    </script>
+@endsection
 @php
     $readonly = $data['status'] == 'validate' || $data['status'] == 'revalidate' || $data['status'] == 'validated';
 @endphp
@@ -13,15 +27,23 @@
         <div class="grid gap-2">
             <label class="block text-lg font-medium text-gray-900 dark:text-white" for="munaqasyah">SK Munaqasyah</label>
             <p class="text-sm text-gray-500 dark:text-gray-300" id="munaqasyah_help">
-                file dalam bentuk pdf, max 2MB.
+                File dalam bentuk pdf, max 2MB.
             </p>
-            <p class="text-sm text-gray-900 dark:text-gray-50">
-                {{ $data['munaqasyah'] ? Storage::url($data['munaqasyah']) : '' }}
-            </p>
+            @if ($data['munaqasyah'])
+                <button type="button"
+                    class="text-left text-base font-medium text-gray-900 dark:text-gray-50 hover:text-gray-600">
+                    Sudah Ada
+                </button>
+            @endif
             @if (!$readonly)
-                <input
-                    class="block w-min text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                    aria-describedby="munaqasyah_help" id="munaqasyah" name="munaqasyah" type="file">
+                <div
+                    class="relative flex items-center w-min text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                    <button data-file="munaqasyah"
+                        class="py-2.5 px-6 {{ $data['munaqasyah'] ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-800 hover:bg-gray-700' }} text-white font-medium rounded-l-lg"
+                        type="button">Browse</button>
+                    <input class="p-2.5" aria-describedby="munaqasyah_help" id="munaqasyah" name="munaqasyah"
+                        type="file">
+                </div>
                 @error('munaqasyah')
                     <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror
@@ -32,16 +54,23 @@
                 Ijazah SMA/SMK/MA
             </label>
             <p class="text-sm text-gray-500 dark:text-gray-300" id="school_certificate_help">
-                file dalam bentuk pdf, max 2MB.
+                Ijazah Yang Telah Dilegalisir dalam bentuk jpg/png, max file 2MB.
             </p>
-            <p class="text-sm text-gray-900 dark:text-gray-50">
-                {{ $data['school_certificate'] ? Storage::url($data['school_certificate']) : '' }}
-            </p>
+            @if ($data['school_certificate'])
+                <button type="button"
+                    class="text-left text-base font-medium text-gray-900 dark:text-gray-50 hover:text-gray-600">
+                    Sudah Ada
+                </button>
+            @endif
             @if (!$readonly)
-                <input
-                    class="block w-min text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                    aria-describedby="school_certificate_help" id="school_certificate" name="school_certificate"
-                    type="file">
+                <div
+                    class="relative flex items-center w-min text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                    <button data-file="school_certificate"
+                        class="py-2.5 px-6 {{ $data['school_certificate'] ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-800 hover:bg-gray-700' }} text-white font-medium rounded-l-lg"
+                        type="button">Browse</button>
+                    <input class="p-2.5" aria-describedby="school_certificate_help" id="school_certificate"
+                        name="school_certificate" type="file">
+                </div>
                 @error('school_certificate')
                     <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror
@@ -51,15 +80,22 @@
             <label class="block text-lg font-medium text-gray-900 dark:text-white" for="ktp">Kartu Tanda Pengenal
                 (KTP)</label>
             <p class="text-sm text-gray-500 dark:text-gray-300" id="ktp_help">
-                Ijazah Yang Telah Dilegalisir dalam bentuk jpg/png, max file 2MB.
+                File dalam bentuk pdf, max 2MB.
             </p>
-            <p class="text-sm text-gray-900 dark:text-gray-50">
-                {{ $data['ktp'] ? Storage::url($data['ktp']) : '' }}
-            </p>
+            @if ($data['ktp'])
+                <button type="button"
+                    class="text-left text-base font-medium text-gray-900 dark:text-gray-50 hover:text-gray-600">
+                    Sudah Ada
+                </button>
+            @endif
             @if (!$readonly)
-                <input
-                    class="block w-min text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                    aria-describedby="ktp_help" id="ktp" name="ktp" type="file">
+                <div
+                    class="relative flex items-center w-min text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                    <button data-file="ktp"
+                        class="py-2.5 px-6 {{ $data['ktp'] ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-800 hover:bg-gray-700' }} text-white font-medium rounded-l-lg"
+                        type="button">Browse</button>
+                    <input class="p-2.5" aria-describedby="ktp_help" id="ktp" name="ktp" type="file">
+                </div>
                 @error('ktp')
                     <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror
@@ -69,15 +105,22 @@
             <label class="block text-lg font-medium text-gray-900 dark:text-white" for="kk">Kartu Keluarga
                 (KK)</label>
             <p class="text-sm text-gray-500 dark:text-gray-300" id="kk_help">
-                file dalam bentuk jpg/png, max 2MB.
+                File dalam bentuk jpg/png, max 2MB.
             </p>
-            <p class="text-sm text-gray-900 dark:text-gray-50">
-                {{ $data['kk'] ? Storage::url($data['kk']) : '' }}
-            </p>
+            @if ($data['kk'])
+                <button type="button"
+                    class="text-left text-base font-medium text-gray-900 dark:text-gray-50 hover:text-gray-600">
+                    Sudah Ada
+                </button>
+            @endif
             @if (!$readonly)
-                <input
-                    class="block w-min text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                    aria-describedby="kk_help" id="kk" name="kk" type="file">
+                <div
+                    class="relative flex items-center w-min text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                    <button data-file="kk"
+                        class="py-2.5 px-6 {{ $data['kk'] ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-800 hover:bg-gray-700' }} text-white font-medium rounded-l-lg"
+                        type="button">Browse</button>
+                    <input class="p-2.5" aria-describedby="kk_help" id="kk" name="kk" type="file">
+                </div>
                 @error('kk')
                     <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror
@@ -89,13 +132,20 @@
             <p class="text-sm text-gray-500 dark:text-gray-300" id="spukt_help">
                 Slip pembayran terakhir, file dalam bentuk jpg/png, max 2MB.
             </p>
-            <p class="text-sm text-gray-900 dark:text-gray-50">
-                {{ $data['spukt'] ? Storage::url($data['spukt']) : '' }}
-            </p>
+            @if ($data['spukt'])
+                <button type="button"
+                    class="text-left text-base font-medium text-gray-900 dark:text-gray-50 hover:text-gray-600">
+                    Sudah Ada
+                </button>
+            @endif
             @if (!$readonly)
-                <input
-                    class="block w-min text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                    aria-describedby="spukt_help" id="spukt" name="spukt" type="file">
+                <div
+                    class="relative flex items-center w-min text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                    <button data-file="spukt"
+                        class="py-2.5 px-6 {{ $data['spukt'] ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-800 hover:bg-gray-700' }} text-white font-medium rounded-l-lg"
+                        type="button">Browse</button>
+                    <input class="p-2.5" aria-describedby="spukt_help" id="spukt" name="spukt" type="file">
+                </div>
                 @error('spukt')
                     <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror
@@ -133,8 +183,8 @@
                     <span class="sr-only">Close modal</span>
                 </button>
                 <div class="p-6 text-center">
-                    <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
