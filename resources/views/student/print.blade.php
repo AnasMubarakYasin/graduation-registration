@@ -40,7 +40,7 @@
 
     <section class="page">
         <header>
-            <h1>Dokumen pendaftaran wisudawan</h1>
+            <h1>PENDAFTARAN WISUDA</h1>
         </header>
         <main>
             <section>
@@ -48,8 +48,8 @@
                 <img class="photo" src="{{ $registrar->photo_url  }}" alt="">
             </section>
             <section>
-                <h2>Nama</h2>
-                <div>{{ $registrar->name }}</div>
+                <h2>Nama : {{ $registrar->name }} </h2>
+                
             </section>
             <section>
                 <h2>NIM</h2>

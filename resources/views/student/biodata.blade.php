@@ -107,7 +107,7 @@
                 </label>
                 <select id="faculty" name="faculty" {{ $readonly ? 'disabled' : '' }}
                     class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>Pilih Fakultas</option>
+                    <option value="" selected>Pilih Fakultas</option>
                     @foreach ($faculties as $faculty)
                         <option @selected($data->faculty == $faculty->name) value="{{ $faculty->name }}">{{ $faculty->name }}
                         </option>
@@ -120,7 +120,7 @@
                 </label>
                 <select id="study_program" name="study_program" {{ $readonly ? 'disabled' : '' }}
                     class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>Pilih Jurusan</option>
+                    <option  value="" selected>Pilih Jurusan</option>
                     @if ($data->study_program)
                         <option selected value="{{ $data->study_program }}">{{ $data->study_program }}</option>
                     @endif
@@ -140,7 +140,7 @@
                 </label>
                 <select id="gender" name="gender" {{ $readonly ? 'disabled' : '' }}
                     class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>Pilih Jenis Kelamin</option>
+                    <option  value="" selected>Pilih Jenis Kelamin</option>
                     @foreach (['male', 'female'] as $gender)
                         <option @selected($data->gender == $gender) value="{{ $gender }}">
                             {{ __($gender) }}

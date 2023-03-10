@@ -37,6 +37,8 @@ class UpdateRegistrarRequest extends FormRequest
             'faculty' => 'nullable|string',
             'study_program' => 'nullable|string',
             'ipk' => 'nullable|numeric',
+        'gender'=>'nullable|in:male,female',
+
 
             'munaqasyah' => 'nullable|image|max:2048',
             'school_certificate' => 'nullable|image|max:2048',
