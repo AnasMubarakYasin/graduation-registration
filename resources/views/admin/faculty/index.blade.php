@@ -81,7 +81,7 @@
                                 </svg>
                             </button>
                             <div id="dropdown-{{ $loop->iteration }}"
-                                class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
+                                class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-auto dark:bg-gray-700">
                                 <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="department">
                                     @foreach ($item->departments as $department)
                                         <li>
