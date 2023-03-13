@@ -31,10 +31,10 @@ if (faculty.value) {
     }
 }
 function create_empty() {
-    study_program.replaceChildren(create_element(`<option selected>Pilih Jurusan</option>`))
+    study_program.replaceChildren(create_element(`<option value="" selected>Pilih Jurusan</option>`))
 }
 function create_departments(faculty, selected) {
-    const options = [create_element(`<option selected>Pilih Jurusan</option>`)]
+    const options = [create_element(`<option value="" selected>Pilih Jurusan</option>`)]
     for (const department of faculty.departments) {
         options.push(create_element(`<option ${selected == department ? 'selected' : ''} value="${department}">${department}</option>`))
     }

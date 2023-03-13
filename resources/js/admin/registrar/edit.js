@@ -45,7 +45,7 @@ if (faculty.value) {
     }
 }
 function create_departments(faculty, selected) {
-    const options = [create_element(`<option selected>Choose a Study Program</option>`)]
+    const options = [create_element(`<option value="" selected>Choose a Study Program</option>`)]
     for (const department of faculty.departments) {
         options.push(create_element(`<option ${selected == department ? 'selected' : ''} value="${department}">${department}</option>`))
     }

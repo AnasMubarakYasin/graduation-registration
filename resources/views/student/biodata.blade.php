@@ -64,6 +64,9 @@
                 <input type="text" id="nim" name="nim" value="{{ $user->nim }}" readonly
                     class="bg-gray-50 border border-gray-300 text-gray-600 dark:text-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="">
+                @error('nim')
+                    <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                @enderror
             </div>
             <div>
                 <label for="nik"
@@ -72,6 +75,9 @@
                     {{ $readonly ? 'readonly' : '' }}
                     class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="">
+                @error('nik')
+                    <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                @enderror
             </div>
             <div>
                 <label for="pob" class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -120,7 +126,7 @@
                 </label>
                 <select id="study_program" name="study_program" {{ $readonly ? 'disabled' : '' }}
                     class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option  value="" selected>Pilih Jurusan</option>
+                    <option value="" selected>Pilih Jurusan</option>
                     @if ($data->study_program)
                         <option selected value="{{ $data->study_program }}">{{ $data->study_program }}</option>
                     @endif
@@ -133,6 +139,9 @@
                     value="{{ $data['ipk'] ?? old('ipk') }}" {{ $readonly ? 'readonly' : '' }}
                     class="bg-gray-50 border border-gray-300 {{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} text-sm rounded-lg focus-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:dark:focus:border-blue-500"
                     placeholder="">
+                @error('ipk')
+                    <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                @enderror
             </div>
             <div>
                 <label for="gender" class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -140,7 +149,7 @@
                 </label>
                 <select id="gender" name="gender" {{ $readonly ? 'disabled' : '' }}
                     class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option  value="" selected>Pilih Jenis Kelamin</option>
+                    <option value="" selected>Pilih Jenis Kelamin</option>
                     @foreach (['male', 'female'] as $gender)
                         <option @selected($data->gender == $gender) value="{{ $gender }}">
                             {{ __($gender) }}
