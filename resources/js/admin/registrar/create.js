@@ -12,7 +12,7 @@ const study_program = document.getElementById('study_program')
 faculty.addEventListener('change', (event) => {
   const faculty = faculties.find((item) => item.name == event.target.value)
   if (faculty == -1) return
-  const options = [create_element(`<option selected>Choose a Study Program</option>`)]
+  const options = [create_element(`<option value="" selected>Choose a Study Program</option>`)]
   for (const department of faculty.departments) {
     options.push(create_element(`<option value="${department}">${department}</option>`))
   }

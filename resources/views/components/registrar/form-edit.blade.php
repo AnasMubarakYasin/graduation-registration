@@ -108,7 +108,7 @@
             <label for="faculty" class="text-sm font-medium text-gray-900 dark:text-white">Faculty</label>
             <select id="faculty" name="faculty"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option selected>Choose a Faculty</option>
+                <option value="" selected>Choose a Faculty</option>
                 @foreach ($faculties as $faculty)
                     <option @selected($registrar->faculty == $faculty->name) value="{{ $faculty->name }}">{{ $faculty->name }}
                     </option>
@@ -124,9 +124,9 @@
             </label>
             <select id="study_program" name="study_program"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option selected>Choose a Study Program</option>
+                <option value="" selected>Choose a Study Program</option>
                 @if ($registrar->study_program)
-                    <option selected value="{{ $registrar->study_program }}">{{ $registrar->study_program }}</option>
+                    <option value="" selected value="{{ $registrar->study_program }}">{{ $registrar->study_program }}</option>
                 @endif
             </select>
             @error('study_program')
@@ -147,7 +147,7 @@
             <label for="gender" class="text-sm font-medium text-gray-900 dark:text-white">Gender</label>
             <select id="gender" name="gender"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option selected>Choose a Gender</option>
+                <option value="" selected>Choose a Gender</option>
                 @foreach (['male', 'female'] as $gender)
                     <option @selected($registrar->gender == $gender) value="{{ $gender }}">{{ $gender }}</option>
                 @endforeach

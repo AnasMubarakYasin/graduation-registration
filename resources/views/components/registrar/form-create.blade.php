@@ -105,7 +105,7 @@
             <label for="faculty" class="text-sm font-medium text-gray-900 dark:text-white">Faculty</label>
             <select id="faculty" name="faculty"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option selected>Choose a Faculty</option>
+                <option value="" selected>Choose a Faculty</option>
                 @foreach ($faculties as $faculty)
                     <option value="{{ $faculty->name }}">{{ $faculty->name }}</option>
                 @endforeach
@@ -120,7 +120,7 @@
             </label>
             <select id="study_program" name="study_program"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option selected>Choose a Study Program</option>
+                <option value="" selected>Choose a Study Program</option>
             </select>
             @error('study_program')
                 <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
@@ -140,7 +140,7 @@
             <label for="gender" class="text-sm font-medium text-gray-900 dark:text-white">Gender</label>
             <select id="gender" name="gender"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option selected>Choose a Gender</option>
+                <option value="" selected>Choose a Gender</option>
                 @foreach (['male', 'female'] as $gender)
                     <option value="{{ $gender }}">{{ $gender }}</option>
                 @endforeach
