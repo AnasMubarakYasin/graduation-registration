@@ -11,20 +11,27 @@ input_img_preview("photo", (url) => {
     document.getElementById("photo_preview").replaceWith(img);
 });
 
-new Datepicker(document.getElementById("dob"), {format: 'dd MM yyyy'});
+new Datepicker(document.getElementById("dob"), { format: 'dd MM yyyy' });
 
 const faculty = document.getElementById('faculty')
 const study_program = document.getElementById('study_program')
 faculty.addEventListener('change', (event) => {
-    const faculty = faculties.find((item) => item.name == event.target.value)
-    if (faculty == -1) return
-    create_departments(faculty)
+    if (event.target.value) {
+        const faculty = faculties.find((item) => item.name == event.target.value)
+        if (faculty == -1) return
+        create_departments(faculty)
+    } else {
+        create_empty()
+    }
 })
 if (faculty.value) {
     const result = faculties.find((item) => item.name == faculty.value)
     if (result != -1) {
         create_departments(result, study_program.value)
     }
+}
+function create_empty() {
+    study_program.replaceChildren(create_element(`<option selected>Pilih Jurusan</option>`))
 }
 function create_departments(faculty, selected) {
     const options = [create_element(`<option selected>Pilih Jurusan</option>`)]
