@@ -78,6 +78,11 @@ class Registrar extends Model
         return self::where('status', RegistrarStatus::Validated->value)->get();
     }
     /** @return Collection<int, Registrar> */
+    public static function all_faculty_validated($faculty)
+    {
+        return self::where('status', RegistrarStatus::Validated->value)->where('faculty', $faculty)->get();
+    }
+    /** @return Collection<int, Registrar> */
     public static function all_quota_validated(Quota $quota)
     {
         return self::where('quota_id', $quota->id)->where('status', RegistrarStatus::Validated->value)->get();

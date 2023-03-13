@@ -2,6 +2,8 @@
 
 namespace App\Exports;
 
+use App\Models\Administrator;
+use App\Models\Operator;
 use App\Models\Registrar;
 use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -15,7 +17,17 @@ class RegistrarsExport implements FromCollection, WithHeadings, WithMapping
     */
     public function collection()
     {
-        return Registrar::all_validated();
+        $user =auth()->user();
+        if ($user::class == Administrator::class) {
+            return Registrar::all_validated();
+        } else if ($user::class == Operator::class) {
+            if ($user->is_faculty) {
+                return Registrar::all_faculty_validated($user->faculty);
+            }
+            return Registrar::all_validated();
+        } else {
+            return [];
+        }
     }
     public function headings(): array
     {
