@@ -32,6 +32,22 @@
                 width: 3cm;
                 height: 4cm;
             }
+
+            table{
+                border:none;
+            }
+            
+            footer {
+                display:flex;
+                justify-content:right; 
+                font-weight:bold;               
+            }
+
+            footer div {
+                height:100px;                
+            }
+                           
+            
         }
     </style>
 </head>
@@ -40,52 +56,40 @@
 
     <section class="page">
         <header>
-            <h1>PENDAFTARAN WISUDA</h1>
+            <h1><center>PENDAFTARAN WISUDA</center></h1>
         </header>
         <main>
-            <section>
-                <h2>Foto</h2>
+            <section>                
                 <img class="photo" src="{{ $registrar->photo_url  }}" alt="">
             </section>
-            <section>
-                <h2>Nama : {{ $registrar->name }} </h2>
-                
-            </section>
-            <section>
-                <h2>NIM</h2>
-                <div>{{ $registrar->nim }}</div>
-            </section>
-            <section>
-                <h2>NIK</h2>
-                <div>{{ $registrar->nik }}</div>
-            </section>
-            <section>
-                <h2>Tempat Lahir</h2>
-                <div>{{ $registrar->pob }}</div>
-            </section>
-            <section>
-                <h2>Tanggal Lahir</h2>
-                <div>{{ $registrar->dob }}</div>
-            </section>
-            <section>
-                <h2>Fakultas</h2>
-                <div>{{ $registrar->faculty }}</div>
-            </section>
-            <section>
-                <h2>Jurusan</h2>
-                <div>{{ $registrar->study_program }}</div>
-            </section>
-            <section>
-                <h2>IPK</h2>
-                <div>{{ $registrar->ipk }}</div>
-            </section>
-            <section>
-                <h2>Jenis Kelamin</h2>
-                <div>{{ $registrar->gender }}</div>
-            </section>
-        </main>
-        <footer>
+            <table>
+                <tbody>           
+                    <tr><td><h3>Nama</h3></td> <td><h3>: {{ $registrar->name }} <h3></td></tr>                
+            
+                    <tr><td><h3>NIM</h3></td> <td><h3>: {{ $registrar->nim }}</h3></td></tr>                
+           
+                    <tr><td><h3>NIK</h3></td> <td><h3>: {{ $registrar->nik }}</h3></td></tr>              
 
+                    <tr><td><h3>Tempat Lahir</h3></td> <td><h3>: {{ $registrar->pob }}</h3></td></tr>
+           
+                    <tr><td><h3>Tanggal Lahir</h3></td> <td><h3>: {{ $registrar->dob_id }}</h3></td></tr>
+         
+                    <tr><td><h3>Jenis Kelamin</h3></td> <td><h3>: {{ trans($registrar->gender) }}</h3></td><tr>
+          
+                   <tr><td><h3>Fakultas</h3></td> <td><h3>: {{ $registrar->faculty }}</h3></td></tr>                
+            
+                   <tr><td><h3>Jurusan</h3></td> <td><h3>: {{ $registrar->study_program }}</h3></td></tr>
+            
+                   <tr><td><h3>IPK</h3></td> <td><h3>: {{ $registrar->ipk }}</h3></td></tr>
+                   
+                </tbody>
+            </table>            
+         </main>
+        <footer>
+            <div>
+            <div>Gowa, ...../......./....... </div>
+            {{ $registrar->name }} 
+                </div>
         </footer>
     </section>
 
