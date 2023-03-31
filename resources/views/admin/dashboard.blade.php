@@ -18,7 +18,7 @@
                 <div
                     class="grid gap-2 p-4 bg-[#3A9FCA] dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
                     <div class="text-base text-white dark:text-gray-200 font-medium capitalize">
-                        Total Pendaftar
+                        Sisa Kuota
                     </div>
                     <div class="text-4xl text-white dark:text-gray-50 font-semibold">
                         {{ $quota['remaining'] }}

@@ -18,7 +18,7 @@
                 <div
                     class="grid gap-2 p-4 bg-[#3A9FCA] dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
                     <div class="text-base text-white dark:text-gray-200 font-medium capitalize">
-                        Total Pendaftar
+                        Sisa Kuota                        
                     </div>
                     <div class="text-4xl text-white dark:text-gray-50 font-semibold">
                         {{ $quota['remaining'] }}
@@ -85,7 +85,7 @@
                         class="grid gap-2 p-4 bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
                         <div class="text-base text-gray-700 dark:text-gray-200 font-medium capitalize">
                             {{ $name }}</div>
-                        <div class="text-3xl text-gray-900 dark:text-gray-50 font-normal">{{ $study_program->count() }}</div>
+                        <div class="text-3xl text-gray-900 dark:text-gray-50 font-semibold">{{ $study_program->count() }}</div>
                     </div>
                 @endforeach
             @endif

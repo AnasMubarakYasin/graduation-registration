@@ -38,7 +38,7 @@
                     Registrasi Wisudawan
                 </span>
                 <span class="font-semibold text-2xl">
-                    Universitas Isalam Negeri Makassar
+                    Universitas Islam Negeri Makassar
                 </span>
             </h1>
         </div>

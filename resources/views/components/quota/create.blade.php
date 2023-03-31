@@ -94,7 +94,7 @@
             </div>
         </div>
         <button
-            class="w-full sm:w-1/2 justify-self-center py-2 px-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 capitalize">
+            class="w-full sm:w-1/2 justify-self-center py-2 px-3 text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 capitalize">
             {{ __('create') }}
         </button>
         @env('local')

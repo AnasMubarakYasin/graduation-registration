@@ -108,6 +108,20 @@
                 </div>
             </div>
             <div>
+                <label for="gender" class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    {{ __('gender') }}
+                </label>
+                <select id="gender" name="gender" {{ $readonly ? 'disabled' : '' }}
+                    class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="" selected>Pilih Jenis Kelamin</option>
+                    @foreach (['male', 'female'] as $gender)
+                        <option @selected($data->gender == $gender) value="{{ $gender }}">
+                            {{ __($gender) }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
                 <label for="faculty" class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     {{ __('faculty') }}
                 </label>
@@ -143,25 +157,12 @@
                     <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror
             </div>
-            <div>
-                <label for="gender" class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    {{ __('gender') }}
-                </label>
-                <select id="gender" name="gender" {{ $readonly ? 'disabled' : '' }}
-                    class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="" selected>Pilih Jenis Kelamin</option>
-                    @foreach (['male', 'female'] as $gender)
-                        <option @selected($data->gender == $gender) value="{{ $gender }}">
-                            {{ __($gender) }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
+           
         </div>
         <div class="grid place-items-center w-1/2">
             @if (!$readonly)
                 <button data-modal-target="dialog-submit" data-modal-toggle="dialog-submit" type='button'
-                    class="w-full sm:w-1/2 lg:w-1/4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                    class="w-full sm:w-1/2 lg:w-1/4 text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                     Simpan
                 </button>
             @endif
