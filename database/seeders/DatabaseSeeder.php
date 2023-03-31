@@ -43,21 +43,87 @@ class DatabaseSeeder extends Seeder
             // 'email' => 'admin@host.local',
             'password' => 'admin',
         ]);
-        
+        $faculties = [
+            'Sains dan Teknologi' => [
+                'Sistem Informasi',
+                'Teknik Informatika',
+                'Perencanaan Wilayah dan Kota',
+                'Fisika',
+                'Matematika',
+                'Kimia',
+                'Biologi',
+                'Arsitektur',
+                'Ilmu Peternakan',
+            ],
+            'Dakwah Dan Komunikasi' => [
+                'Komunikasi Dan Penyiaran Islam',
+                'Bimbingan Dan Penyuluhan Islam',
+                'Pengembangan Masyarakat Islam',
+                'Manajemen Dakwah',
+                'Jurnalistik',
+                'Ilmu Komunikasi',
+                'Manajemen Haji Dan Umroh',
+                'Kesejahtraan Sosial',
+            ],
+            'Syariah Dan Hukum' => [
+                'Hukum Keluarga Islam',
+                'Hukum Ketatanegaraan',
+                'Perbandingan Mazhab Dan Hukum',
+                'Ilmu Hukum',
+                'Ilmu Falaq',
+                'Hukum Ekonomi Syariah',
+            ],
+            'Tarbiyah Dan Keguruan' => [
+                'Pendidikan Agama Islam',
+                'Pendidikan Bahasa Arab',
+                'Pendidikan Bahasa Inggris',
+                'Manajemen Pendidikan Islam',
+                'Pendidikan Matematika',
+                'Pendidikan Fisika',
+                'Pendidikan Guru Madrasah Ibtidaiyah',
+                'Pendidikan Islam Anak Usia Dini',
+                'Pendidikan Biologi',
+            ],
+            'Ushuluddin Dan Filsafat' => [
+                "Studi Agama-Agama",
+                "Akidah Dan Filsafat Islam",
+                "Sosiologi Agama",
+                "Ilmu Hadis",
+                "Ilmu al-Qur'an dan Tafsir",
+                "Ilmu Politik",
+                "Hubungan Internasional",
+            ],
+            'Adab dan Humaiora' => [
+                'Bahasa dan Sastra Arab',
+                'Sejarah Peradaban Islam',
+                'Bahasa dan Sastra Inggris',
+                'Ilmu Perpustakaan',
+            ],
+            'Kedokteran dan Ilmu Kesehatan' => [
+                'Kesehatan Masyarakat',
+                'Keperawatan',
+                'Farmasi',
+                'Kebidanan (D3)',
+                'Pendidikan Dokter',
+            ],
+            'Ekonomi Dan Bisnis Islam' => [
+                'Akuntansi',
+                'Ekonomi Islam',
+                'Manajemen',
+                'Ilmu Ekonomi',
+                'Perbankan Syariah',
+            ],
+        ];
+        Faculty::factory()->create([
+            'name' => 'Sains dan Teknologi',
+            'departments' => ['Sistem Informasi', 'Teknik Informatika'],
+        ]);
+
         if (env('APP_ENV') == 'local') {
-            $faculty_st = Faculty::factory()->create([
-                'name' => 'Sains dan Teknologi',
-                'departments' => ['Sistem Informasi', 'Teknik Informatika'],
-            ]);
-            $faculty_bi = Faculty::factory()->create([
-                'name' => 'Ekonomi dan Bisnis Islam',
-                'departments' => ['Ekonomi Syariah', 'Perbankan Syariah'],
-            ]);
-    
             Operator::factory()->create([
                 'name' => 'faculty',
                 'department' => 'faculty',
-                'faculty' => $faculty_st->name,
+                'faculty' => "Sains dan Teknologi",
                 // 'email' => 'faculty@host.local',
                 'password' => 'faculty',
             ]);
@@ -73,7 +139,7 @@ class DatabaseSeeder extends Seeder
                 // 'email' => 'student@host.local',
                 'password' => 'student',
             ]);
-    
+
             $quota = Quota::factory()->create([
                 'quota' => 90,
                 'status' => 'open',
@@ -91,10 +157,10 @@ class DatabaseSeeder extends Seeder
                     ['status' => RegistrarStatus::Validated->value],
                 ))
                 ->state(new Sequence(
-                    ['faculty' => $faculty_st->name, 'study_program' => 'Sistem Informasi'],
-                    ['faculty' => $faculty_st->name, 'study_program' => 'Teknik Informatika'],
-                    ['faculty' => $faculty_bi->name, 'study_program' => 'Ekonomi Syariah'],
-                    ['faculty' => $faculty_bi->name, 'study_program' => 'Perbankan Syariah'],
+                    ['faculty' => "Sains dan Teknologi", 'study_program' => 'Sistem Informasi'],
+                    ['faculty' => "Sains dan Teknologi", 'study_program' => 'Teknik Informatika'],
+                    ['faculty' => 'Ekonomi dan Bisnis Islam', 'study_program' => 'Ekonomi Syariah'],
+                    ['faculty' => 'Ekonomi dan Bisnis Islam', 'study_program' => 'Perbankan Syariah'],
                 ))
                 ->for(Student::factory())
                 ->create([

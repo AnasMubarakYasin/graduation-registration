@@ -97,9 +97,8 @@
         @endif
        
         <div class="grid grid-cols-3 gap-4">
-            @if ($quota)
-               
-            <div
+            @if ($quota && $registrar['biodata'] == 100 && $registrar['file'] == 100)
+                <div
                     class="grid gap-2 p-4 bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
                    
                     <div class="text-base text-gray-700 dark:text-gray-200 font-medium capitalize">
