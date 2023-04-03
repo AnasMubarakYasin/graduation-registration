@@ -210,5 +210,6 @@ Route::middleware(['authc.basic:welcome,administrator,operator'])->group(functio
     Route::delete('resources/student', 'StudentController@delete_any')->name('resources.student.delete_any');
     Route::delete('resources/student/{student}', 'StudentController@delete')->name('resources.student.delete');
 
-    Route::delete('resources/quota/{quota}/archive', 'QuotaController@archive')->name('resources.quota.archive');
+    Route::delete('resources/archive_quota', 'ArchiveQuotaController@destroy')->name('resources.archive.quota.delete_any');
+    Route::delete('resources/archive_quota/{quota}', 'ArchiveQuotaController@delete')->name('resources.archive.quota.delete');
 });
