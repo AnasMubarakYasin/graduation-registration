@@ -19,9 +19,8 @@ class AppNotifierUpdateClient extends Mailable
      *
      * @return void
      */
-    public function __construct(public $app_ver, public $app_name)
+    public function __construct(public $app_name, public $app_new_ver, public $app_last_ver, public $changes)
     {
-
     }
 
     /**
@@ -33,7 +32,7 @@ class AppNotifierUpdateClient extends Mailable
     {
         return new Envelope(
             from: new Address('bladerlaiga.97@gmail.com', 'Anas Mubarak Yasin'),
-            subject: "$this->app_name Update v$this->app_ver",
+            subject: "$this->app_name Update $this->app_last_ver to $this->app_new_ver",
         );
     }
 
@@ -48,7 +47,9 @@ class AppNotifierUpdateClient extends Mailable
             markdown: 'emails.app.notifier-update-client',
             with: [
                 'name' => $this->app_name,
-                'num' => $this->app_ver,
+                'num' => $this->app_new_ver,
+                'num_last' => $this->app_last_ver,
+                'changes' => $this->changes,
                 'url' => env('APP_URL'),
                 'vendor' => 'Bladerlaiga',
             ],
