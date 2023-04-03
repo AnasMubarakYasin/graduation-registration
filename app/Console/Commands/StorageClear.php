@@ -38,7 +38,7 @@ class StorageClear extends Command
             $this->error($th->getMessage());
             return Command::FAILURE;
         }
-        $this->info("Clear Storage Success");
+        $this->info("Clear Storage Finish");
 
         return Command::SUCCESS;
     }
