@@ -16,7 +16,7 @@ class AppNotifierUpdateClient extends Command
      *
      * @var string
      */
-    protected $signature = 'app:notify-update-client {--dont} {email? : The email client want to notify}';
+    protected $signature = 'app:notify-update-client {--unsend} {--changes} {email? : The email client want to notify}';
 
     /**
      * The console command description.
@@ -33,17 +33,21 @@ class AppNotifierUpdateClient extends Command
     public function handle()
     {
         $name = config('app.name');
-        $commit = "HEAD";
+
+        $git_rev = new Process(["git", "rev-parse", "--short", "HEAD"], "./");
+        $git_rev->run();
+        $commit = trim($git_rev->getOutput());
         $last_commit = Storage::get(".last_commit") ?? $commit;
 
         $version = config('app.version');
         $last_version = Storage::get(".last_version") ?? $version;
 
-        $git_log = new Process(['git', 'log', '--pretty="- %s"', "$commit...$last_commit"], "./");
+        $git_log = new Process(['git', 'log', '--pretty=- %s', "$commit...$last_commit"], "./");
         $git_log->run();
-        $changes = $git_log->getOutput();
+        $changes = trim($git_log->getOutput());
 
-        $dont_send = $this->option('dont');
+        $this->option('changes') && $this->line("Changes\n$changes");
+
         $email = $this->argument('email');
 
         if (!$email) {
@@ -55,7 +59,7 @@ class AppNotifierUpdateClient extends Command
         }
         $this->line("Notify Update to Client: $email");
         try {
-            if (!$dont_send) {
+            if (!$this->option('unsend')) {
                 Mail::to($email)->send(new MailAppNotifierUpdateClient($name, $version, $last_version, $changes));
             }
         } catch (\Throwable $th) {

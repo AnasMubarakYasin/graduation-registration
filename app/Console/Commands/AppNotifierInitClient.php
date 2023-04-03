@@ -36,7 +36,7 @@ class AppNotifierInitClient extends Command
 
         $git_rev = new Process(["git", "rev-parse", "--short", "HEAD"], "./");
         $git_rev->run();
-        $commit = $git_rev->getOutput();
+        $commit = trim($git_rev->getOutput());
 
         $this->line("Init version $version");
         $this->line("Init commit $commit");
