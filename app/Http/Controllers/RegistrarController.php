@@ -6,11 +6,14 @@ use App\Exceptions\CreateRegistrarException;
 use App\Exports\RegistrarsExport;
 use App\Http\Requests\StoreRegistrarRequest;
 use App\Http\Requests\UpdateRegistrarRequest;
+use App\Mail\RegistrarRevision;
+use App\Mail\RegistrarValidated;
 use App\Models\Faculty;
 use App\Models\Quota;
 use App\Models\Registrar;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
 class RegistrarController extends Controller
@@ -83,6 +86,19 @@ class RegistrarController extends Controller
         $this->authorize('validate', $registrar);
         $data = $request->validated();
         $registrar->validate($data['status'], $data['comment']);
+
+        if ($request->input('send_mail')) {
+            $host = env('MAIL_STUDENT_HOST');
+            if ($host) {
+                if ($data['status'] == 'revision') {
+                    Mail::to("{$registrar->nim}{$host}")->send(new RegistrarRevision($registrar));
+                } else if ($data['status'] == 'validated') {
+                    Mail::to("{$registrar->nim}{$host}")->send(new RegistrarValidated($registrar));
+                }
+            } else {
+                logger('student created mail failed host');
+            }
+        }
 
         return redirect()->intended($request->input('index'));
     }

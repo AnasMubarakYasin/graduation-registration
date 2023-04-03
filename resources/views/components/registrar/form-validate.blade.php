@@ -55,6 +55,20 @@
                     class="text-base text-gray-700 dark:text-gray-100">{{ $registrar->dob }}</output>
             </div>
             <div class="flex flex-col gap-2">
+                <label for="dob" class="text-base font-semibold text-gray-900 dark:text-white capitalize">
+                    {{ __('date of entry') }}
+                </label>
+                <output id="dob" name="dob"
+                    class="text-base text-gray-700 dark:text-gray-100">{{ $registrar->doe }}</output>
+            </div>
+            <div class="flex flex-col gap-2">
+                <label for="dob" class="text-base font-semibold text-gray-900 dark:text-white capitalize">
+                    {{ __('date of pass') }}
+                </label>
+                <output id="dob" name="dob"
+                    class="text-base text-gray-700 dark:text-gray-100">{{ $registrar->dop }}</output>
+            </div>
+            <div class="flex flex-col gap-2">
                 <label for="faculty"
                     class="text-base font-semibold text-gray-900 dark:text-white capitalize">{{ __('faculty') }}</label>
                 <output id="faculty" name="faculty"
@@ -80,7 +94,7 @@
             </div>
             <div class="flex flex-col gap-2">
                 <label class="block text-base font-semibold text-gray-900 dark:text-white" for="munaqasyah">
-                    SK Munaqasyah
+                    Berita Acara Yudisium
                 </label>
                 <output id="munaqasyah_url" name="munaqasyah_url"
                     class="w-20 h-20 text-base text-gray-700 dark:text-gray-100">

@@ -15,21 +15,6 @@
 </head>
 
 <body class="flex flex-col sm:flex-row min-h-screen text-black bg-gray-100 dark:text-white dark:bg-gray-900">
-    @error('status')
-        <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-            role="alert">
-            <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                    clip-rule="evenodd"></path>
-            </svg>
-            <span class="sr-only">Danger</span>
-            <div>
-                {{ $message }}
-            </div>
-        </div>
-    @enderror
     <section class="bg-white flex flex-col flex-[0_0_60%] gap-10 p-2 sm:p-4 md:p-6 lg:p-8 xl:p-10 2xl:p-12">
         <div class="flex gap-2 items-center">
             <img src="{{ asset('logo.png') }}" alt="UIN Alauddin" class="h-24">
@@ -53,9 +38,26 @@
             <img src="{{ asset('images/login_s1.png') }}" alt="section 1" class="w-[60%]">
         </div>
     </section>
-    <form class="grid flex-grow place-items-center py-8 bg-green-500 text-white" action="{{ route('student.login.perform') }}"
-        method="post" enctype="multipart/form-data">
+    <form class="grid flex-grow place-items-center py-8 bg-green-500 text-white"
+        action="{{ route('student.login.perform') }}" method="post" enctype="multipart/form-data">
         @csrf
+
+        @error('status')
+            <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                role="alert">
+                <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span class="sr-only">Danger</span>
+                <div>
+                    {{ $message }}
+                </div>
+            </div>
+        @enderror
+
         <div class="grid w-[70%] gap-4">
             {{-- <div class="text-xl text-center font-semibold">Login</div> --}}
             <div>

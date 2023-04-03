@@ -67,10 +67,11 @@ class StudentController extends Controller
     {
         $this->authorize('deleteAny', Student::class);
         if ($request->input('all')) {
-            count($request->input('id', [])) == Student::count() && Student::truncate();
+            Student::truncate();
         } else {
             Student::destroy($request->input('id', []));
         }
+        
         return back();
     }
 }

@@ -35,6 +35,8 @@
   "revisioned": "direvisi",
   "unrevision": "tidak direvisi",
   ":day days left": ":day hari lagi",
+  ":years years :months months": ":years tahun :months bulan",
+  "study_period": ":years tahun :months bulan",
   "status": "status",
   "archive": "arsip",
   "quota": "kuota",

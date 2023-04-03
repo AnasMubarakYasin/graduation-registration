@@ -1,7 +1,9 @@
 import { create_element } from "../../lib"
 import Datepicker from "flowbite-datepicker/Datepicker";
-const datePickerEl = document.getElementById("dob");
-new Datepicker(datePickerEl, { format: "yyyy-mm-dd" });
+
+new Datepicker(document.getElementById("dob"), { format: 'yyyy-mm-dd' });
+new Datepicker(document.getElementById("doe"), { format: 'yyyy-mm-dd' });
+new Datepicker(document.getElementById("dop"), { format: 'yyyy-mm-dd' });
 
 import { input_img_preview } from "../../lib";
 

@@ -114,10 +114,12 @@ class DatabaseSeeder extends Seeder
                 'Perbankan Syariah',
             ],
         ];
-        Faculty::factory()->create([
-            'name' => 'Sains dan Teknologi',
-            'departments' => ['Sistem Informasi', 'Teknik Informatika'],
-        ]);
+        foreach ($faculties as $faculty => $departments) {
+            Faculty::factory()->create([
+                'name' => $faculty,
+                'departments' => $departments,
+            ]);
+        }
 
         if (env('APP_ENV') == 'local') {
             Operator::factory()->create([

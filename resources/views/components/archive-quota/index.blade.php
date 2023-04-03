@@ -200,10 +200,17 @@
         class="w-full text-sm text-left text-gray-500 dark:text-gray-400 dark:border dark:border-separate dark:border-spacing-0 dark:border-gray-700 rounded-lg shadow-md dark:shadow-none">
         <thead>
             <tr class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <th scope="col" class="p-4 rounded-tl-lg">
+                    <div class="flex items-center">
+                        <input id="checkbox-all" type="checkbox"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-600 dark:border-gray-600">
+                        <label for="checkbox-all" class="sr-only">checkbox</label>
+                    </div>
+                </th>
                 @foreach ($fields as $key => $value)
                     @if (in_array($key, $columns))
                         <th scope="col"
-                            class="text-base py-3 px-6 capitalize {{ $loop->first ? 'rounded-tl-lg' : '' }} {{ $loop->last ? 'rounded-tr-lg' : ''}}">
+                            class="text-base py-3 px-6 capitalize {{ $loop->last ? 'rounded-tr-lg' : '' }}">
                             <div class="flex items-center whitespace-nowrap">
                                 {{ __($value) }}
                                 <a
@@ -226,6 +233,14 @@
                     'bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-600 dark:border-gray-700',
                     'border-b' => !$loop->last,
                 ])>
+                    <td class="p-4 w-4 {{ $loop->last ? 'rounded-bl-lg' : '' }}">
+                        <div class="flex items-center">
+                            <input id="" type="checkbox" name="id[]" form="delete_any"
+                                value="{{ $item->id }}"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="" class="sr-only">checkbox</label>
+                        </div>
+                    </td>
                     @foreach ($fields as $key => $value)
                         @if (in_array($key, $columns))
                             @switch($key)

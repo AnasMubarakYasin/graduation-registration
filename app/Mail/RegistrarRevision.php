@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Registrar;
 use App\Models\Student;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,7 +12,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class StudentCreated extends Mailable
+class RegistrarRevision extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -20,7 +21,7 @@ class StudentCreated extends Mailable
      *
      * @return void
      */
-    public function __construct(public Student $student)
+    public function __construct(public Registrar $registrar)
     {
         //
     }
@@ -34,7 +35,7 @@ class StudentCreated extends Mailable
     {
         return new Envelope(
             from: new Address('academic@uin-alauddin.ac.id', 'Akademik UIN Alauddin Maskassar'),
-            subject: 'Pendaftaran Wisuda',
+            subject: 'Pendaftar - Berkas perlu revisi',
         );
     }
 
@@ -46,10 +47,10 @@ class StudentCreated extends Mailable
     public function content()
     {
         return new Content(
-            markdown: 'emails.student.created',
+            markdown: 'emails.registrar.revision',
             with: [
                 'url' => route('student.login.show'),
-                'student' => $this->student,
+                'registrar' => $this->registrar,
             ],
         );
     }

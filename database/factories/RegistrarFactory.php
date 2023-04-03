@@ -23,6 +23,8 @@ class RegistrarFactory extends Factory
             'nik' => fake()->unique()->regexify('[0-9]{16}'),
             'pob' => fake()->city(),
             'dob' => fake()->date(),
+            'doe' => fake()->dateTimeInInterval('-4 years', 'now'),
+            'dop' => fake()->dateTimeInInterval('+6 months', 'now'),
             'faculty' => 'Sains dan Teknologi',
             'study_program' => 'Sistem Informasi',
             'ipk' => fake()->numberBetween(1, 4),

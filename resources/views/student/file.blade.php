@@ -25,7 +25,7 @@
             @csrf
         @endif
         <div class="grid gap-2">
-            <label class="block text-lg font-medium text-gray-900 dark:text-white" for="munaqasyah">SK Munaqasyah</label>
+            <label class="block text-lg font-medium text-gray-900 dark:text-white" for="munaqasyah">Berita Acara Yudisium</label>
             <p class="text-sm text-gray-500 dark:text-gray-300" id="munaqasyah_help">
                 File dalam bentuk pdf, max 2MB.
             </p>

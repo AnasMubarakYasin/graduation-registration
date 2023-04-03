@@ -29,8 +29,8 @@ class OperatorController extends Controller
         }
         if ($request->query('filter')) {
             $query->whereFullText('name', $request->query('f_name'))
-                ->orWhere('department', $request->query('f_department'))
-                ->orWhereFullText('email', $request->query('f_email'));
+                ->orWhere('department', $request->query('f_department'));
+                // ->orWhereFullText('email', $request->query('f_email'));
         }
         $paginator = $query->paginate($perpage);
         return view('admin.operator.index', [

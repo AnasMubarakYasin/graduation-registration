@@ -27,7 +27,7 @@
                 </svg>
             </button>
             @if (request()->query('sort') || request()->query('filter'))
-                <a href=""
+                <a href="/{{ request()->path() }}"
                     class="text-sm p-1.5 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-800 dark:border-gray-600">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">
@@ -47,7 +47,7 @@
             <form id="columns" action="{{ route('admin.user.operator.index') }}"
                 class="z-10 w-auto hidden bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600">
                 <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="columns_btn">
-                    @foreach (['name', 'department', 'email'] as $column)
+                    @foreach (['name', 'department'] as $column)
                         <li>
                             <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
                                 <label class="relative inline-flex items-center w-full cursor-pointer">
@@ -362,7 +362,7 @@
                             <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="flex flex-col gap-2">
+                    {{-- <div class="flex flex-col gap-2">
                         <label for="f_email" class="text-sm font-medium text-gray-900 dark:text-white capitalize">
                             {{ __('email') }}
                         </label>
@@ -372,7 +372,7 @@
                         @error('f_email')
                             <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
                 </div>
                 <!-- Modal footer -->
                 <div class="flex items-center px-6 py-3 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">

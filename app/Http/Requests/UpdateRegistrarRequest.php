@@ -34,11 +34,12 @@ class UpdateRegistrarRequest extends FormRequest
             'nik' => 'nullable|string|size:16',
             'pob' => 'nullable|string',
             'dob' => 'nullable|date',
+            'doe' => 'nullable|date',
+            'dop' => 'nullable|date',
             'faculty' => 'nullable|string',
             'study_program' => 'nullable|string',
             'ipk' => 'nullable|numeric',
-        'gender'=>'nullable|in:male,female',
-
+            'gender'=>'nullable|in:male,female',
 
             'munaqasyah' => 'nullable|image|max:2048',
             'school_certificate' => 'nullable|image|max:2048',

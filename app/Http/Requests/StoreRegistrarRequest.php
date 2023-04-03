@@ -32,9 +32,12 @@ class StoreRegistrarRequest extends FormRequest
             'nik' => 'required|string|size:16',
             'pob' => 'required|string',
             'dob' => 'required|date',
+            'doe' => 'nullable|date',
+            'dop' => 'nullable|date',
             'faculty' => 'required|string',
             'study_program' => 'required|string',
             'ipk' => 'required|numeric',
+            'gender'=>'nullable|in:male,female',
 
             'munaqasyah' => 'required|image|max:2048',
             'school_certificate' => 'required|image|max:2048',

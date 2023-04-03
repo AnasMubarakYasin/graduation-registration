@@ -101,6 +101,8 @@ class Registrar extends Model
         'nik',
         'pob',
         'dob',
+        'doe',
+        'dop',
         'faculty',
         'study_program',
         'ipk',
@@ -122,6 +124,8 @@ class Registrar extends Model
         'nik',
         'pob',
         'dob',
+        'doe',
+        'dop',
         'faculty',
         'study_program',
         'ipk',
@@ -294,11 +298,36 @@ class Registrar extends Model
         }
     }
 
+    public function getStudyPeriodAttribute()
+    {
+        $interval = Carbon::parse($this->attributes['dop'])->diffAsCarbonInterval(Carbon::parse($this->attributes['doe']));
+        return "$interval->years years $interval->months months";
+    }
+
     public function getDobIdAttribute()
     {
-       return Carbon::parse($this->attributes['dob'])->locale('id')->isoFormat('DD MMMM YYYY'); 
+        return Carbon::parse($this->attributes['dob'])->locale('id')->isoFormat('DD MMMM YYYY');
     }
-    
+
+    public function getDoeIdAttribute()
+    {
+        return Carbon::parse($this->attributes['doe'])->locale('id')->isoFormat('DD MMMM YYYY');
+    }
+
+    public function getDopIdAttribute()
+    {
+        return Carbon::parse($this->attributes['dop'])->locale('id')->isoFormat('DD MMMM YYYY');
+    }
+
+    public function getStudyPeriodIdAttribute()
+    {
+        $interval = Carbon::parse($this->attributes['dop'])->diffAsCarbonInterval(Carbon::parse($this->attributes['doe']));
+        return __('study_period', ['years' => $interval->years, 'months' => $interval->months]);
+        // return __($this->study_period);
+    }
+
+
+
     public function quota()
     {
         return $this->belongsTo(Quota::class, 'quota_id');

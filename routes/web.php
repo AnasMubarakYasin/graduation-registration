@@ -13,9 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+if (env('APP_ENV') != 'local') {
+    Route::redirect('/', '/student');
+} else {
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('welcome');
+
+    // Route::get('/mailable', function () { 
+    //     // return new App\Mail\StudentCreated(App\Models\Student::find(1));
+    //     // return new App\Mail\RegistrarRevision(App\Models\Registrar::find(1));
+    //     // return new App\Mail\RegistrarValidated(App\Models\Registrar::find(2));
+    //     // return new App\Mail\AppNotifierUpdateClient('1.0.0', 'Graduation Registration');
+    // });
+
+}
 
 Route::redirect('/student', '/student/login')->name('student.show');
 Route::redirect('/admin', '/admin/login')->name('admin.show');
@@ -186,7 +198,7 @@ Route::middleware(['authc.basic:welcome,administrator,operator'])->group(functio
     Route::delete('resources/quota/{quota}', 'QuotaController@delete')->name('resources.quota.delete');
     Route::put('resources/quota/{quota}/archive', 'QuotaController@archive')->name('resources.quota.archive');
 
-    Route::get('resources/registrar/export', 'RegistrarController@export')->name('resources.registrar.export');
+    Route::get('resources/registrar/export', 'RegistrarController@export')->middleware('use.locale')->name('resources.registrar.export');
     Route::post('resources/registrar', 'RegistrarController@store')->name('resources.registrar.store');
     Route::patch('resources/registrar/{registrar}', 'RegistrarController@update')->name('resources.registrar.update');
     Route::post('resources/registrar/{registrar}/validate', 'RegistrarController@perform_validate')->name('resources.registrar.perform_validate');

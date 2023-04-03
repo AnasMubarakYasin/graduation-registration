@@ -4,8 +4,9 @@ import {
   input_img_preview
 } from "../../lib";
 
-const datePickerEl = document.getElementById("dob");
-new Datepicker(datePickerEl, { format: 'yyyy-mm-dd' });
+new Datepicker(document.getElementById("dob"), { format: 'yyyy-mm-dd' });
+new Datepicker(document.getElementById("doe"), { format: 'yyyy-mm-dd' });
+new Datepicker(document.getElementById("dop"), { format: 'yyyy-mm-dd' });
 
 const faculty = document.getElementById('faculty')
 const study_program = document.getElementById('study_program')
