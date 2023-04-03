@@ -45,10 +45,14 @@ class QuotaController extends Controller
         }
         $quota_open = $quota::first_open();
         if (!$quota_open) {
-            return back()->withErrors(['alert' => 'there is at least 1 open quota']);
+            return back()->withErrors(['alert' => 'there is at least 1 must be open']);
+        }
+        $validated = $quota->registrars_validated();
+        if (!count($validated)) {
+            return back()->withErrors(['alert' => 'none at all registrars are validated']);
         }
         ArchiveQuota::create($quota->toArray());
-        foreach ($quota->registrars_validated() as $registrar) {
+        foreach ($validated as $registrar) {
             ArchiveRegistrar::create($registrar->toArray());
         }
         foreach ($quota->registrars_unvalidated() as $registrar) {
