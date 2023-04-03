@@ -232,7 +232,7 @@
             </div>
             <div class="flex flex-col gap-2 flex-[70%_0_0]">
                 <label for="munaqasyah" class="block text-sm font-medium text-gray-900 dark:text-white capitalize">
-                    {{ 'Berita Acara Yudisium' }}
+                    {{ 'judiciary news' }}
                 </label>
                 <p class="text-sm text-gray-500 dark:text-gray-300" id="munaqasyah_help">
                     SVG, PNG, JPG or GIF (Size 2MB).
