@@ -104,7 +104,7 @@
                     <input datepicker type="text" id="dob" name="dob" {{ $readonly ? 'readonly' : '' }}
                         value="{{ (isset($data['dob']) ? $carbon::parse($data['dob'])->format('d/m/Y') : '') ?? old('dob') }}"
                         class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="">
+                        placeholder="" autocomplete="off">
                 </div>
             </div>
             <div>
@@ -123,7 +123,7 @@
                     <input datepicker type="text" id="doe" name="doe" {{ $readonly ? 'readonly' : '' }}
                         value="{{ (isset($data['doe']) ? $carbon::parse($data['doe'])->format('d/m/Y') : '') ?? old('doe') }}"
                         class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="">
+                        placeholder="" autocomplete="off">
                 </div>
             </div>
             <div>
@@ -142,7 +142,7 @@
                     <input datepicker type="text" id="dop" name="dop" {{ $readonly ? 'readonly' : '' }}
                         value="{{ (isset($data['dop']) ? $carbon::parse($data['dop'])->format('d/m/Y') : '') ?? old('dop') }}"
                         class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="">
+                        placeholder="" autocomplete="off">
                 </div>
             </div>
             <div>

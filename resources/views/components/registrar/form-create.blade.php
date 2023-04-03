@@ -95,7 +95,7 @@
                 </div>
                 <input datepicker type="text" id="dob" name="dob" value="{{ old('dob') }}"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Your Date of Birth">
+                    placeholder="Your Date of Birth" autocomplete="off">
             </div>
             @error('dob')
                 <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
@@ -116,7 +116,7 @@
                 </div>
                 <input datepicker type="text" id="doe" name="doe" value="{{ old('doe') }}"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Your Date of Entry">
+                    placeholder="Your Date of Entry" autocomplete="off">
             </div>
             @error('doe')
                 <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
@@ -137,7 +137,7 @@
                 </div>
                 <input datepicker type="text" id="dop" name="dop" value="{{ old('dop') }}"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Your Date of Pass">
+                    placeholder="Your Date of Pass" autocomplete="off">
             </div>
             @error('dop')
                 <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
