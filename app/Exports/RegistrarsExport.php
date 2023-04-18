@@ -36,37 +36,37 @@ class RegistrarsExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder 
     public function headings(): array
     {
         return [
-            'ID',
-            'Name',
-            'NIM',
-            'NIK',
-            'Place of Birth',
-            'Date of Birth',
-            'Date of Entry',
-            'Date of Pass',
-            'Study Period',
-            'Faculty',
-            'Study Program',
-            'IPK',
-            'status',
+            __('id'),
+            __('name'),
+            __('nim'),
+            __('nik'),
+            __('place of birth'),
+            __('date of birth'),
+            __('date of entry'),
+            __('date of pass'),
+            __('study period'),
+            __('faculty'),
+            __('study program'),
+            __('ipk'),
+            __('status'),
         ];
     }
     public function columnFormats(): array
     {
         return [
-            'ID' => NumberFormat::FORMAT_NUMBER,
-            'Name' => DataType::TYPE_STRING,
-            'NIM' => NumberFormat::FORMAT_TEXT,
-            'NIK' => NumberFormat::FORMAT_TEXT,
-            'Place of Birth' => DataType::TYPE_STRING,
-            'Date of Birth' => NumberFormat::FORMAT_DATE_DDMMYYYY,
-            'Date of Entry' => NumberFormat::FORMAT_DATE_DDMMYYYY,
-            'Date of Pass' => NumberFormat::FORMAT_DATE_DDMMYYYY,
-            'Study Period' => DataType::TYPE_STRING,
-            'Faculty' => DataType::TYPE_STRING,
-            'Study Program' => DataType::TYPE_STRING,
-            'IPK' => NumberFormat::FORMAT_NUMBER,
-            'Status' => DataType::TYPE_STRING,
+            __('id') => NumberFormat::FORMAT_NUMBER,
+            __('name') => DataType::TYPE_STRING,
+            __('nim') => NumberFormat::FORMAT_TEXT,
+            __('nik') => NumberFormat::FORMAT_TEXT,
+            __('place of birth') => DataType::TYPE_STRING,
+            __('date of birth') => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            __('date of entry') => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            __('date of pass') => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            __('study period') => DataType::TYPE_STRING,
+            __('faculty') => DataType::TYPE_STRING,
+            __('study program') => DataType::TYPE_STRING,
+            __('ipk') => NumberFormat::FORMAT_NUMBER,
+            __('status') => DataType::TYPE_STRING,
         ];
     }
     public function map($registrar): array
