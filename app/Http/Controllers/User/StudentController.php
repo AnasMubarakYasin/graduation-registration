@@ -22,11 +22,11 @@ class StudentController extends Controller
         ]);
     }
 
-    public function biodata_show(Request $request)
+    public function data_show(Request $request)
     {
         $data = $this->get_registrar() ?? new Registrar();
 
-        return view('student.biodata', ['data' => $data, 'faculties' => Faculty::all()]);
+        return view('student.data', ['data' => $data, 'faculties' => Faculty::all()]);
     }
 
     public function file_show(Request $request)
@@ -51,7 +51,7 @@ class StudentController extends Controller
         return view('student.about', []);
     }
 
-    public function biodata_store(UpdateRegistrarRequest $request)
+    public function data_store(UpdateRegistrarRequest $request)
     {
         $data = $request->validated();
         $user = auth()->user();

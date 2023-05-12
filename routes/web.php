@@ -49,12 +49,12 @@ Route::middleware(['authc.basic:welcome,student'])->group(function () {
         Route::get('student/notification', 'User\StudentController@notification_show')->name('student.notification.show');
         Route::get('student/about', 'User\StudentController@about_show')->name('student.about.show');
 
-        Route::get('student/biodata', 'User\StudentController@biodata_show')->name('student.data.show');
+        Route::get('student/biodata', 'User\StudentController@data_show')->name('student.data.show');
         Route::get('student/file', 'User\StudentController@file_show')->name('student.file.show');
         Route::get('student/print', 'User\StudentController@print')->name('student.print.show');
         Route::get('student/logout', 'Auth\StudentController@logout_perform')->name('student.logout.perform');
     });
-    Route::post('student/biodata', 'User\StudentController@biodata_store')->name('student.data.store');
+    Route::post('student/biodata', 'User\StudentController@data_store')->name('student.data.store');
     Route::post('student/file', 'User\StudentController@file_store')->name('student.file.store');
     Route::get('student/submit', 'User\StudentController@submit')->name('student.submit.perform');
 });
