@@ -9,13 +9,15 @@
 
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
-    <title>Login Student</title>
+    <title>Registrasi Wisudawan Universitas Islam Negeri Makassar</title>
+    <meta name="description"
+        content="Selamat Datang Di Registrasi Wisudawan Program D3, S1, S2, & S3 UIN Alauddin Makassar, Halaman Registrasi ini hanya diperuntukanbagi mahasiswa yang di telah melaksanakan \“Yudisium\”">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="flex flex-col sm:flex-row min-h-screen text-black bg-gray-100 dark:text-white dark:bg-gray-900">
-    <section class="bg-white flex flex-col flex-[0_0_60%] gap-10 p-2 sm:p-4 md:p-6 lg:p-8 xl:p-10 2xl:p-12">
+    <section class="bg-white flex flex-col flex-[0_0_60%] gap-4 p-2 sm:p-4 md:p-6 lg:p-8 xl:p-10 2xl:p-12">
         <div class="flex gap-2 items-center">
             <img src="{{ asset('logo.png') }}" alt="UIN Alauddin" class="h-24">
             <h1 class="flex flex-col gap-2">
@@ -28,11 +30,48 @@
             </h1>
         </div>
         <div class="flex gap-2 justify-center">
-            <p class="px-8 text-lg leading-8">
+            <p class="px-8 text-sm leading-8">
                 Selamat Datang Di Registrasi Wisudawan Program D3, S1, S2, & S3
                 UIN Alauddin Makassar, Halaman Registrasi ini hanya
                 diperuntukanbagi mahasiswa yang di telah melaksanakan “Yudisium”
             </p>
+        </div>
+        <div class="grid grid-cols-6 gap-4 justify-items-center">
+            <div
+                class="flex gap-4 w-full px-3 py-2 bg-[#3593e7] items-center justify-between col-start-2 col-span-2 dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
+                <div>
+                    <div class="text-sm text-white font-medium capitalize">
+                        Kuota Wisuda
+                    </div>
+                    <div class="text-xl text-white font-normal">
+                        {{ 700 }}
+                    </div>
+                </div>
+                <div class="grid place-items-center p-3 border border-gray-100 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960" class="w-6 h-6 fill-white">
+                        <path
+                            d="M220 976q-24 0-42-18t-18-42V236q0-24 18-42t42-18h340l240 240v156h-60V456H520V236H220v680h300v60H220Zm0-60V236v680Zm536-223 28 28-164 164v51h51l164-164 28 28-176 176H580V869l176-176Zm107 107L756 693l61-61q9-9 21-9t21 9l65 65q9 9 9 21t-9 21l-61 61Z" />
+                    </svg>
+                </div>
+            </div>
+            <div
+                class="flex gap-4 w-full px-3 py-2 bg-[#309930] items-center justify-between col-start-4 col-span-2 dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
+                <div>
+                    <div class="text-sm text-white font-medium capitalize">
+                        Total Wisudawan
+                    </div>
+                    <div class="text-xl text-white font-normal">
+                        {{ 700 }}
+                    </div>
+                </div>
+                <div class="grid place-items-center p-3 border border-gray-100 rounded-full">
+                    <svg viewBox="0 0 40 32" fill="none" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M19.9563 31.75L7.26875 24.7937V14.2937L0.75 10.75L19.9563 0.25L39.25 10.75V24.6187H36.625V12.2812L32.6438 14.2937V24.7937L19.9563 31.75ZM19.9563 18.275L33.7375 10.75L19.9563 3.35625L6.2625 10.75L19.9563 18.275ZM19.9563 28.775L30.0188 23.2188V15.8688L19.9563 21.25L9.89375 15.7812V23.2188L19.9563 28.775Z"
+                            fill="white" />
+                    </svg>
+                </div>
+            </div>
         </div>
         <div class="flex gap-2 justify-center">
             <img src="{{ asset('images/login_s1.png') }}" alt="section 1" class="w-[60%]">

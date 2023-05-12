@@ -34,6 +34,7 @@ class UpdateRegistrarRequest extends FormRequest
             'nik' => 'nullable|string|size:16',
             'pob' => 'nullable|string',
             'dob' => 'nullable|date',
+            'yoe' => 'nullable|numeric',
             'doe' => 'nullable|date',
             'dop' => 'nullable|date',
             'faculty' => 'nullable|string',
@@ -44,7 +45,7 @@ class UpdateRegistrarRequest extends FormRequest
             'munaqasyah' => 'nullable|image|max:2048',
             'school_certificate' => 'nullable|image|max:2048',
             'ktp' => 'nullable|image|max:2048',
-            'kk' => 'nullable|image|max:2048',
+            // 'kk' => 'nullable|image|max:2048',
             'spukt' => 'nullable|image|max:2048',
         ];
     }

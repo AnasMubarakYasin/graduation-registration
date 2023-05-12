@@ -13,6 +13,14 @@
                 document.getElementById(element.dataset.file).click()
             })
         });
+        document.querySelectorAll('input[type="file"]').forEach(element => {
+            element.addEventListener('input', () => {
+                if (element.files[0]) {
+                    element.previousElementSibling.value = element.files[0].name
+                    element.previousElementSibling.previousElementSibling.className = "py-2.5 px-6 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-l-lg"
+                }
+            })
+        });
     </script>
 @endsection
 @php
@@ -25,83 +33,87 @@
             @csrf
         @endif
         <div class="grid gap-2">
-            <label class="block text-lg font-medium text-gray-900 dark:text-white" for="munaqasyah">Berita Acara Yudisium</label>
-            <p class="text-sm text-gray-500 dark:text-gray-300" id="munaqasyah_help">
-                File dalam bentuk pdf, max 2MB.
-            </p>
-            @if ($data['munaqasyah'])
-                <button type="button"
-                    class="text-left text-base font-medium text-gray-900 dark:text-gray-50 hover:text-gray-600">
-                    Sudah Ada
-                </button>
-            @endif
+            <label class="block text-lg font-medium text-gray-900 dark:text-white" for="munaqasyah">
+                Berita Acara Yudisium
+            </label>
             @if (!$readonly)
+                <p class="text-sm text-gray-600 dark:text-gray-400" id="munaqasyah_help">
+                    File dalam bentuk jpg/jpeg/png, max 2MB.
+                </p>
                 <div
-                    class="relative flex items-center w-min text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                    class="relative flex items-center w-min text-sm text-gray-900 border-none cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                     <button data-file="munaqasyah"
                         class="py-2.5 px-6 {{ $data['munaqasyah'] ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-800 hover:bg-gray-700' }} text-white font-medium rounded-l-lg"
                         type="button">Browse</button>
-                    <input class="p-2.5" aria-describedby="munaqasyah_help" id="munaqasyah" name="munaqasyah"
+                    <input class="flex-grow border border-gray-300 rounded-lg rounded-l-none" type="text"
+                        value="{{ preg_replace('/.*\/.*\//i', '', $data['munaqasyah']) }}" readonly>
+                    <input class="p-2.5 hidden" aria-describedby="munaqasyah_help" id="munaqasyah" name="munaqasyah"
                         type="file">
                 </div>
                 @error('munaqasyah')
-                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                    <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror
+            @else
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    {{ preg_replace('/.*\/.*\//i', '', $data['munaqasyah']) }}
+                </p>
             @endif
         </div>
         <div class="grid gap-2">
             <label class="block text-lg font-medium text-gray-900 dark:text-white" for="school_certificate">
-                Ijazah SMA/SMK/MA
+                Ijazah SMA/SMK/MA/S1
             </label>
-            <p class="text-sm text-gray-500 dark:text-gray-300" id="school_certificate_help">
-                Ijazah Yang Telah Dilegalisir dalam bentuk jpg/png, max file 2MB.
-            </p>
-            @if ($data['school_certificate'])
-                <button type="button"
-                    class="text-left text-base font-medium text-gray-900 dark:text-gray-50 hover:text-gray-600">
-                    Sudah Ada
-                </button>
-            @endif
             @if (!$readonly)
+                <p class="text-sm text-gray-600 dark:text-gray-400" id="school_certificate_help">
+                    Ijazah Yang Telah Dilegalisir.<br>
+                    File dalam bentuk jpg/jpeg/png, max 2MB.
+                </p>
                 <div
-                    class="relative flex items-center w-min text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                    class="relative flex items-center w-min text-sm text-gray-900 border-none cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                     <button data-file="school_certificate"
                         class="py-2.5 px-6 {{ $data['school_certificate'] ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-800 hover:bg-gray-700' }} text-white font-medium rounded-l-lg"
                         type="button">Browse</button>
-                    <input class="p-2.5" aria-describedby="school_certificate_help" id="school_certificate"
+                    <input class="flex-grow border border-gray-300 rounded-lg rounded-l-none" type="text"
+                        value="{{ preg_replace('/.*\/.*\//i', '', $data['school_certificate']) }}" readonly>
+                    <input class="p-2.5 hidden" aria-describedby="school_certificate_help" id="school_certificate"
                         name="school_certificate" type="file">
                 </div>
                 @error('school_certificate')
-                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                    <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror
+            @else
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    {{ preg_replace('/.*\/.*\//i', '', $data['school_certificate']) }}
+                </p>
             @endif
         </div>
         <div class="grid gap-2">
-            <label class="block text-lg font-medium text-gray-900 dark:text-white" for="ktp">Kartu Tanda Pengenal
-                (KTP)</label>
-            <p class="text-sm text-gray-500 dark:text-gray-300" id="ktp_help">
-                File dalam bentuk pdf, max 2MB.
-            </p>
-            @if ($data['ktp'])
-                <button type="button"
-                    class="text-left text-base font-medium text-gray-900 dark:text-gray-50 hover:text-gray-600">
-                    Sudah Ada
-                </button>
-            @endif
+            <label class="block text-lg font-medium text-gray-900 dark:text-white" for="ktp">
+                Kartu Tanda Pengenal (KTP)
+            </label>
             @if (!$readonly)
+                <p class="text-sm text-gray-600 dark:text-gray-400" id="ktp_help">
+                    File dalam bentuk jpg/jpeg/png, max 2MB.
+                </p>
                 <div
-                    class="relative flex items-center w-min text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                    class="relative flex items-center w-min text-sm text-gray-900 border-none cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                     <button data-file="ktp"
                         class="py-2.5 px-6 {{ $data['ktp'] ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-800 hover:bg-gray-700' }} text-white font-medium rounded-l-lg"
                         type="button">Browse</button>
-                    <input class="p-2.5" aria-describedby="ktp_help" id="ktp" name="ktp" type="file">
+                    <input class="flex-grow border border-gray-300 rounded-lg rounded-l-none" type="text"
+                        value="{{ preg_replace('/.*\/.*\//i', '', $data['ktp']) }}" readonly>
+                    <input class="p-2.5 hidden" aria-describedby="ktp_help" id="ktp" name="ktp" type="file">
                 </div>
                 @error('ktp')
-                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                    <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror
+            @else
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    {{ preg_replace('/.*\/.*\//i', '', $data['ktp']) }}
+                </p>
             @endif
         </div>
-        <div class="grid gap-2">
+        {{-- <div class="grid gap-2">
             <label class="block text-lg font-medium text-gray-900 dark:text-white" for="kk">Kartu Keluarga
                 (KK)</label>
             <p class="text-sm text-gray-500 dark:text-gray-300" id="kk_help">
@@ -122,33 +134,35 @@
                     <input class="p-2.5" aria-describedby="kk_help" id="kk" name="kk" type="file">
                 </div>
                 @error('kk')
-                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                    <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror
             @endif
-        </div>
+        </div> --}}
         <div class="grid gap-2">
-            <label class="block text-lg font-medium text-gray-900 dark:text-white" for="spukt">Slip Pembayaran Uang
-                Kuliah Tunggal</label>
-            <p class="text-sm text-gray-500 dark:text-gray-300" id="spukt_help">
-                Slip pembayran terakhir, file dalam bentuk jpg/png, max 2MB.
-            </p>
-            @if ($data['spukt'])
-                <button type="button"
-                    class="text-left text-base font-medium text-gray-900 dark:text-gray-50 hover:text-gray-600">
-                    Sudah Ada
-                </button>
-            @endif
+            <label class="block text-lg font-medium text-gray-900 dark:text-white" for="spukt">
+                Slip Pembayaran Uang Kuliah Tunggal
+            </label>
             @if (!$readonly)
+                <p class="text-sm text-gray-600 dark:text-gray-400" id="spukt_help">
+                    Slip pembayran terakhir. <br>
+                    File dalam bentuk jpg/jpeg/png, max 2MB.
+                </p>
                 <div
-                    class="relative flex items-center w-min text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                    class="relative flex items-center w-min text-sm text-gray-900 border-none cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                     <button data-file="spukt"
                         class="py-2.5 px-6 {{ $data['spukt'] ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-800 hover:bg-gray-700' }} text-white font-medium rounded-l-lg"
                         type="button">Browse</button>
-                    <input class="p-2.5" aria-describedby="spukt_help" id="spukt" name="spukt" type="file">
+                    <input class="flex-grow border border-gray-300 rounded-lg rounded-l-none" type="text"
+                        value="{{ preg_replace('/.*\/.*\//i', '', $data['spukt']) }}" readonly>
+                    <input class="p-2.5 hidden" aria-describedby="spukt_help" id="spukt" name="spukt" type="file">
                 </div>
                 @error('spukt')
-                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                    <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror
+            @else
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    {{ preg_replace('/.*\/.*\//i', '', $data['spukt']) }}
+                </p>
             @endif
         </div>
         <div class="grid place-items-center">

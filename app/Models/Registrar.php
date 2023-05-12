@@ -111,7 +111,7 @@ class Registrar extends Model
         'munaqasyah',
         'school_certificate',
         'ktp',
-        'kk',
+        // 'kk',
         'spukt',
     ];
 
@@ -136,7 +136,7 @@ class Registrar extends Model
         'munaqasyah',
         'school_certificate',
         'ktp',
-        'kk',
+        // 'kk',
         'spukt',
     ];
 
@@ -170,6 +170,14 @@ class Registrar extends Model
     public function getIsValidatedAttribute()
     {
         return $this->status == RegistrarStatus::Validated->value;
+    }
+
+    public function getYoeAttribute()
+    {
+        if ($this->doe) {
+            return Carbon::parse($this->doe)->year;
+        }
+        return null;
     }
 
     public function setPhotoAttribute($value)
@@ -235,26 +243,26 @@ class Registrar extends Model
         }
     }
 
-    public function setKkAttribute($value)
-    {
-        if (is_string($value)) {
-            $this->attributes['kk'] = $value;
-        } else {
-            if (isset($this->attributes['kk'])) {
-                Storage::delete($this->attributes['kk']);
-            }
-            $this->attributes['kk'] = Storage::put("registrar/$this->nim", $value);
-        }
-    }
+    // public function setKkAttribute($value)
+    // {
+    //     if (is_string($value)) {
+    //         $this->attributes['kk'] = $value;
+    //     } else {
+    //         if (isset($this->attributes['kk'])) {
+    //             Storage::delete($this->attributes['kk']);
+    //         }
+    //         $this->attributes['kk'] = Storage::put("registrar/$this->nim", $value);
+    //     }
+    // }
 
-    public function getKkUrlAttribute()
-    {
-        if (Str::of($this->kk)->startsWith('http')) {
-            return $this->kk;
-        } else {
-            return Storage::url($this->kk);
-        }
-    }
+    // public function getKkUrlAttribute()
+    // {
+    //     if (Str::of($this->kk)->startsWith('http')) {
+    //         return $this->kk;
+    //     } else {
+    //         return Storage::url($this->kk);
+    //     }
+    // }
 
     public function setKtpAttribute($value)
     {
@@ -323,7 +331,6 @@ class Registrar extends Model
     {
         $interval = Carbon::parse($this->attributes['dop'])->diffAsCarbonInterval(Carbon::parse($this->attributes['doe']));
         return __('study_period', ['years' => $interval->years, 'months' => $interval->months]);
-        // return __($this->study_period);
     }
 
 

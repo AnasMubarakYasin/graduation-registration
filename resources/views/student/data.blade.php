@@ -55,7 +55,7 @@
                 </label>
                 <input type="text" id="name" name="name" value="{{ $data['name'] ?? old('name') }}"
                     {{ $readonly ? 'readonly' : '' }}
-                    class="bg-gray-50 {{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="{{ $readonly ? 'text-gray-800 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="">
             </div>
             <div>
@@ -73,7 +73,7 @@
                     class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK</label>
                 <input type="text" id="nik" name="nik" value="{{ $data['nik'] ?? old('nik') }}"
                     {{ $readonly ? 'readonly' : '' }}
-                    class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="{{ $readonly ? 'text-gray-800 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="">
                 @error('nik')
                     <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
@@ -85,7 +85,7 @@
                 </label>
                 <input type="text" id="pob" name="pob" value="{{ $data['pob'] ?? old('pob') }}"
                     {{ $readonly ? 'readonly' : '' }}
-                    class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="{{ $readonly ? 'text-gray-800 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="">
             </div>
             <div>
@@ -103,11 +103,11 @@
                     </div>
                     <input datepicker type="text" id="dob" name="dob" {{ $readonly ? 'readonly' : '' }}
                         value="{{ (isset($data['dob']) ? $carbon::parse($data['dob'])->format('d/m/Y') : '') ?? old('dob') }}"
-                        class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="{{ $readonly ? 'text-gray-800 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="" autocomplete="off">
                 </div>
             </div>
-            <div>
+            {{-- <div>
                 <label for="doe" class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     {{ __('date of entry') }}
                 </label>
@@ -122,9 +122,23 @@
                     </div>
                     <input datepicker type="text" id="doe" name="doe" {{ $readonly ? 'readonly' : '' }}
                         value="{{ (isset($data['doe']) ? $carbon::parse($data['doe'])->format('d/m/Y') : '') ?? old('doe') }}"
-                        class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="{{ $readonly ? 'text-gray-800 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="" autocomplete="off">
                 </div>
+            </div> --}}
+            <div>
+                <label for="yoe" class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    {{ __('year of entry') }}
+                </label>
+                <select id="yoe" name="yoe" {{ $readonly ? 'disabled' : '' }}
+                    class="{{ $readonly ? 'text-gray-800 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="" selected>Pilih Tahun Masuk</option>
+                    @foreach (range(date('Y') - 8, date('Y')) as $yoe)
+                        <option @selected($data->yoe == $yoe) value="{{ $yoe }}">
+                            {{ __($yoe) }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
             <div>
                 <label for="dop" class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -141,7 +155,7 @@
                     </div>
                     <input datepicker type="text" id="dop" name="dop" {{ $readonly ? 'readonly' : '' }}
                         value="{{ (isset($data['dop']) ? $carbon::parse($data['dop'])->format('d/m/Y') : '') ?? old('dop') }}"
-                        class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="{{ $readonly ? 'text-gray-800 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="" autocomplete="off">
                 </div>
             </div>
@@ -150,7 +164,7 @@
                     {{ __('gender') }}
                 </label>
                 <select id="gender" name="gender" {{ $readonly ? 'disabled' : '' }}
-                    class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    class="{{ $readonly ? 'text-gray-800 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="" selected>Pilih Jenis Kelamin</option>
                     @foreach (['male', 'female'] as $gender)
                         <option @selected($data->gender == $gender) value="{{ $gender }}">
@@ -164,7 +178,7 @@
                     {{ __('faculty') }}
                 </label>
                 <select id="faculty" name="faculty" {{ $readonly ? 'disabled' : '' }}
-                    class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    class="{{ $readonly ? 'text-gray-800 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="" selected>Pilih Fakultas</option>
                     @foreach ($faculties as $faculty)
                         <option @selected($data->faculty == $faculty->name) value="{{ $faculty->name }}">{{ $faculty->name }}
@@ -173,11 +187,12 @@
                 </select>
             </div>
             <div>
-                <label for="study_program" class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label for="study_program"
+                    class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     {{ __('study program') }}
                 </label>
                 <select id="study_program" name="study_program" {{ $readonly ? 'disabled' : '' }}
-                    class="{{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    class="{{ $readonly ? 'text-gray-800 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="" selected>Pilih Jurusan</option>
                     @if ($data->study_program)
                         <option selected value="{{ $data->study_program }}">{{ $data->study_program }}</option>
@@ -189,13 +204,12 @@
                     class="capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">IPK</label>
                 <input type="number" id="ipk" name="ipk" step=".01" max="4" min="0"
                     value="{{ $data['ipk'] ?? old('ipk') }}" {{ $readonly ? 'readonly' : '' }}
-                    class="bg-gray-50 border border-gray-300 {{ $readonly ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} text-sm rounded-lg focus-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:dark:focus:border-blue-500"
+                    class="bg-gray-50 border border-gray-300 {{ $readonly ? 'text-gray-800 dark:text-gray-400' : 'text-gray-900 dark:text-white' }} text-sm rounded-lg focus-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:dark:focus:border-blue-500"
                     placeholder="">
                 @error('ipk')
                     <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror
             </div>
-           
         </div>
         <div class="grid place-items-center w-1/2">
             @if (!$readonly)

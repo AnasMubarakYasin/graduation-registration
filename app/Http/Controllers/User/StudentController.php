@@ -9,6 +9,7 @@ use App\Models\Quota;
 use App\Models\Registrar;
 use App\Notifications\CreatedOrUpdatedRegistrar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
 
 class StudentController extends Controller
@@ -54,17 +55,17 @@ class StudentController extends Controller
     public function data_store(UpdateRegistrarRequest $request)
     {
         $data = $request->validated();
-        $user = auth()->user();
+        // $user = auth()->user();
         $biodata = $this->get_or_create_registrar();
+        $data['yoe'] && ($data['doe'] = Carbon::now()->setDate($data['yoe'], 9, 1));
         $biodata->fill($data);
         $biodata->saveQuietly();
-
         return to_route('student.dashboard.show');
     }
     public function file_store(UpdateRegistrarRequest $request)
     {
         $data = $request->validated();
-        $user = auth()->user();
+        // $user = auth()->user();
         $biodata = $this->get_or_create_registrar();
         $biodata->fill($data);
         $biodata->saveQuietly();

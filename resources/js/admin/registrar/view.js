@@ -6,7 +6,7 @@ for (const iterator of [
     "munaqasyah",
     "school_certificate",
     "ktp",
-    "kk",
+    // "kk",
     "spukt",
 ]) {
     const img_src = document.getElementById(`${iterator}_img`).src;

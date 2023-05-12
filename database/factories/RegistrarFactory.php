@@ -33,7 +33,7 @@ class RegistrarFactory extends Factory
             'munaqasyah' => fake()->imageUrl(),
             'school_certificate' => fake()->imageUrl(),
             'ktp' => fake()->imageUrl(),
-            'kk' => fake()->imageUrl(),
+            // 'kk' => fake()->imageUrl(),
             'spukt' => fake()->imageUrl(),
         ];
     }

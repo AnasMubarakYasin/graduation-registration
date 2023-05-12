@@ -12,7 +12,7 @@ input_img_preview("photo", (url) => {
 });
 
 new Datepicker(document.getElementById("dob"), { format: 'dd MM yyyy' });
-new Datepicker(document.getElementById("doe"), { format: 'dd MM yyyy' });
+// new Datepicker(document.getElementById("doe"), { format: 'dd MM yyyy' });
 new Datepicker(document.getElementById("dop"), { format: 'dd MM yyyy' });
 
 const faculty = document.getElementById('faculty')
