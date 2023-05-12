@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Exports\ArchiveRegistrarsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdministratorRequest;
 use App\Http\Requests\UpdateAdministratorRequest;
@@ -12,6 +13,7 @@ use App\Models\Quota;
 use App\Models\Registrar;
 use App\Models\Student;
 use Illuminate\Support\Facades\Artisan;
+use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\Process\Process;
 
 class AdministratorController extends Controller
@@ -159,6 +161,10 @@ class AdministratorController extends Controller
     public function archive_registrar(ArchiveQuota $quota)
     {
         return view('admin.archive.registrar', ['quota' => $quota]);
+    }
+    public function archive_registrar_export(ArchiveQuota $quota)
+    {
+        return Excel::download(new ArchiveRegistrarsExport($quota), 'archived_registrars.xlsx');
     }
     public function archive_registrar_view(ArchiveRegistrar $registrar)
     {

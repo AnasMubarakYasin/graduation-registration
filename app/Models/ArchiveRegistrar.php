@@ -6,6 +6,7 @@ use App\Exceptions\RegistrarStatusException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -26,6 +27,8 @@ class ArchiveRegistrar extends Model
         'nik',
         'pob',
         'dob',
+        'doe',
+        'dop',
         'faculty',
         'study_program',
         'ipk',
@@ -89,6 +92,30 @@ class ArchiveRegistrar extends Model
         } else {
             return Storage::url($this->spukt);
         }
+    }
+
+    public function getStudyPeriodAttribute()
+    {
+        $interval = Carbon::parse($this->attributes['dop'])->diffAsCarbonInterval(Carbon::parse($this->attributes['doe']));
+        return "$interval->years years $interval->months months";
+    }
+
+    public function getDobIdAttribute()
+    {
+        return Carbon::parse($this->attributes['dob'])->locale('id')->isoFormat('DD MMMM YYYY');
+    }
+    public function getDoeIdAttribute()
+    {
+        return Carbon::parse($this->attributes['doe'])->locale('id')->isoFormat('DD MMMM YYYY');
+    }
+    public function getDopIdAttribute()
+    {
+        return Carbon::parse($this->attributes['dop'])->locale('id')->isoFormat('DD MMMM YYYY');
+    }
+    public function getStudyPeriodIdAttribute()
+    {
+        $interval = Carbon::parse($this->attributes['dop'])->diffAsCarbonInterval(Carbon::parse($this->attributes['doe']));
+        return __('study_period', ['years' => $interval->years, 'months' => $interval->months]);
     }
 
     public function quota()

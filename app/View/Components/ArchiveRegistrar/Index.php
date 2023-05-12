@@ -20,13 +20,13 @@ class Index extends Component
     public array $columns = ['name', 'nim', 'faculty', 'study_program', 'ipk'];
     public LengthAwarePaginator $paginator;
 
-    public function __construct(ArchiveQuota $quota)
+    public function __construct(public ArchiveQuota $quota)
     {
         /** @var Builder|EloquentBuilder */
         $query = ArchiveRegistrar::query()->where('archive_quota_id', $quota->id);
         $request = request();
         $this->columns = $request->query('columns', $this->columns);
-        $this->paginator = $query->paginate(10);
+        $this->paginator = $query->paginate(request()->query('perpage', 10));
     }
 
     /**
@@ -40,6 +40,7 @@ class Index extends Component
             'paginator' => $this->paginator,
             'fields' => $this->fields,
             'columns' => $this->columns,
+            'quota' => $this->quota,
         ]);
     }
 }

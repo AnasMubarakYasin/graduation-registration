@@ -26,6 +26,10 @@ return new class extends Migration
             $table->string('nik')->nullable();
             $table->string('pob')->nullable();
             $table->date('dob')->nullable();
+            // date of entry
+            $table->date('doe')->nullable();
+            // date of pass or graduate date
+            $table->date('dop')->nullable();
             $table->string('faculty')->nullable();
             $table->string('study_program')->nullable();
             $table->double('ipk')->nullable();
@@ -34,7 +38,7 @@ return new class extends Migration
             $table->string('munaqasyah')->nullable();
             $table->string('school_certificate')->nullable();
             $table->string('ktp')->nullable();
-            $table->string('kk')->nullable();
+            // $table->string('kk')->nullable();
             $table->string('spukt')->nullable();
 
             $table->foreignId('archive_quota_id')->constrained('archive_quotas')->cascadeOnUpdate()->cascadeOnDelete();

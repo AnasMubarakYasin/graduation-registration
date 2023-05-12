@@ -38,7 +38,7 @@ return new class extends Migration
             $table->string('munaqasyah')->nullable();
             $table->string('school_certificate')->nullable();
             $table->string('ktp')->nullable();
-            $table->string('kk')->nullable();
+            // $table->string('kk')->nullable();
             $table->string('spukt')->nullable();
 
             $table->foreignId('quota_id')->constrained('quotas')->cascadeOnUpdate()->cascadeOnDelete();
