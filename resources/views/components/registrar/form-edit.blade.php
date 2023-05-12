@@ -382,7 +382,7 @@
                 @endisset
             </div>
         </div>
-        <div class="flex gap-2">
+        {{-- <div class="flex gap-2">
             <div class="flex flex-col gap-2 flex-grow">
                 <label class="block text-sm font-medium text-gray-900 dark:text-white" for="kk">
                     Kartu Tanda Pengenal (KTP)
@@ -423,7 +423,7 @@
                     </svg>
                 @endisset
             </div>
-        </div>
+        </div> --}}
         <div class="flex gap-2">
             <div class="flex flex-col gap-2 flex-grow">
                 <label class="block text-sm font-medium text-gray-900 dark:text-white" for="spukt">
@@ -466,6 +466,7 @@
                 @endisset
             </div>
         </div>
+        <div></div>
         <div class="flex flex-col gap-2">
             <label for="status" class="text-sm font-medium text-gray-900 dark:text-white">
                 Status

@@ -119,18 +119,18 @@
                 </output>
             </div>
             <div class="flex flex-col gap-2">
-                <label class="block text-base font-semibold text-gray-900 dark:text-white" for="kk">
+                <label class="block text-base font-semibold text-gray-900 dark:text-white" for="ktp">
                     Kartu Tanda Pengenal (KTP)
                 </label>
-                <output id="kk_url" name="kk_url" class="w-20 h-20 text-base text-gray-700 dark:text-gray-100">
-                    <button type="button" id="kk_btn"
+                <output id="ktp_url" name="ktp_url" class="w-20 h-20 text-base text-gray-700 dark:text-gray-100">
+                    <button type="button" id="ktp_btn"
                         class="text-sm p-1 text-gray-700 bg-white border dark:bg-gray-800 border-gray-300 hover:bg-gray-700 dark:hover:bg-gray-600 hover:text-white focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg dark:text-gray-400 dark:hover:text-white dark:focus:ring-blue-500 dark:border-gray-600">
-                        <img id="kk_img" class="w-[9rem] aspect-square object-cover object-center"
-                            src="{{ $registrar->kk_url }}" alt="">
+                        <img id="ktp_img" class="w-[9rem] aspect-square object-cover object-center"
+                            src="{{ $registrar->ktp_url }}" alt="">
                     </button>
                 </output>
             </div>
-            <div class="flex flex-col gap-2">
+            {{-- <div class="flex flex-col gap-2">
                 <label class="block text-base font-semibold text-gray-900 dark:text-white" for="ktp">
                     Kartu Keluarga (KK)
                 </label>
@@ -141,7 +141,7 @@
                             src="{{ $registrar->ktp_url }}" alt="">
                     </button>
                 </output>
-            </div>
+            </div> --}}
             <div class="flex flex-col gap-2">
                 <label class="block text-base font-semibold text-gray-900 dark:text-white" for="spukt">
                     Slip Pembayaran Uang Kuliah Tunggal

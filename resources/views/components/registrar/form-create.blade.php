@@ -299,7 +299,7 @@
                 @enderror
             </div>
         </div>
-        <div class="flex items-end gap-2">
+        {{-- <div class="flex items-end gap-2">
             <div
                 class="flex-[30%_0_0] aspect-square bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" id="kk_placeholder"
@@ -325,7 +325,7 @@
                     <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                 @enderror
             </div>
-        </div>
+        </div> --}}
         <div class="flex items-end gap-2">
             <div
                 class="flex-[30%_0_0] aspect-square bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg">
@@ -353,6 +353,7 @@
                 @enderror
             </div>
         </div>
+        <div></div>
     </div>
     <div class="grid place-items-center">
         <button
