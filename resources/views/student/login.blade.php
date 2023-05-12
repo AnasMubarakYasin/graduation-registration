@@ -44,7 +44,7 @@
                         Kuota Wisuda
                     </div>
                     <div class="text-xl text-white font-normal">
-                        {{ 700 }}
+                        {{ $quota['total'] }}
                     </div>
                 </div>
                 <div class="grid place-items-center p-3 border border-gray-100 rounded-full">
@@ -61,7 +61,7 @@
                         Total Wisudawan
                     </div>
                     <div class="text-xl text-white font-normal">
-                        {{ 700 }}
+                        {{ $quota['filled'] }}
                     </div>
                 </div>
                 <div class="grid place-items-center p-3 border border-gray-100 rounded-full">
