@@ -12,14 +12,18 @@ class StudentController extends Controller
 {
     public function login_show()
     {
+        /** @var Response */
+        $view = view(
+            'student.login',
+            [
+                'quota' => Quota::stats(),
+
+            ]
+        );
         if (!Quota::first_open()) {
-            /** @var Response */
-            $view = view('student.login',);
             return $view->withErrors(['status' => 'bukan waktu pendaftaran wisudawan']);
         } else {
-            return view('student.login', [
-                'quota' => Quota::stats(),
-            ]);
+            return $view;
         }
     }
 

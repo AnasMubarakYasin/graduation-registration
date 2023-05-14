@@ -36,43 +36,46 @@
                 diperuntukanbagi mahasiswa yang di telah melaksanakan “Yudisium”
             </p>
         </div>
-        <div class="grid grid-cols-6 gap-4 justify-items-center">
-            <div
-                class="flex gap-4 w-full px-3 py-2 bg-[#3593e7] items-center justify-between col-start-2 col-span-2 dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
-                <div>
-                    <div class="text-sm text-white font-medium capitalize">
-                        Kuota Wisuda
+        @if ($quota)
+            <div class="grid grid-cols-6 gap-4 justify-items-center">
+                <div
+                    class="flex gap-4 w-full px-3 py-2 bg-[#3593e7] items-center justify-between col-start-2 col-span-2 dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
+                    <div>
+                        <div class="text-sm text-white font-medium capitalize">
+                            Kuota Wisuda
+                        </div>
+                        <div class="text-xl text-white font-normal">
+                            {{ $quota['total'] }}
+                        </div>
                     </div>
-                    <div class="text-xl text-white font-normal">
-                        {{ $quota['total'] }}
+                    <div class="grid place-items-center p-3 border border-gray-100 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960" class="w-6 h-6 fill-white">
+                            <path
+                                d="M220 976q-24 0-42-18t-18-42V236q0-24 18-42t42-18h340l240 240v156h-60V456H520V236H220v680h300v60H220Zm0-60V236v680Zm536-223 28 28-164 164v51h51l164-164 28 28-176 176H580V869l176-176Zm107 107L756 693l61-61q9-9 21-9t21 9l65 65q9 9 9 21t-9 21l-61 61Z" />
+                        </svg>
                     </div>
                 </div>
-                <div class="grid place-items-center p-3 border border-gray-100 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960" class="w-6 h-6 fill-white">
-                        <path
-                            d="M220 976q-24 0-42-18t-18-42V236q0-24 18-42t42-18h340l240 240v156h-60V456H520V236H220v680h300v60H220Zm0-60V236v680Zm536-223 28 28-164 164v51h51l164-164 28 28-176 176H580V869l176-176Zm107 107L756 693l61-61q9-9 21-9t21 9l65 65q9 9 9 21t-9 21l-61 61Z" />
-                    </svg>
+                <div
+                    class="flex gap-4 w-full px-3 py-2 bg-[#309930] items-center justify-between col-start-4 col-span-2 dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
+                    <div>
+                        <div class="text-sm text-white font-medium capitalize">
+                            Total Wisudawan
+                        </div>
+                        <div class="text-xl text-white font-normal">
+                            {{ $quota['filled'] }}
+                        </div>
+                    </div>
+                    <div class="grid place-items-center p-3 border border-gray-100 rounded-full">
+                        <svg viewBox="0 0 40 32" fill="none" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M19.9563 31.75L7.26875 24.7937V14.2937L0.75 10.75L19.9563 0.25L39.25 10.75V24.6187H36.625V12.2812L32.6438 14.2937V24.7937L19.9563 31.75ZM19.9563 18.275L33.7375 10.75L19.9563 3.35625L6.2625 10.75L19.9563 18.275ZM19.9563 28.775L30.0188 23.2188V15.8688L19.9563 21.25L9.89375 15.7812V23.2188L19.9563 28.775Z"
+                                fill="white" />
+                        </svg>
+                    </div>
                 </div>
             </div>
-            <div
-                class="flex gap-4 w-full px-3 py-2 bg-[#309930] items-center justify-between col-start-4 col-span-2 dark:bg-gray-800 rounded-lg shadow dark:shadow-none border dark:border-gray-700 transition-all">
-                <div>
-                    <div class="text-sm text-white font-medium capitalize">
-                        Total Wisudawan
-                    </div>
-                    <div class="text-xl text-white font-normal">
-                        {{ $quota['filled'] }}
-                    </div>
-                </div>
-                <div class="grid place-items-center p-3 border border-gray-100 rounded-full">
-                    <svg viewBox="0 0 40 32" fill="none" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M19.9563 31.75L7.26875 24.7937V14.2937L0.75 10.75L19.9563 0.25L39.25 10.75V24.6187H36.625V12.2812L32.6438 14.2937V24.7937L19.9563 31.75ZM19.9563 18.275L33.7375 10.75L19.9563 3.35625L6.2625 10.75L19.9563 18.275ZM19.9563 28.775L30.0188 23.2188V15.8688L19.9563 21.25L9.89375 15.7812V23.2188L19.9563 28.775Z"
-                            fill="white" />
-                    </svg>
-                </div>
-            </div>
-        </div>
+        @endif
+        
         <div class="flex gap-2 justify-center">
             <img src="{{ asset('images/login_s1.png') }}" alt="section 1" class="w-[60%]">
         </div>
@@ -80,7 +83,6 @@
     <form class="grid flex-grow place-items-center py-8 bg-green-500 text-white"
         action="{{ route('student.login.perform') }}" method="post" enctype="multipart/form-data">
         @csrf
-
         @error('status')
             <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
                 role="alert">
@@ -96,7 +98,6 @@
                 </div>
             </div>
         @enderror
-
         <div class="grid w-[70%] gap-4">
             {{-- <div class="text-xl text-center font-semibold">Login</div> --}}
             <div>
