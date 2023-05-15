@@ -3,13 +3,8 @@ run-name: Continues Deployment
 on:
   push:
     branches:
-    - master
-    - dev
-    - release/*
-  pull_request:
-    branches:
-    - master
-    - dev
+    # - master
+    # - dev
 
 jobs:
   deploy:
