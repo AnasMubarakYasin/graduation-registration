@@ -57,6 +57,7 @@
     <section class="page">
         <header>
             <h1><center>PENDAFTARAN WISUDA</center></h1>
+            <h1 style="text-transform: uppercase"><center>{{ $quota->name }}</center></h1>
         </header>
         <main>
             <section>                

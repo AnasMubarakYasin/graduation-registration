@@ -22,7 +22,7 @@
             <img src="{{ asset('logo.png') }}" alt="UIN Alauddin" class="h-24">
             <h1 class="flex flex-col gap-2">
                 <span class="font-semibold text-2xl">
-                    Registrasi Wisudawan
+                    Registrasi Wisudawa {{ $quota_name }}
                 </span>
                 <span class="font-semibold text-2xl">
                     Universitas Islam Negeri Makassar

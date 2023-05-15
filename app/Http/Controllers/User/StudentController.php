@@ -82,8 +82,9 @@ class StudentController extends Controller
     public function print()
     {
         $registrar = $this->get_registrar();
+        $quota = $registrar->quota()->first();
 
-        return view('student.print', ['registrar' => $registrar]);
+        return view('student.print', ['registrar' => $registrar, 'quota' => $quota]);
     }
 
     protected function get_registrar()
