@@ -24,7 +24,6 @@ class StudentController extends Controller
     }
     public function store(StoreStudentRequest $request)
     {
-        // dd($request->all());
         $this->authorize('create', Student::class);
         $data = $request->validated();
         $student = Student::create($data);
@@ -66,12 +65,8 @@ class StudentController extends Controller
     public function delete_any(Request $request)
     {
         $this->authorize('deleteAny', Student::class);
-        if ($request->input('all')) {
-            Student::truncate();
-        } else {
-            Student::destroy($request->input('id', []));
-        }
-        
+        Student::destroy($request->input('id', []));
+
         return back();
     }
 }

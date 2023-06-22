@@ -48,6 +48,7 @@ class RegistrarsExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder 
             __('faculty'),
             __('study program'),
             __('ipk'),
+            __('gender'),
             __('status'),
         ];
     }
@@ -66,6 +67,7 @@ class RegistrarsExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder 
             __('faculty') => DataType::TYPE_STRING,
             __('study program') => DataType::TYPE_STRING,
             __('ipk') => NumberFormat::FORMAT_NUMBER,
+            __('gender') => DataType::TYPE_STRING,
             __('status') => DataType::TYPE_STRING,
         ];
     }
@@ -77,13 +79,14 @@ class RegistrarsExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder 
             "$registrar->nim",
             "$registrar->nik",
             $registrar->pob,
-            $registrar->dob_id,
-            $registrar->doe_id,
-            $registrar->dop_id,
+            Carbon::parse($registrar->dob)->locale(app()->getLocale())->isoFormat('DD MMMM YYYY'),
+            Carbon::parse($registrar->doe)->locale(app()->getLocale())->isoFormat('DD MMMM YYYY'),
+            Carbon::parse($registrar->dop)->locale(app()->getLocale())->isoFormat('DD MMMM YYYY'),
             $registrar->study_period_id,
             $registrar->faculty,
             $registrar->study_program,
             $registrar->ipk,
+            __($registrar->gender),
             $registrar->status,
         ];
     }

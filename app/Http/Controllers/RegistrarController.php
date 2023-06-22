@@ -6,6 +6,7 @@ use App\Exceptions\CreateRegistrarException;
 use App\Exports\RegistrarsExport;
 use App\Http\Requests\StoreRegistrarRequest;
 use App\Http\Requests\UpdateRegistrarRequest;
+use App\Imports\RegistrarsImport;
 use App\Mail\RegistrarRevision;
 use App\Mail\RegistrarValidated;
 use App\Models\Faculty;
@@ -106,11 +107,7 @@ class RegistrarController extends Controller
     public function destroy(Request $request)
     {
         $this->authorize('deleteAny', Registrar::class);
-        if ($request->input('all')) {
-            Registrar::truncate();
-        } else {
-            Registrar::destroy($request->input('id', []));
-        }
+        Registrar::destroy($request->input('id', []));
 
         return back();
     }
@@ -119,6 +116,11 @@ class RegistrarController extends Controller
         $this->authorize('delete', $registrar);
         $registrar->delete();
 
+        return back();
+    }
+    public function import(Request $request)
+    {
+        Excel::import(new RegistrarsImport, $request->file('registrars'));
         return back();
     }
     public function export()

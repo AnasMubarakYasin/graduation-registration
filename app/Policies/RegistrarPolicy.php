@@ -48,6 +48,10 @@ class RegistrarPolicy
     {
         return $user instanceof Administrator || $user->is_academic || $user->is_faculty;
     }
+    public function import(Administrator|Operator $user)
+    {
+        return $user instanceof Administrator || $user->is_academic || $user->is_faculty;
+    }
     public function export(Administrator|Operator $user)
     {
         return $user instanceof Administrator || $user->is_academic || $user->is_faculty;
