@@ -3,8 +3,8 @@ run-name: Continues Deployment
 on:
   push:
     branches:
-    # - master
-    # - dev
+    - master
+    - dev
 
 jobs:
   deploy:
@@ -36,18 +36,18 @@ jobs:
         run: ssh remote "cd $wd; git restore ."
       - name: pull update
         run: ssh remote "cd $wd; git pull"
-      - name: clear storage
-        run: ssh remote "cd $wd; php artisan storage:clear"
+      # - name: clear storage
+      #   run: ssh remote "cd $wd; php artisan storage:clear"
       - name: install npm deps
         run: ssh remote "cd $wd; source $nvm; npm install"
       - name: build resources
         run: ssh remote "cd $wd; source $nvm; npm run build"
       - name: install composer deps
         run: ssh remote "cd $wd; composer i"
-      - name: fresh migration
-        run: ssh remote "cd $wd; php artisan migrate:fresh"
-      - name: seed database
-        run: ssh remote "cd $wd; php artisan db:seed"
+      # - name: fresh migration
+      #   run: ssh remote "cd $wd; php artisan migrate:fresh"
+      # - name: seed database
+      #   run: ssh remote "cd $wd; php artisan db:seed"
       - name: up application
         run: ssh remote "cd $wd; php artisan up"
       - name: notify update to client
